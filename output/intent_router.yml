@@ -1,0 +1,277 @@
+routing:
+  version: 2.3.6
+  schema_path: statements
+  intents:
+    create:
+      aliases:
+      - create
+      - make
+      - build
+      - set up
+      - define
+      - establish
+      table:
+        aliases:
+        - table
+        - relation
+        - entity
+        - collection
+        base:
+          path: statements.define.table
+          condition: create basic table without special features
+          variables:
+          - name
+          keywords:
+          - DEFINE
+          - TABLE
+        with_schema:
+          path: statements.define.table
+          condition: create table with schema enforcement (SCHEMAFULL/SCHEMALESS)
+          variables:
+          - name
+          keywords:
+          - DEFINE
+          - TABLE
+          - SCHEMAFULL
+          - SCHEMALESS
+        with_permissions:
+          path: statements.define.table
+          condition: create table with access controls or permissions
+          variables:
+          - name
+          - expression
+          keywords:
+          - DEFINE
+          - TABLE
+          - PERMISSIONS
+          - FOR
+        relation:
+          path: statements.define.table
+          condition: create relation table connecting other tables
+          variables:
+          - name
+          - table
+          keywords:
+          - DEFINE
+          - TABLE
+          - TYPE
+          - RELATION
+      user:
+        aliases:
+        - user
+        - account
+        - login
+        - auth
+        base:
+          path: statements.define.user
+          condition: create user account
+          variables:
+          - name
+          keywords:
+          - DEFINE
+          - USER
+      database:
+        aliases:
+        - database
+        - db
+        - schema
+        base:
+          path: statements.define.database
+          condition: create new database
+          variables:
+          - name
+          keywords:
+          - DEFINE
+          - DATABASE
+      index:
+        aliases:
+        - index
+        - search index
+        - lookup
+        base:
+          path: statements.define.index
+          condition: create database index for performance
+          variables:
+          - name
+          - table
+          keywords:
+          - DEFINE
+          - INDEX
+      field:
+        aliases:
+        - field
+        - column
+        - property
+        - attribute
+        base:
+          path: statements.define.field
+          condition: define table field with constraints
+          variables:
+          - name
+          - table
+          keywords:
+          - DEFINE
+          - FIELD
+    query:
+      aliases:
+      - get
+      - retrieve
+      - fetch
+      - find
+      - search
+      - query
+      - select
+      basic:
+        path: statements.select
+        condition: retrieve data with basic SELECT
+        variables:
+        - fields
+        - targets
+        keywords:
+        - SELECT
+        - FROM
+      filtered:
+        path: statements.select
+        condition: retrieve data with WHERE conditions
+        variables:
+        - fields
+        - targets
+        - conditions
+        keywords:
+        - SELECT
+        - FROM
+        - WHERE
+      ordered:
+        path: statements.select
+        condition: retrieve data with sorting (ORDER BY)
+        variables:
+        - fields
+        - targets
+        - field
+        keywords:
+        - SELECT
+        - FROM
+        - ORDER
+      grouped:
+        path: statements.select
+        condition: retrieve data with grouping/aggregation
+        variables:
+        - fields
+        - targets
+        - field
+        keywords:
+        - SELECT
+        - FROM
+        - GROUP
+      limited:
+        path: statements.select
+        condition: retrieve limited number of records
+        variables:
+        - fields
+        - targets
+        - limit
+        keywords:
+        - SELECT
+        - FROM
+        - LIMIT
+    modify:
+      update:
+        aliases:
+        - update
+        - modify
+        - change
+        - edit
+        base:
+          path: statements.update
+          condition: update existing records
+          variables:
+          - targets
+          keywords:
+          - UPDATE
+      create_record:
+        aliases:
+        - insert
+        - add
+        - new record
+        - create record
+        base:
+          path: statements.create
+          condition: create new records
+          variables:
+          - targets
+          keywords:
+          - CREATE
+      upsert:
+        aliases:
+        - upsert
+        - create or update
+        - merge
+        base:
+          path: statements.upsert
+          condition: create record or update if exists
+          variables:
+          - targets
+          keywords:
+          - UPSERT
+      delete:
+        aliases:
+        - delete
+        - remove
+        - drop record
+        base:
+          path: statements.delete
+          condition: delete records
+          variables:
+          - targets
+          keywords:
+          - DELETE
+      relate:
+        aliases:
+        - relate
+        - connect
+        - link
+        - associate
+        base:
+          path: statements.relate
+          condition: create relationships between records
+          variables:
+          - targets
+          keywords:
+          - RELATE
+    admin:
+      info:
+        aliases:
+        - info
+        - show
+        - describe
+        - list
+        - inspect
+        base:
+          path: statements.info
+          condition: get information about database objects
+          variables:
+          - table
+          - user
+          keywords:
+          - INFO
+          - FOR
+      remove_definition:
+        aliases:
+        - remove
+        - drop
+        - delete definition
+        base:
+          path: statements.remove
+          condition: remove database definitions (tables, users, etc.)
+          variables:
+          - name
+          keywords:
+          - REMOVE
+  fallback:
+    message: Unable to match query intent. See https://surrealdb.com/docs/surrealql
+      for details.
+    docs: https://surrealdb.com/docs/surrealql
+  token_usage:
+    router_tokens: 407
+    schema_reference: Use compact schema for actual syntax
+    estimated_per_query: 50-100 tokens

@@ -1,0 +1,1480 @@
+surrealql:
+  version: 2.3.6
+  docs: https://surrealdb.com/docs/surrealql
+  statements:
+    info:
+      syntax: "INFO FOR [\n\tROOT\n\t| NS | NAMESPACE\n\t| DB | DATABASE\n\t| TABLE\
+        \ @table\n\t| USER @user [ON @level]\n    | INDEX @index ON @table\n];"
+      components: {}
+      variables:
+      - index
+      - level
+      - table
+      - user
+      keywords:
+      - DATABASE
+      - DB
+      - FOR
+      - INDEX
+      - INFO
+      - NAMESPACE
+      - NS
+      - 'ON'
+      - ROOT
+      - TABLE
+      - USER
+      optional:
+      - - ON @level
+      metadata:
+        title: INFO statement | SurrealQL
+        description: The INFO command outputs information about the setup of the SurrealDB
+          system.
+        sidebar_label: INFO
+    select:
+      syntax: "SELECT \n\tVALUE @field | @fields [ AS @alias ] [ OMIT @fields ...\
+        \ ]\n\tFROM [ ONLY ] @targets\n\t[ WITH [ NOINDEX | INDEX @indexes ... ]]\n\
+        \t[ WHERE @conditions ]\n\t[ SPLIT [ ON ] @field, ... ]\n\t[ GROUP [ BY ]\
+        \ @field, ... ]\n\t[ ORDER [ BY ] \n\t\t@field [ COLLATE ] [ NUMERIC ] [ ASC\
+        \ | DESC ], ...\n\t\t| RAND() ]\n\t[ LIMIT [ BY ] @limit ]\n\t[ START [ AT\
+        \ ] @start 0 ]\n\t[ FETCH @fields ... ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL\
+        \ ]\n\t[ TEMPFILES ]\n\t[ EXPLAIN [ FULL ]]\n;"
+      components: {}
+      variables:
+      - alias
+      - conditions
+      - duration
+      - field
+      - fields
+      - indexes
+      - limit
+      - start
+      - targets
+      keywords:
+      - EXPLAIN
+      - FROM
+      - GROUP
+      - LIMIT
+      - ORDER
+      - RAND
+      - SELECT
+      - SPLIT
+      - START
+      - VALUE
+      - WITH
+      optional:
+      - - OMIT @fields ...
+      - - ONLY
+      - - NOINDEX
+        - INDEX @indexes ...
+      - - WHERE @conditions
+      - - 'ON'
+      - - BY
+      - - BY
+      - - ASC
+        - DESC
+      - - NUMERIC
+      - - BY
+      - - AT
+      - - FETCH @fields ...
+      - - TIMEOUT @duration
+      - - PARALLEL
+      - - TEMPFILES
+      - - FULL
+      metadata:
+        title: SELECT statement | SurrealQL
+        description: The SELECT statement can be used for selecting and querying data
+          in a database.
+        sidebar_label: SELECT
+    kill:
+      syntax: KILL @value;
+      components: {}
+      variables:
+      - value
+      keywords:
+      - KILL
+      metadata:
+        title: KILL statement | SurrealQL
+        description: The KILL statement is used to terminate a running live query.
+        sidebar_label: KILL
+    let:
+      syntax: 'LET $@parameter [: @type_name] = @value;'
+      components: {}
+      variables:
+      - parameter
+      - type_name
+      - value
+      keywords:
+      - LET
+      optional:
+      - - ': @type_name'
+      metadata:
+        title: LET statement | SurrealQL
+        description: The LET statement sets and stores a value which can then be used
+          in a subsequent query.
+        sidebar_label: LET
+    upsert:
+      syntax: "UPSERT [ ONLY ] @targets\n    [ CONTENT @value\n      | MERGE @value\n\
+        \      | PATCH @value\n\t  | REPLACE @value\n      | [ SET @field = @value,\
+        \ ... | UNSET @field, ... ]\n    ]\n    [ WHERE @condition ]\n    [ RETURN\
+        \ NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,\
+        \ ... | RETURN VALUE @statement_param ]\n    [ TIMEOUT @duration ]\n    [\
+        \ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+      components: {}
+      variables:
+      - condition
+      - duration
+      - field
+      - statement_param
+      - targets
+      - value
+      keywords:
+      - CONTENT
+      - EXPLAIN
+      - MERGE
+      - PATCH
+      - REPLACE
+      - UPSERT
+      optional:
+      - - ONLY
+      - - SET @field = @value, ...
+        - UNSET @field, ...
+      - - WHERE @condition
+      - - RETURN NONE
+        - RETURN BEFORE
+        - RETURN AFTER
+        - RETURN DIFF
+        - RETURN @statement_param, ...
+        - RETURN VALUE @statement_param
+      - - TIMEOUT @duration
+      - - PARALLEL
+      - - FULL
+      metadata:
+        title: UPSERT statement | SurrealQL
+        description: The UPSERT statement can be used to insert records or modify
+          records that already exist
+        sidebar_label: UPSERT
+    for:
+      syntax: 'FOR @item IN @iterable {
+
+        @block
+
+        };'
+      components: {}
+      variables:
+      - block
+      - item
+      - iterable
+      keywords:
+      - FOR
+      - IN
+      metadata:
+        title: FOR statement | SurrealQL
+        description: The FOR statement creates a loop that iterates over the values
+          of an array.
+        sidebar_label: FOR
+    update:
+      syntax: "UPDATE [ ONLY ] @targets\n\t[ CONTENT @value\n\t  | MERGE @value\n\t\
+        \  | PATCH @value\n\t  | REPLACE @value\n\t  | [ SET @field = @value, ...\
+        \ | UNSET @field, ... ]\n\t]\n\t[ WHERE @condition ]\n\t[ RETURN NONE | RETURN\
+        \ BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN\
+        \ VALUE @statement_param ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ EXPLAIN\
+        \ [ FULL ]]\n;"
+      components: {}
+      variables:
+      - condition
+      - duration
+      - field
+      - statement_param
+      - targets
+      - value
+      keywords:
+      - CONTENT
+      - EXPLAIN
+      - MERGE
+      - PATCH
+      - REPLACE
+      - UPDATE
+      optional:
+      - - ONLY
+      - - SET @field = @value, ...
+        - UNSET @field, ...
+      - - WHERE @condition
+      - - RETURN NONE
+        - RETURN BEFORE
+        - RETURN AFTER
+        - RETURN DIFF
+        - RETURN @statement_param, ...
+        - RETURN VALUE @statement_param
+      - - TIMEOUT @duration
+      - - PARALLEL
+      - - FULL
+      metadata:
+        title: UPDATE statement | SurrealQL
+        description: The UPDATE statement can be used to update records in the database.
+          If they already exist, they will be updated. If they do not exist, no records
+          will be updated.
+        sidebar_label: UPDATE
+    continue:
+      syntax: CONTINUE
+      components: {}
+      keywords:
+      - CONTINUE
+      metadata:
+        title: CONTINUE statement | SurrealQL
+        description: The CONTINUE statement can be used to skip an iteration of a
+          loop, like within the FOR statement
+        sidebar_label: CONTINUE
+    remove:
+      syntax: "REMOVE [\n\tNAMESPACE [ IF EXISTS ] @name\n\t| DATABASE [ IF EXISTS]\
+        \ @name\n\t| USER [ IF EXISTS ] @name ON [ ROOT | NAMESPACE | DATABASE ]\n\
+        \t| ACCESS [ IF EXISTS ] @name ON [ NAMESPACE | DATABASE ]\n\t| EVENT [ IF\
+        \ EXISTS ] @name ON [ TABLE ] @table\n\t| FIELD [ IF EXISTS ] @name ON [ TABLE\
+        \ ] @table\n\t| INDEX [ IF EXISTS ] @name ON [ TABLE ] @table\n    | ANALYZER\
+        \ [ IF EXISTS ] @name\n    | FUNCTION [ IF EXISTS ] fn::@name\n    | PARAM\
+        \ [ IF EXISTS ] $@name\n\t| TABLE [ IF EXISTS ] @name\n]"
+      components: {}
+      variables:
+      - name
+      - table
+      keywords:
+      - ACCESS
+      - ANALYZER
+      - DATABASE
+      - EVENT
+      - FIELD
+      - FUNCTION
+      - INDEX
+      - NAMESPACE
+      - 'ON'
+      - PARAM
+      - REMOVE
+      - TABLE
+      - USER
+      optional:
+      - - IF EXISTS
+      - - IF EXISTS
+      - - ROOT
+        - NAMESPACE
+        - DATABASE
+      - - IF EXISTS
+      - - NAMESPACE
+        - DATABASE
+      - - IF EXISTS
+      - - TABLE
+      - - TABLE
+      - - TABLE
+      - - IF EXISTS
+      - - IF EXISTS
+      - - IF EXISTS
+      - - IF EXISTS
+      metadata:
+        title: REMOVE statement | SurrealQL
+        description: The REMOVE statement is used to remove resources such as databases,
+          tables, indexes, events and more.
+        sidebar_label: REMOVE
+    delete:
+      syntax: "DELETE [ FROM | ONLY ] @targets\n\t[ WHERE @condition ]\n\t[ RETURN\
+        \ NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,\
+        \ ... ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+      components: {}
+      variables:
+      - condition
+      - duration
+      - statement_param
+      - targets
+      keywords:
+      - DELETE
+      - EXPLAIN
+      optional:
+      - - FROM
+        - ONLY
+      - - WHERE @condition
+      - - RETURN NONE
+        - RETURN BEFORE
+        - RETURN AFTER
+        - RETURN DIFF
+        - RETURN @statement_param, ...
+      - - TIMEOUT @duration
+      - - PARALLEL
+      - - FULL
+      metadata:
+        title: DELETE statement | SurrealQL
+        description: The DELETE statement can be used to delete records from the database.
+        sidebar_label: DELETE
+    throw:
+      syntax: THROW @error
+      components: {}
+      variables:
+      - error
+      keywords:
+      - THROW
+      metadata:
+        title: THROW statement | SurrealQL
+        description: The THROW statement can be used to stop execution of a query
+          and return information on the underlying problem
+        sidebar_label: THROW
+    return:
+      syntax: RETURN @value
+      components: {}
+      variables:
+      - value
+      keywords:
+      - RETURN
+      metadata:
+        title: RETURN statement | SurrealQL
+        description: The RETURN statement can be used to return an implicit value
+          or the result of a query, and to set the return value for a transaction,
+          block or function.
+        sidebar_label: RETURN
+    begin:
+      syntax: BEGIN [ TRANSACTION ];
+      components: {}
+      keywords:
+      - BEGIN
+      optional:
+      - - TRANSACTION
+      metadata:
+        title: BEGIN statement | SurrealQL
+        description: The BEGIN statement starts a single transaction in which run
+          multiple statements can be run, either succeeding as a whole, or failing.
+        sidebar_label: BEGIN
+    alter:
+      syntax: "ALTER [\n\t| TABLE [ IF EXISTS ] @name\n\t\t[ DROP ]\n\t\t[ SCHEMAFULL\
+        \ | SCHEMALESS ]\n\t\t[ PERMISSIONS [ NONE | FULL\n\t\t\t| FOR select @expression\n\
+        \t\t\t| FOR create @expression\n\t\t\t| FOR update @expression\n\t\t\t| FOR\
+        \ delete @expression\n\t\t] ]\n    [ COMMENT @string ]\n]"
+      components: {}
+      variables:
+      - expression
+      - name
+      - string
+      keywords:
+      - ALTER
+      - FOR
+      - FULL
+      - NONE
+      - PERMISSIONS
+      - TABLE
+      optional:
+      - - IF EXISTS
+      - - DROP
+      - - SCHEMAFULL
+        - SCHEMALESS
+      - - COMMENT @string
+      metadata:
+        title: ALTER statement | SurrealQL
+        description: The ALTER statement can be used to change authentication access
+          and behaviour, global parameters, table configurations, table events, schema
+          definitions, and indexes.
+        sidebar_label: ALTER
+    use:
+      syntax: USE [ NS @ns ] [ DB @db ];
+      components: {}
+      variables:
+      - db
+      - ns
+      keywords:
+      - USE
+      optional:
+      - - DB @db
+      metadata:
+        title: USE statement | SurrealQL
+        description: The USE statement specifies a namespace and / or a database to
+          use for the subsequent SurrealQL statements when switching between namespaces
+          and databases.
+        sidebar_label: USE
+    sleep:
+      syntax: SLEEP @duration;
+      components: {}
+      variables:
+      - duration
+      keywords:
+      - SLEEP
+      metadata:
+        title: SLEEP statement | SurrealQL
+        description: The SLEEP statement is used to introduce a delay or pause in
+          the execution of a query or a batch of queries for a specific amount of
+          time.
+        sidebar_label: SLEEP
+    rebuild:
+      syntax: "REBUILD [\n\tINDEX [ IF EXISTS ] @name ON [ TABLE ] @table\n]"
+      components: {}
+      variables:
+      - name
+      - table
+      keywords:
+      - INDEX
+      - 'ON'
+      - REBUILD
+      optional:
+      - - TABLE
+      metadata:
+        title: REBUILD statement | SurrealQL
+        description: The REBUILD statement is used to rebuild resources.
+        sidebar_label: REBUILD
+    relate:
+      syntax: "RELATE [ ONLY ] @from_record -> @table -> @to_record\n\t[ CONTENT @value\n\
+        \t  | SET @field = @value ...\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN\
+        \ AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param\
+        \ ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n;"
+      components: {}
+      variables:
+      - duration
+      - field
+      - from_record
+      - statement_param
+      - table
+      - to_record
+      - value
+      keywords:
+      - CONTENT
+      - RELATE
+      - SET
+      optional:
+      - - ONLY
+      - - RETURN NONE
+        - RETURN BEFORE
+        - RETURN AFTER
+        - RETURN DIFF
+        - RETURN @statement_param, ...
+        - RETURN VALUE @statement_param
+      - - TIMEOUT @duration
+      - - PARALLEL
+      metadata:
+        title: RELATE statement | SurrealQL
+        description: The RELATE statement can be used to generate graph edges between
+          two records in the database.
+        sidebar_label: RELATE
+    access:
+      variants:
+      - syntax: "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ] [\n\tGRANT [\
+          \ FOR USER @name | FOR RECORD @record ]\n\t| SHOW [ GRANT @id | ALL | WHERE\
+          \ @expression ] \n\t| REVOKE [ GRANT @id | ALL | WHERE @expression ] \n\t\
+          | PURGE [ EXPIRED | REVOKED [ , EXPIRED | REVOKED ] ] [ FOR @duration ]\n\
+          ]"
+        components: {}
+        variables:
+        - duration
+        - expression
+        - id
+        - name
+        - record
+        keywords:
+        - ACCESS
+        - GRANT
+        - 'ON'
+        - PURGE
+        - REVOKE
+        - SHOW
+        optional:
+        - - ROOT
+          - NAMESPACE
+          - DATABASE
+        - - FOR USER @name
+          - FOR RECORD @record
+        - - GRANT @id
+          - ALL
+          - WHERE @expression
+        - - GRANT @id
+          - ALL
+          - WHERE @expression
+        - - ', EXPIRED'
+          - REVOKED
+        - - FOR @duration
+      - syntax: "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ] \n\tGRANT [ FOR\
+          \ USER @name | FOR RECORD @record ]"
+        components: {}
+        variables:
+        - name
+        - record
+        keywords:
+        - ACCESS
+        - GRANT
+        - 'ON'
+        optional:
+        - - ROOT
+          - NAMESPACE
+          - DATABASE
+        - - FOR USER @name
+          - FOR RECORD @record
+      - syntax: "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tSHOW [ GRANT\
+          \ @id | ALL | WHERE @expression ]"
+        components: {}
+        variables:
+        - expression
+        - id
+        - name
+        keywords:
+        - ACCESS
+        - 'ON'
+        - SHOW
+        optional:
+        - - ROOT
+          - NAMESPACE
+          - DATABASE
+        - - GRANT @id
+          - ALL
+          - WHERE @expression
+      - syntax: "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tREVOKE [ GRANT\
+          \ @id | ALL | WHERE @expression ] \n]"
+        components: {}
+        variables:
+        - expression
+        - id
+        - name
+        keywords:
+        - ACCESS
+        - 'ON'
+        - REVOKE
+        optional:
+        - - ROOT
+          - NAMESPACE
+          - DATABASE
+        - - GRANT @id
+          - ALL
+          - WHERE @expression
+      - syntax: "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tPURGE [ EXPIRED\
+          \ | REVOKED [ , EXPIRED | REVOKED ] ] [ FOR @duration ]\n]"
+        components: {}
+        variables:
+        - duration
+        - name
+        keywords:
+        - ACCESS
+        - 'ON'
+        - PURGE
+        optional:
+        - - ROOT
+          - NAMESPACE
+          - DATABASE
+        - - ', EXPIRED'
+          - REVOKED
+        - - FOR @duration
+      metadata:
+        title: ACCESS statement | SurrealQL
+        description: The ACCESS statement can be used to manage access grants.
+        sidebar_label: ACCESS
+    commit:
+      syntax: COMMIT [ TRANSACTION ];
+      components: {}
+      keywords:
+      - COMMIT
+      optional:
+      - - TRANSACTION
+      metadata:
+        title: COMMIT statement | SurrealQL
+        description: The COMMIT statement is used to commit a set of statements within
+          a transaction, ensuring that all data modifications become a permanent part
+          of the database.
+        sidebar_label: COMMIT
+    break:
+      syntax: BREAK
+      components: {}
+      keywords:
+      - BREAK
+      metadata:
+        title: BREAK statement | SurrealQL
+        description: The BREAK statement can be used to break out of a loop.
+        sidebar_label: BREAK
+    create:
+      syntax: "CREATE [ ONLY ] @targets\n\t[ CONTENT @value\n\t  | SET @field = @value\
+        \ ...\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF |\
+        \ RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n\t[ TIMEOUT\
+        \ @duration ]\n\t[ PARALLEL ]\n;"
+      components: {}
+      variables:
+      - duration
+      - field
+      - statement_param
+      - targets
+      - value
+      keywords:
+      - CONTENT
+      - CREATE
+      - SET
+      optional:
+      - - ONLY
+      - - RETURN NONE
+        - RETURN BEFORE
+        - RETURN AFTER
+        - RETURN DIFF
+        - RETURN @statement_param, ...
+        - RETURN VALUE @statement_param
+      - - TIMEOUT @duration
+      - - PARALLEL
+      metadata:
+        title: CREATE statement | SurrealQL
+        description: The CREATE statement can be used to add a record to the database
+          if it does not already exist.
+        sidebar_label: CREATE
+    show:
+      syntax: "SHOW CHANGES FOR TABLE @tablename\n\tSINCE @timestamp | @versionstamp\n\
+        \t[ LIMIT @number ]"
+      components: {}
+      variables:
+      - number
+      - tablename
+      - timestamp
+      - versionstamp
+      keywords:
+      - CHANGES
+      - FOR
+      - SHOW
+      - SINCE
+      - TABLE
+      optional:
+      - - LIMIT @number
+      metadata:
+        title: SHOW statement | SurrealQL
+        description: The SHOW statement can be used to replay changes made to a table.
+        sidebar_label: SHOW
+    insert:
+      syntax: "INSERT [ IGNORE | RELATION ] INTO @what\n\t[ @value\n\t  | (@fields)\
+        \ VALUES (@values)\n\t\t[ ON DUPLICATE KEY UPDATE @field = @value ... ]\n\t\
+        ]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,\
+        \ ... | RETURN VALUE @statement_param ]\n;"
+      components: {}
+      variables:
+      - field
+      - fields
+      - statement_param
+      - value
+      - values
+      - what
+      keywords:
+      - INSERT
+      - INTO
+      - VALUES
+      optional:
+      - - IGNORE
+        - RELATION
+      - - ON DUPLICATE KEY UPDATE @field = @value ...
+      - - RETURN NONE
+        - RETURN BEFORE
+        - RETURN AFTER
+        - RETURN DIFF
+        - RETURN @statement_param, ...
+        - RETURN VALUE @statement_param
+      metadata:
+        title: INSERT statement | SurrealQL
+        description: The INSERT statement can be used to insert or update data into
+          the database, using the same statement syntax as the traditional SQL Insert
+          statement.
+        sidebar_label: INSERT
+    live:
+      syntax: "LIVE SELECT\n\t[\n\t\t[ VALUE ] @fields [ AS @alias ]\n\t\t| DIFF\n\
+        \t]\n\tFROM @targets\n\t[ WHERE @conditions ]\n\t[ FETCH @fields ... ]\n;"
+      components: {}
+      variables:
+      - alias
+      - conditions
+      - fields
+      - targets
+      keywords:
+      - DIFF
+      - FROM
+      - LIVE
+      - SELECT
+      optional:
+      - - AS @alias
+      - - WHERE @conditions
+      - - FETCH @fields ...
+      metadata:
+        title: LIVE SELECT statement | SurrealQL
+        description: The LIVE SELECT statement can be used to initiate a real-time
+          selection from a table, including the option to apply filters.
+        sidebar_label: LIVE
+    cancel:
+      syntax: CANCEL [ TRANSACTION ];
+      components: {}
+      keywords:
+      - CANCEL
+      optional:
+      - - TRANSACTION
+      metadata:
+        title: CANCEL statement | SurrealQL
+        description: The CANCEL statement can be used to cancel the statements within
+          a transaction, reverting or rolling back any data modification made within
+          the transaction as a whole.
+        sidebar_label: CANCEL
+    define:
+      indexes:
+        syntax: "DEFINE INDEX [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table\
+          \ [ FIELDS | COLUMNS ]\n@fields\n\t[ UNIQUE\n        | SEARCH ANALYZER @analyzer\
+          \ [ BM25 [(@k1, @b)] ] [ HIGHLIGHTS ]\n        | MTREE DIMENSION @dimension\
+          \ [ TYPE @type ] [ DIST @distance ] [ CAPACITY @capacity]\n        | HNSW\
+          \ DIMENSION @dimension [ TYPE @type ] [DIST @distance] [ EFC @efc ] [ M\
+          \ @m ]\n    ]\n    [ COMMENT @string ]\n    [ CONCURRENTLY ]"
+        components: {}
+        variables:
+        - analyzer
+        - b
+        - capacity
+        - dimension
+        - distance
+        - efc
+        - fields
+        - k1
+        - m
+        - name
+        - string
+        - table
+        - type
+        keywords:
+        - ANALYZER
+        - DEFINE
+        - DIMENSION
+        - HNSW
+        - INDEX
+        - MTREE
+        - 'ON'
+        - SEARCH
+        - UNIQUE
+        optional:
+        - - FIELDS
+          - COLUMNS
+        - - TABLE
+        - - HIGHLIGHTS
+        - - CAPACITY @capacity
+        - - M @m
+        - - COMMENT @string
+        - - CONCURRENTLY
+        metadata:
+          title: DEFINE INDEX statement | SurrealQL
+          description: Just like in other databases, SurrealDB uses indexes to help
+            optimize query performance. An index can consist of one or more fields
+            in a table and can enforce a uniqueness constraint.
+          sidebar_label: DEFINE INDEX
+      param:
+        syntax: "DEFINE PARAM [ OVERWRITE | IF NOT EXISTS ] $@name \n    VALUE @value\n\
+          \    [ COMMENT @string ]\n    [ PERMISSIONS [ NONE | FULL | WHERE @condition\
+          \ ] ]"
+        components: {}
+        variables:
+        - condition
+        - name
+        - string
+        - value
+        keywords:
+        - DEFINE
+        - PARAM
+        - PERMISSIONS
+        - VALUE
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        - - NONE
+          - FULL
+          - WHERE @condition
+        metadata:
+          title: DEFINE PARAM statement | SurrealQL
+          description: The DEFINE PARAM statement allows you to define global (database-wide)
+            parameters that are available to every client.
+          sidebar_label: DEFINE PARAM
+      token:
+        syntax: DEFINE TOKEN [ OVERWRITE | IF NOT EXISTS ] @name ON [ NAMESPACE |
+          DATABASE | SCOPE @scope ] TYPE @type VALUE @value [ COMMENT @string ]
+        components: {}
+        variables:
+        - name
+        - scope
+        - string
+        - type
+        - value
+        keywords:
+        - DEFINE
+        - 'ON'
+        - TOKEN
+        - TYPE
+        - VALUE
+        optional:
+        - - NAMESPACE
+          - DATABASE
+          - SCOPE @scope
+        - - COMMENT @string
+        metadata:
+          title: DEFINE TOKEN statement | SurrealQL
+          description: SurrealDB can work with third-party authentication providers
+            such as OpenID Connect providers, OAuth providers and other trusted third
+            parties.
+          sidebar_label: DEFINE TOKEN
+      table:
+        syntax: "DEFINE TABLE [ OVERWRITE | IF NOT EXISTS ] @name\n\t[ DROP ]\n\t\
+          [ SCHEMAFULL | SCHEMALESS ]\n\t[ TYPE [ ANY | NORMAL | RELATION [ IN | FROM\
+          \ ] @table [ OUT | TO ] @table [ ENFORCED ]]]\n\t[ AS SELECT @projections\n\
+          \t\tFROM @tables\n\t\t[ WHERE @condition ]\n\t\t[ GROUP [ BY ] @groups ]\n\
+          \t]\n\t[ CHANGEFEED @duration [ INCLUDE ORIGINAL ] ]\n\t[ PERMISSIONS [\
+          \ NONE | FULL\n\t\t| FOR select @expression\n\t\t| FOR create @expression\n\
+          \t\t| FOR update @expression\n\t\t| FOR delete @expression\n\t] ]\n    [\
+          \ COMMENT @string ]"
+        components: {}
+        variables:
+        - condition
+        - duration
+        - expression
+        - groups
+        - name
+        - projections
+        - string
+        - table
+        - tables
+        keywords:
+        - ANY
+        - AS
+        - CHANGEFEED
+        - DEFINE
+        - FOR
+        - FROM
+        - FULL
+        - GROUP
+        - NONE
+        - NORMAL
+        - PERMISSIONS
+        - RELATION
+        - SELECT
+        - TABLE
+        - TYPE
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - DROP
+        - - SCHEMAFULL
+          - SCHEMALESS
+        - - OUT
+          - TO
+        - - ENFORCED
+        - - WHERE @condition
+        - - BY
+        - - INCLUDE ORIGINAL
+        - - COMMENT @string
+        metadata:
+          title: DEFINE TABLE statement | SurrealQL
+          description: The DEFINE TABLE statement allows you to declare your table
+            by name, enabling you to apply strict controls to a table's schema and
+            access permissions.
+          sidebar_label: DEFINE TABLE
+      namespace:
+        syntax: DEFINE NAMESPACE [ OVERWRITE | IF NOT EXISTS ] @name [ COMMENT @string
+          ]
+        components: {}
+        variables:
+        - name
+        - string
+        keywords:
+        - DEFINE
+        - NAMESPACE
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        metadata:
+          title: DEFINE NAMESPACE statement | SurrealQL
+          description: The DEFINE NAMESPACE statement can be used to setup namespaces,
+            which can contain multiple databases.
+          sidebar_label: DEFINE NAMESPACE
+      event:
+        syntax: DEFINE EVENT [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table
+          [ WHEN @expression ] THEN @expression [ COMMENT @string ]
+        components: {}
+        variables:
+        - expression
+        - name
+        - string
+        - table
+        keywords:
+        - DEFINE
+        - EVENT
+        - 'ON'
+        - THEN
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        metadata:
+          title: DEFINE EVENT statement | SurrealQL
+          description: The DEFINE EVENT statement can be used to create events which
+            can be triggered after any change or modification to the data in a record.
+          sidebar_label: DEFINE EVENT
+      scope:
+        syntax: DEFINE SCOPE [ OVERWRITE | IF NOT EXISTS ] @name SESSION @duration
+          SIGNUP @expression SIGNIN @expression [ COMMENT @string ]
+        components: {}
+        variables:
+        - duration
+        - expression
+        - name
+        - string
+        keywords:
+        - DEFINE
+        - SCOPE
+        - SESSION
+        - SIGNIN
+        - SIGNUP
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        metadata:
+          title: DEFINE SCOPE statement | SurrealQL
+          description: Setting scope access allows SurrealDB to operate as a web database.
+            With scopes you can set authentication and access rules which enable fine-grained
+            access to tables and fields.
+          sidebar_label: DEFINE SCOPE
+      index:
+        syntax: "DEFINE [\n\tNAMESPACE [ OVERWRITE | IF NOT EXISTS ] @name\n\t| DATABASE\
+          \ [ OVERWRITE | IF NOT EXISTS ] @name\n\t| USER [ OVERWRITE | IF NOT EXISTS\
+          \ ] @name ON [ ROOT | NAMESPACE | DATABASE ] [ PASSWORD @pass | PASSHASH\
+          \ @hash ] ROLES @roles\n\t| TABLE [ OVERWRITE | IF NOT EXISTS ] @name\n\t\
+          \t[ DROP ]\n\t\t[ SCHEMAFULL | SCHEMALESS ]\n\t\t[ AS SELECT @projections\n\
+          \t\t\tFROM @tables\n\t\t\t[ WHERE @condition ]\n\t\t\t[ GROUP [ BY ] @groups\
+          \ ]\n\t\t]\n\t\t[ PERMISSIONS [ NONE | FULL\n\t\t\t| FOR select @expression\n\
+          \t\t\t| FOR create @expression\n\t\t\t| FOR update @expression\n\t\t\t|\
+          \ FOR delete @expression\n\t\t] ]\n\t| EVENT [ OVERWRITE | IF NOT EXISTS\
+          \ ] @name ON [ TABLE ] @table WHEN @expression THEN @expression\n\t| FIELD\
+          \ [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table\n\t\t[ [ FLEXIBLE\
+          \ ] TYPE @type ]\n\t\t[ VALUE @expression ]\n\t\t[ ASSERT @expression ]\n\
+          \t\t[ PERMISSIONS [ NONE | FULL\n\t\t\t| FOR select @expression\n\t\t\t\
+          | FOR create @expression\n\t\t\t| FOR update @expression\n\t\t\t| FOR delete\
+          \ @expression\n\t\t] ]\n\t| PARAM [ OVERWRITE | IF NOT EXISTS ] $@name VALUE\
+          \ @value\n\t| FUNCTION [ OVERWRITE | IF NOT EXISTS ] fn::@name ( [ ( @argument:@type\
+          \ ... ) ] ) { [@query] [RETURNS @returned] }\n\t| ANALYZER [ OVERWRITE |\
+          \ IF NOT EXISTS ] @name\n\t\t[ TOKENIZERS @tokenizers ]\n\t\t[ FILTERS @filters\
+          \ ]\n\t| INDEX [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table [\
+          \ FIELDS | COLUMNS ] @fields\n\t\t[ UNIQUE | SEARCH ANALYZER @analyzer [\
+          \ BM25 [(@k1, @b)] ] [ HIGHLIGHTS ] ]\n\t| SEQUENCE [ OVERWRITE | IF NOT\
+          \ EXISTS ] @name\n\t\t[ BATCH @batch ]\n\t\t[ START @start ]\n\t| ACCESS\
+          \ [ OVERWRITE | IF NOT EXISTS ] @name ON [ NAMESPACE | DATABASE ]\n\t\t\
+          TYPE [\n\t\t\tJWT [ ALGORITHM @algorithm KEY @key | URL @url ]\n\t\t\t|\
+          \ RECORD\n\t\t\t\t[ SIGNUP @expression ]\n\t\t\t\t[ SIGNIN @expression ]\n\
+          \t\t\t\t[ WITH JWT [ ALGORITHM @algorithm KEY @key | URL @url ] [ WITH ISSUER\
+          \ KEY @key ] ]\n\t\t]\n\t\t[ DURATION [ FOR TOKEN @duration ] [ FOR SESSION\
+          \ @duration ] ]\n    [ COMMENT @string ]\n]"
+        components: {}
+        variables:
+        - algorithm
+        - analyzer
+        - argument
+        - b
+        - batch
+        - condition
+        - duration
+        - expression
+        - fields
+        - filters
+        - groups
+        - hash
+        - k1
+        - key
+        - name
+        - pass
+        - projections
+        - query
+        - returned
+        - roles
+        - start
+        - string
+        - table
+        - tables
+        - tokenizers
+        - type
+        - url
+        - value
+        keywords:
+        - ACCESS
+        - ANALYZER
+        - AS
+        - DATABASE
+        - DEFINE
+        - DURATION
+        - EVENT
+        - FIELD
+        - FOR
+        - FROM
+        - FULL
+        - FUNCTION
+        - GROUP
+        - INDEX
+        - JWT
+        - NAMESPACE
+        - NONE
+        - 'ON'
+        - PARAM
+        - PERMISSIONS
+        - RECORD
+        - ROLES
+        - SEARCH
+        - SELECT
+        - SEQUENCE
+        - TABLE
+        - THEN
+        - TYPE
+        - UNIQUE
+        - USER
+        - VALUE
+        - WHEN
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - PASSWORD @pass
+          - PASSHASH @hash
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - DROP
+        - - SCHEMAFULL
+          - SCHEMALESS
+        - - WHERE @condition
+        - - BY
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TABLE
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TABLE
+        - - FLEXIBLE
+        - - VALUE @expression
+        - - ASSERT @expression
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - RETURNS @returned
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TOKENIZERS @tokenizers
+        - - FILTERS @filters
+        - - FIELDS
+          - COLUMNS
+        - - TABLE
+        - - HIGHLIGHTS
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - BATCH @batch
+        - - START @start
+        - - NAMESPACE
+          - DATABASE
+        - - ALGORITHM @algorithm KEY @key
+          - URL @url
+        - - SIGNUP @expression
+        - - SIGNIN @expression
+        - - ALGORITHM @algorithm KEY @key
+          - URL @url
+        - - WITH ISSUER KEY @key
+        - - FOR SESSION @duration
+        - - COMMENT @string
+        metadata:
+          title: DEFINE statement | SurrealQL
+          description: The DEFINE statement can be used to specify authentication
+            access and behaviour, global parameters, table configurations, table events,
+            schema definitions, and indexes.
+          sidebar_label: Overview
+      api:
+        syntax: "DEFINE API [ OVERWRITE | IF NOT EXISTS ] @endpoint\n    [ FOR @HTTP_method,\
+          \ .. ]\n    [ MIDDLEWARE @function, .. ]\n    [ THEN { @value } ]\n    [\
+          \ PERMISSIONS [ NONE | FULL | @expression ]"
+        components: {}
+        variables:
+        - HTTP_method
+        - endpoint
+        - expression
+        - function
+        - value
+        keywords:
+        - API
+        - DEFINE
+        - PERMISSIONS
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - FOR @HTTP_method, ..
+        - - MIDDLEWARE @function, ..
+        - - THEN { @value }
+        - - NONE
+          - FULL
+        metadata:
+          title: DEFINE API statement | SurrealQL
+          description: A DEFINE API statement can be used to set endpoints with custom
+            middleware and permissions.
+          sidebar_label: DEFINE API
+      sequence:
+        syntax: DEFINE SEQUENCE [ OVERWRITE | IF NOT EXISTS ] @name [ BATCH @batch
+          ] [ START @start ] [ TIMEOUT @duration ]
+        components: {}
+        variables:
+        - batch
+        - duration
+        - name
+        - start
+        keywords:
+        - DEFINE
+        - SEQUENCE
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TIMEOUT @duration
+        metadata:
+          title: DEFINE SEQUENCE statement | SurrealQL
+          description: A DEFINE SEQUENCE statement defines a distributed generator
+            of monotonically increasing numeric sequences.
+          sidebar_label: DEFINE SEQUENCE
+      bucket:
+        syntax: 'DEFINE BUCKET [ OVERWRITE | IF NOT EXISTS ] @name [ @backend ]
+
+          PERMISSIONS @expression [ COMMENT @string ]'
+        components: {}
+        variables:
+        - backend
+        - expression
+        - name
+        - string
+        keywords:
+        - BUCKET
+        - DEFINE
+        - PERMISSIONS
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        metadata:
+          title: DEFINE BUCKET statement | SurrealQL
+          description: A DEFINE BUCKET statement can be used to set endpoints with
+            custom middleware and permissions.
+          sidebar_label: DEFINE BUCKET
+      analyzer:
+        syntax: DEFINE ANALYZER [ OVERWRITE | IF NOT EXISTS ] @name [ FUNCTION @function
+          ] [ TOKENIZERS @tokenizers ] [ FILTERS @filters ] [ COMMENT @string ]
+        components: {}
+        variables:
+        - filters
+        - function
+        - name
+        - string
+        - tokenizers
+        keywords:
+        - ANALYZER
+        - DEFINE
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        metadata:
+          title: DEFINE ANALYZER statement | SurrealQL
+          description: In the context of a database, an analyzer plays a crucial role
+            in text processing and searching. It is defined by its name, a set of
+            tokenizers, and a collection of filters.
+          sidebar_label: DEFINE ANALYZER
+      field:
+        syntax: "DEFINE FIELD [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table\n\
+          \t[ [ FLEXIBLE ] TYPE @type ]\n\t[ REFERENCE \n\t\t[   ON DELETE REJECT\
+          \ | \n\t\t\tON DELETE CASCADE | \n\t\t\tON DELETE IGNORE |\n\t\t\tON DELETE\
+          \ UNSET | \n\t\t\tON DELETE THEN @expression ]\n\t]\n\t[ DEFAULT [ALWAYS]\
+          \ @expression ]\n  [ READONLY ]\n\t[ VALUE @expression ]\n\t[ ASSERT @expression\
+          \ ]\n\t[ PERMISSIONS [ NONE | FULL\n\t\t| FOR select @expression\n\t\t|\
+          \ FOR create @expression\n\t\t| FOR update @expression\n\t] ]\n  [ COMMENT\
+          \ @string ]"
+        components: {}
+        variables:
+        - expression
+        - name
+        - string
+        - table
+        - type
+        keywords:
+        - CASCADE
+        - DEFAULT
+        - DEFINE
+        - DELETE
+        - FIELD
+        - FOR
+        - FULL
+        - IGNORE
+        - NONE
+        - 'ON'
+        - PERMISSIONS
+        - REFERENCE
+        - REJECT
+        - THEN
+        - TYPE
+        - UNSET
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TABLE
+        - - FLEXIBLE
+        - - ALWAYS
+        - - READONLY
+        - - VALUE @expression
+        - - ASSERT @expression
+        - - COMMENT @string
+        metadata:
+          title: DEFINE FIELD statement | SurrealQL
+          description: The DEFINE FIELD statement allows you to instantiate a named
+            field on a table, enabling you to set the field's achema and configuration.
+          sidebar_label: DEFINE FIELD
+      function:
+        syntax: "DEFINE FUNCTION [ OVERWRITE | IF NOT EXISTS ] fn::@name( [ @argument:\
+          \ @type ... ] ) {\n\t[ @query ... ]\n\t[ RETURN @returned ]\n} [ COMMENT\
+          \ @string ] [ PERMISSIONS [ NONE | FULL | WHERE @condition]]"
+        components: {}
+        variables:
+        - argument
+        - condition
+        - name
+        - query
+        - returned
+        - string
+        - type
+        keywords:
+        - DEFINE
+        - FUNCTION
+        - PERMISSIONS
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - RETURN @returned
+        - - NONE
+          - FULL
+          - WHERE @condition
+        - - COMMENT @string
+        metadata:
+          title: DEFINE FUNCTION statement | SurrealQL
+          description: The DEFINE FUNCTION statement allows you to define custom functions
+            that can be reused throughout a database.
+          sidebar_label: DEFINE FUNCTION
+      user:
+        syntax: "DEFINE USER [ OVERWRITE | IF NOT EXISTS ] @name\n\tON [ ROOT | NAMESPACE\
+          \ | DATABASE ]\n\t[ PASSWORD @pass | PASSHASH @hash ]\n\t[ ROLES @roles\
+          \ ]\n\t[ DURATION [ FOR TOKEN @duration [ , ] ] [ FOR SESSION @duration\
+          \ ] ]\n  [ COMMENT @string ]"
+        components: {}
+        variables:
+        - duration
+        - hash
+        - name
+        - pass
+        - roles
+        - string
+        keywords:
+        - DEFINE
+        - DURATION
+        - 'ON'
+        - TOKEN
+        - USER
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - ROOT
+          - NAMESPACE
+          - DATABASE
+        - - PASSWORD @pass
+          - PASSHASH @hash
+        - - ROLES @roles
+        - - FOR SESSION @duration
+        - - COMMENT @string
+        metadata:
+          title: DEFINE USER statement | SurrealQL
+          description: Use the DEFINE USER statement to create system users on SurrealDB.
+          sidebar_label: DEFINE USER
+      database:
+        syntax: DEFINE DATABASE [ OVERWRITE | IF NOT EXISTS ] @name [ COMMENT @string
+          ]
+        components: {}
+        variables:
+        - name
+        - string
+        keywords:
+        - DATABASE
+        - DEFINE
+        optional:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        metadata:
+          title: DEFINE DATABASE statement | SurrealQL
+          description: The DEFINE DATABASE statement allows you to instantiate a named
+            database, enabling you to specify security and configuration options.
+          sidebar_label: DEFINE DATABASE
+      access:
+        record:
+          syntax: "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON DATABASE\
+            \ TYPE RECORD\n    [ SIGNUP @expression ]\n    [ SIGNIN @expression ]\n\
+            \    [ WITH JWT\n      [ ALGORITHM @algorithm KEY @key | URL @url ]\n\
+            \      [ WITH ISSUER KEY @key ]\n    ]\n    [ WITH REFRESH ]\n  [ AUTHENTICATE\
+            \ @expression ]\n  [ DURATION\n    [ FOR TOKEN @duration ]\n    [ FOR\
+            \ SESSION @duration ]\n  ]"
+          components: {}
+          variables:
+          - algorithm
+          - duration
+          - expression
+          - key
+          - name
+          - url
+          keywords:
+          - ACCESS
+          - DATABASE
+          - DEFINE
+          - DURATION
+          - JWT
+          - 'ON'
+          - RECORD
+          - TYPE
+          - WITH
+          optional:
+          - - OVERWRITE
+            - IF NOT EXISTS
+          - - SIGNUP @expression
+          - - SIGNIN @expression
+          - - ALGORITHM @algorithm KEY @key
+            - URL @url
+          - - WITH ISSUER KEY @key
+          - - WITH REFRESH
+          - - AUTHENTICATE @expression
+          - - FOR TOKEN @duration
+          - - FOR SESSION @duration
+          metadata:
+            title: DEFINE ACCESS ... TYPE RECORD statement | SurrealQL
+            description: A record access method allows accessing SurrealDB as a record
+              user.
+            sidebar_label: RECORD
+        index:
+          syntax: "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON [ ROOT\
+            \ | NAMESPACE | DATABASE ]\n  TYPE [\n    JWT [ ALGORITHM @algorithm KEY\
+            \ @key | URL @url ]\n    | RECORD\n      [ SIGNUP @expression ]\n    \
+            \  [ SIGNIN @expression ]\n      [ WITH JWT\n        [ ALGORITHM @algorithm\
+            \ KEY @key | URL @url ]\n        [ WITH ISSUER KEY @key ]\n      ]\n \
+            \     [ WITH REFRESH ]\n    | BEARER FOR [ USER | RECORD ]\n  [ AUTHENTICATE\
+            \ @expression ]\n  [ DURATION\n    [ FOR GRANT @duration ]\n    [ FOR\
+            \ TOKEN @duration ]\n    [ FOR SESSION @duration ]\n  ]\n  [ COMMENT @string\
+            \ ]"
+          components: {}
+          variables:
+          - algorithm
+          - duration
+          - expression
+          - key
+          - name
+          - string
+          - url
+          keywords:
+          - ACCESS
+          - BEARER
+          - DEFINE
+          - DURATION
+          - FOR
+          - JWT
+          - 'ON'
+          - RECORD
+          - TYPE
+          - WITH
+          optional:
+          - - OVERWRITE
+            - IF NOT EXISTS
+          - - ROOT
+            - NAMESPACE
+            - DATABASE
+          - - ALGORITHM @algorithm KEY @key
+            - URL @url
+          - - SIGNUP @expression
+          - - SIGNIN @expression
+          - - ALGORITHM @algorithm KEY @key
+            - URL @url
+          - - WITH ISSUER KEY @key
+          - - WITH REFRESH
+          - - USER
+            - RECORD
+          - - AUTHENTICATE @expression
+          - - FOR GRANT @duration
+          - - FOR TOKEN @duration
+          - - FOR SESSION @duration
+          - - COMMENT @string
+          metadata:
+            title: DEFINE ACCESS statement | SurrealQL
+            description: Defining an access method allows SurrealDB to grant access
+              to resources using different kinds of credentials.
+            sidebar_label: DEFINE ACCESS
+        bearer:
+          syntax: "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON [ NAMESPACE\
+            \ | DATABASE ]\n  TYPE BEARER FOR [ USER | RECORD ]\n  [ AUTHENTICATE\
+            \ @expression ]\n  [ DURATION\n    [ FOR GRANT @duration ]\n    [ FOR\
+            \ TOKEN @duration ]\n    [ FOR SESSION @duration ]\n  ]"
+          components: {}
+          variables:
+          - duration
+          - expression
+          - name
+          keywords:
+          - ACCESS
+          - BEARER
+          - DEFINE
+          - DURATION
+          - FOR
+          - 'ON'
+          - TYPE
+          optional:
+          - - OVERWRITE
+            - IF NOT EXISTS
+          - - NAMESPACE
+            - DATABASE
+          - - USER
+            - RECORD
+          - - AUTHENTICATE @expression
+          - - FOR GRANT @duration
+          - - FOR TOKEN @duration
+          - - FOR SESSION @duration
+          metadata:
+            title: DEFINE ACCESS ... TYPE BEARER statement | SurrealQL
+            description: A bearer access method allows accessing SurrealDB using a
+              bearer key.
+            sidebar_label: BEARER
+        jwt:
+          syntax: "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON [ ROOT\
+            \ | NAMESPACE | DATABASE ]\n  TYPE JWT [ ALGORITHM @algorithm KEY @key\
+            \ | URL @url ]\n  [ AUTHENTICATE @expression ]\n  [ DURATION FOR SESSION\
+            \ @duration ]"
+          components: {}
+          variables:
+          - algorithm
+          - duration
+          - expression
+          - key
+          - name
+          - url
+          keywords:
+          - ACCESS
+          - DEFINE
+          - JWT
+          - 'ON'
+          - TYPE
+          optional:
+          - - OVERWRITE
+            - IF NOT EXISTS
+          - - ROOT
+            - NAMESPACE
+            - DATABASE
+          - - ALGORITHM @algorithm KEY @key
+            - URL @url
+          - - AUTHENTICATE @expression
+          - - DURATION FOR SESSION @duration
+          metadata:
+            title: DEFINE ACCESS ... TYPE JWT statement | SurrealQL
+            description: A JWT access method allows accessing SurrealDB with a token
+              signed by a trusted issuer.
+            sidebar_label: JWT
+  functions: {}
+  types:
+    primitives:
+    - str
+    - int
+    - float
+    - bool
+    - datetime
+    - duration
+    complex:
+    - array
+    - object
+    - record
+    - geometry
+    - uuid

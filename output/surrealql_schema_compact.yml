@@ -1,0 +1,578 @@
+surrealql:
+  v: 2.3.6
+  docs: https://surrealdb.com/docs/surrealql
+  stmts:
+    info:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    select:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    kill:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      metadata: {}
+    let:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    upsert:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    for:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      metadata: {}
+    update:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    continue:
+      syntax: {}
+      components: {}
+      keywords: {}
+      metadata: {}
+    remove:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    delete:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    throw:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      metadata: {}
+    return:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      metadata: {}
+    begin:
+      syntax: {}
+      components: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    alter:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    use:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    sleep:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      metadata: {}
+    rebuild:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    relate:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    access:
+      variants: {}
+      metadata: {}
+    commit:
+      syntax: {}
+      components: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    break:
+      syntax: {}
+      components: {}
+      keywords: {}
+      metadata: {}
+    create:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    show:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    insert:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    live:
+      syntax: {}
+      components: {}
+      variables: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    cancel:
+      syntax: {}
+      components: {}
+      keywords: {}
+      optional: {}
+      metadata: {}
+    define:
+      indexes:
+        vars:
+        - analyzer
+        - b
+        - capacity
+        - dimension
+        - distance
+        - efc
+        - fields
+        - k1
+        - m
+        - name
+        - string
+        - table
+        - type
+        keys:
+        - ANALYZER
+        - DIMENSION
+        - HNSW
+        - INDEX
+        - MTREE
+        - 'ON'
+        - SEARCH
+        - UNIQUE
+        opts:
+        - - FIELDS
+          - COLUMNS
+        - - TABLE
+        - - HIGHLIGHTS
+        - - CAPACITY @capacity
+        - - M @m
+        - - COMMENT @string
+        - - CONCURRENTLY
+      param:
+        vars:
+        - condition
+        - name
+        - string
+        - value
+        keys:
+        - PARAM
+        - PERMISSIONS
+        - VALUE
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+        - - NONE
+          - FULL
+          - WHERE @condition
+      token:
+        vars:
+        - name
+        - scope
+        - string
+        - type
+        - value
+        keys:
+        - 'ON'
+        - TOKEN
+        - TYPE
+        - VALUE
+        opts:
+        - - NAMESPACE
+          - DATABASE
+          - SCOPE @scope
+        - - COMMENT @string
+      table:
+        vars:
+        - condition
+        - duration
+        - expression
+        - groups
+        - name
+        - projections
+        - string
+        - table
+        - tables
+        keys:
+        - ANY
+        - AS
+        - CHANGEFEED
+        - FOR
+        - FULL
+        - GROUP
+        - NONE
+        - NORMAL
+        - PERMISSIONS
+        - RELATION
+        - TABLE
+        - TYPE
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - DROP
+        - - SCHEMAFULL
+          - SCHEMALESS
+        - - OUT
+          - TO
+        - - ENFORCED
+        - - WHERE @condition
+        - - BY
+        - - INCLUDE ORIGINAL
+        - - COMMENT @string
+      namespace:
+        vars:
+        - name
+        - string
+        keys:
+        - NAMESPACE
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+      event:
+        vars:
+        - expression
+        - name
+        - string
+        - table
+        keys:
+        - EVENT
+        - 'ON'
+        - THEN
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+      scope:
+        vars:
+        - duration
+        - expression
+        - name
+        - string
+        keys:
+        - SCOPE
+        - SESSION
+        - SIGNIN
+        - SIGNUP
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+      index:
+        vars:
+        - algorithm
+        - analyzer
+        - argument
+        - b
+        - batch
+        - condition
+        - duration
+        - expression
+        - fields
+        - filters
+        - groups
+        - hash
+        - k1
+        - key
+        - name
+        - pass
+        - projections
+        - query
+        - returned
+        - roles
+        - start
+        - string
+        - table
+        - tables
+        - tokenizers
+        - type
+        - url
+        - value
+        keys:
+        - ACCESS
+        - ANALYZER
+        - AS
+        - DATABASE
+        - DURATION
+        - EVENT
+        - FIELD
+        - FOR
+        - FULL
+        - FUNCTION
+        - GROUP
+        - INDEX
+        - JWT
+        - NAMESPACE
+        - NONE
+        - 'ON'
+        - PARAM
+        - PERMISSIONS
+        - RECORD
+        - ROLES
+        - SEARCH
+        - SEQUENCE
+        - TABLE
+        - THEN
+        - TYPE
+        - UNIQUE
+        - USER
+        - VALUE
+        - WHEN
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - PASSWORD @pass
+          - PASSHASH @hash
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - DROP
+        - - SCHEMAFULL
+          - SCHEMALESS
+        - - WHERE @condition
+        - - BY
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TABLE
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TABLE
+        - - FLEXIBLE
+        - - VALUE @expression
+        - - ASSERT @expression
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - RETURNS @returned
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TOKENIZERS @tokenizers
+        - - FILTERS @filters
+        - - FIELDS
+          - COLUMNS
+        - - TABLE
+        - - HIGHLIGHTS
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - BATCH @batch
+        - - START @start
+        - - NAMESPACE
+          - DATABASE
+        - - ALGORITHM @algorithm KEY @key
+          - URL @url
+        - - SIGNUP @expression
+        - - SIGNIN @expression
+        - - ALGORITHM @algorithm KEY @key
+          - URL @url
+        - - WITH ISSUER KEY @key
+        - - FOR SESSION @duration
+        - - COMMENT @string
+      api:
+        vars:
+        - HTTP_method
+        - endpoint
+        - expression
+        - function
+        - value
+        keys:
+        - API
+        - PERMISSIONS
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - FOR @HTTP_method, ..
+        - - MIDDLEWARE @function, ..
+        - - THEN { @value }
+        - - NONE
+          - FULL
+      sequence:
+        vars:
+        - batch
+        - duration
+        - name
+        - start
+        keys:
+        - SEQUENCE
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TIMEOUT @duration
+      bucket:
+        vars:
+        - backend
+        - expression
+        - name
+        - string
+        keys:
+        - BUCKET
+        - PERMISSIONS
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+      analyzer:
+        vars:
+        - filters
+        - function
+        - name
+        - string
+        - tokenizers
+        keys:
+        - ANALYZER
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+      field:
+        vars:
+        - expression
+        - name
+        - string
+        - table
+        - type
+        keys:
+        - CASCADE
+        - DEFAULT
+        - DELETE
+        - FIELD
+        - FOR
+        - FULL
+        - IGNORE
+        - NONE
+        - 'ON'
+        - PERMISSIONS
+        - REFERENCE
+        - REJECT
+        - THEN
+        - TYPE
+        - UNSET
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - TABLE
+        - - FLEXIBLE
+        - - ALWAYS
+        - - READONLY
+        - - VALUE @expression
+        - - ASSERT @expression
+        - - COMMENT @string
+      function:
+        vars:
+        - argument
+        - condition
+        - name
+        - query
+        - returned
+        - string
+        - type
+        keys:
+        - FUNCTION
+        - PERMISSIONS
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - RETURN @returned
+        - - NONE
+          - FULL
+          - WHERE @condition
+        - - COMMENT @string
+      user:
+        vars:
+        - duration
+        - hash
+        - name
+        - pass
+        - roles
+        - string
+        keys:
+        - DURATION
+        - 'ON'
+        - TOKEN
+        - USER
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - ROOT
+          - NAMESPACE
+          - DATABASE
+        - - PASSWORD @pass
+          - PASSHASH @hash
+        - - ROLES @roles
+        - - FOR SESSION @duration
+        - - COMMENT @string
+      database:
+        vars:
+        - name
+        - string
+        keys:
+        - DATABASE
+        opts:
+        - - OVERWRITE
+          - IF NOT EXISTS
+        - - COMMENT @string
+      access: {}
+  types:
+  - str
+  - int
+  - float
+  - bool
+  - datetime
+  - array
+  - object
+  - record

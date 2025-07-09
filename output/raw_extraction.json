@@ -1,0 +1,1407 @@
+{
+  "operators": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/operators.mdx",
+    "hierarchy": "operators",
+    "frontmatter": {
+      "sidebar_position": 3,
+      "sidebar_label": "Operators",
+      "title": "Operators | SurrealQL",
+      "description": "A variety of operators in SurrealQL allow for complex manipulation of data, and advanced logic."
+    },
+    "syntax_blocks": [
+      "<|K,DISTANCE_METRIC|>",
+      "<|K|>",
+      "<|K,EF|>"
+    ],
+    "example_blocks": [
+      "SELECT * FROM 10 AND 20 AND 30;\n\n30",
+      "SELECT * FROM 0 OR false OR 10;\n\n10",
+      "SELECT * FROM !(TRUE OR FALSE)\n\nfalse\n\nSELECT * FROM !\"Has a value\";\n\nfalse",
+      "SELECT * FROM !!\"Has a value\";\n\ntrue",
+      "SELECT * FROM NULL ?? 0 ?? false ?? 10;\n\n0",
+      "SELECT * FROM NULL ?: 0 ?: false ?: 10;\n\n10",
+      "SELECT * FROM true = \"true\";\n\nfalse",
+      "SELECT * FROM 10 = \"10\";\n\nfalse",
+      "SELECT * FROM 10 = 10.00;\n\ntrue",
+      "SELECT * FROM 10 = \"10.3\";\n\nfalse",
+      "SELECT * FROM [1, 2, 3] = [1, 2, 3];\n\ntrue",
+      "SELECT * FROM [1, 2, 3] = [1, 2, 3, 4];\n\nfalse",
+      "SELECT * FROM { this: \"object\" } = { this: \"object\" };\n\ntrue",
+      "SELECT * FROM { this: \"object\" } = { another: \"object\" };\n\nfalse",
+      "SELECT * FROM 10 != \"15\";\n\ntrue",
+      "SELECT * FROM 10 != \"test\";\n\ntrue",
+      "SELECT * FROM [1, 2, 3] != [3, 4, 5];\n\ntrue",
+      "SELECT * FROM 10 == 10;\n\ntrue",
+      "SELECT * FROM 10 == \"10\";\n\nfalse",
+      "SELECT * FROM true == \"true\";\n\nfalse",
+      "SELECT * FROM [10, 15, 20] ?= 10;\n\ntrue",
+      "SELECT * FROM [10, 10, 10] *= 10;\n\ntrue",
+      "SELECT * FROM \"test text\" ~ \"Test\";\n\ntrue",
+      "SELECT * FROM \"true\" ~ true;\n\nfalse",
+      "SELECT * FROM [\"test\", \"thing\"] ~ \"test\";\n\nfalse",
+      "SELECT * FROM \"other text\" !~ \"test\";\n\ntrue",
+      "SELECT * FROM \"test text\" !~ \"Test\";\n\nfalse",
+      "SELECT * FROM [\"true\", \"test\", \"text\"] ?~ true;\n\nfalse",
+      "SELECT * FROM [1, 2, 3] ?~ \"2\";\n\nfalse",
+      "SELECT * FROM [\"TRUE\", true, \"true\", \"TrUe\"] *~ true;\n\nfalse",
+      "SELECT * FROM [\"TEST\", \"test\", \"text\"] *~ \"test\";\n\nfalse",
+      "SELECT * FROM 10 < 15;\n\ntrue",
+      "SELECT * FROM 10 <= 15;\n\ntrue",
+      "SELECT * FROM 15 > 10;\n\ntrue",
+      "SELECT * FROM 15 >= 10;\n\ntrue",
+      "SELECT * FROM 10 + 10;\n\n20",
+      "SELECT * FROM \"test\" + \" \" + \"this\";\n\n\"test this\"",
+      "SELECT * FROM 13h + 30m;\n\n\"13h30m\"",
+      "SELECT * FROM 20 - 10;\n\n10",
+      "SELECT * FROM 2m - 1m;\n\n\"1m\"",
+      "SELECT * FROM 20 * 2;\n\n40",
+      "SELECT * FROM 20 / 2;\n\n10",
+      "SELECT * FROM 20 ** 3;\n\n8000",
+      "SELECT * FROM [10, 20, 30] CONTAINS 10;\n\ntrue",
+      "SELECT * FROM \"this is some text\" CONTAINS \"text\";\n\ntrue",
+      "SELECT * FROM {\n\ttype: \"Polygon\",\n\tcoordinates: [[\n\t\t[-0.38314819, 51.37692386], [0.1785278, 51.37692386],\n\t\t[0.1785278, 51.61460570], [-0.38314819, 51.61460570],\n\t\t[-0.38314819, 51.37692386]\n\t]]\n} CONTAINS (-0.118092, 51.509865);\n\ntrue",
+      "SELECT * FROM [10, 20, 30] CONTAINSNOT 15;\n\ntrue",
+      "SELECT * FROM \"this is some text\" CONTAINSNOT \"other\";\n\ntrue",
+      "SELECT * FROM {\n\ttype: \"Polygon\",\n\tcoordinates: [[\n\t\t[-0.38314819, 51.37692386], [0.1785278, 51.37692386],\n\t\t[0.1785278, 51.61460570], [-0.38314819, 51.61460570],\n\t\t[-0.38314819, 51.37692386]\n\t]]\n} CONTAINSNOT (-0.518092, 53.509865);\n\ntrue",
+      "SELECT * FROM [10, 20, 30] CONTAINSALL [10, 20, 10];\n\ntrue",
+      "SELECT * FROM [10, 20, 30] CONTAINSANY [10, 15, 25];\n\ntrue",
+      "SELECT * FROM 10 INSIDE [10, 20, 30];\n\ntrue",
+      "SELECT * FROM \"text\" INSIDE \"this is some text\";\n\ntrue",
+      "SELECT * FROM (-0.118092, 51.509865) INSIDE {\n\ttype: \"Polygon\",\n\tcoordinates: [[\n\t\t[-0.38314819, 51.37692386], [0.1785278, 51.37692386],\n\t\t[0.1785278, 51.61460570], [-0.38314819, 51.61460570],\n\t\t[-0.38314819, 51.37692386]\n\t]]\n};\n\ntrue",
+      "\"name\" IN {\n    name: \"Riga\",\n    country: \"Latvia\"\n};\n\n-- true",
+      "CREATE city:riga SET name = \"Riga\", country = \"Latvia\", population = 605273;\n\n\"name\" IN city:riga.*;\n\"name\" IN city:riga.{ name, country };",
+      "SELECT * FROM 15 NOTINSIDE [10, 20, 30];\n\ntrue",
+      "SELECT * FROM \"other\" NOTINSIDE \"this is some text\";\n\ntrue",
+      "SELECT * FROM (-0.518092, 53.509865) NOTINSIDE {\n\ttype: \"Polygon\",\n\tcoordinates: [[\n\t\t[-0.38314819, 51.37692386], [0.1785278, 51.37692386],\n\t\t[0.1785278, 51.61460570], [-0.38314819, 51.61460570],\n\t\t[-0.38314819, 51.37692386]\n\t]]\n};\n\ntrue",
+      "SELECT * FROM [10, 20, 10] ALLINSIDE [10, 20, 30];\n\ntrue",
+      "SELECT * FROM [10, 15, 25] ANYINSIDE [10, 20, 30];\n\ntrue",
+      "SELECT * FROM [15, 25, 35] NONEINSIDE [10, 20, 30];\n\ntrue",
+      "SELECT * FROM (-0.518092, 53.509865) OUTSIDE {\n\ttype: \"Polygon\",\n\tcoordinates: [[\n\t\t[-0.38314819, 51.37692386], [0.1785278, 51.37692386],\n\t\t[0.1785278, 51.61460570], [-0.38314819, 51.61460570],\n\t\t[-0.38314819, 51.37692386]\n\t]]\n};\n\ntrue",
+      "SELECT * FROM {\n\ttype: \"Polygon\",\n\tcoordinates: [[\n\t\t[-0.38314819, 51.37692386], [0.1785278, 51.37692386],\n\t\t[0.1785278, 51.61460570], [-0.38314819, 51.61460570],\n\t\t[-0.38314819, 51.37692386]\n\t]]\n} INTERSECTS {\n\ttype: \"Polygon\",\n\tcoordinates: [[\n\t\t[-0.11123657, 51.53160074], [-0.16925811, 51.51921169],\n\t\t[-0.11466979, 51.48223813], [-0.07381439, 51.51322956],\n\t\t[-0.11123657, 51.53160074]\n\t]]\n};\n\ntrue",
+      "SELECT * FROM book WHERE title @@ 'rust web';\n\n\n[\n\t{\n\t\tid: book:1,\n\t\ttitle: 'Rust Web Programming'\n\t}\n]",
+      "SELECT id,\n\t\tsearch::highlight('<b>', '</b>', 1) AS title,\n\t\tsearch::score(1) AS score\nFROM book\nWHERE title @1@ 'rust web'\nORDER BY score DESC;\n\n[\n\t{\n\t\tid: book:1,\n\t\tscore: 0.9227996468544006f,\n\t\ttitle: '<b>Rust</b> <b>Web</b> Programming'\n\t}\n]",
+      "CREATE pts:3 SET point = [8,9,10,11];\nSELECT id FROM pts WHERE point <|2,EUCLIDEAN|> [2,3,4,5];",
+      "CREATE pts:3 SET point = [8,9,10,11];\nDEFINE INDEX mt_pts ON pts FIELDS point MTREE DIMENSION 4 DIST EUCLIDEAN;\nSELECT id FROM pts WHERE point <|2|> [2,3,4,5];",
+      "CREATE pts:3 SET point = [8,9,10,11];\nDEFINE INDEX mt_pts ON pts FIELDS point HNSW DIMENSION 4 DIST EUCLIDEAN EFC 150 M 12;\nSELECT id FROM pts WHERE point <|10,40|> [2,3,4,5];",
+      "$name = \"Trevor\";\n-- Binds \"Trevor\" to $name and returns `NONE`\n-- Does not return `true`\n$name = \"Trevor\";",
+      "$name = \"Trevor\";\n-- Both return `true`\n\"Trevor\" = $name;\n$name == \"Trevor\";"
+    ],
+    "title": "Operators | SurrealQL",
+    "description": "A variety of operators in SurrealQL allow for complex manipulation of data, and advanced logic.",
+    "sidebar_label": "Operators"
+  },
+  "statements.info": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/info.mdx",
+    "hierarchy": "statements.info",
+    "frontmatter": {
+      "sidebar_position": 11,
+      "sidebar_label": "INFO",
+      "title": "INFO statement | SurrealQL",
+      "description": "The INFO command outputs information about the setup of the SurrealDB system."
+    },
+    "syntax_blocks": [
+      "INFO FOR [\n\tROOT\n\t| NS | NAMESPACE\n\t| DB | DATABASE\n\t| TABLE @table\n\t| USER @user [ON @level]\n    | INDEX @index ON @table\n];"
+    ],
+    "example_blocks": [
+      "INFO FOR ROOT;",
+      "INFO FOR NS;",
+      "INFO FOR DB;",
+      "INFO FOR TABLE user;",
+      "INFO FOR USER root ON ROOT;\nINFO FOR USER ns_user ON NAMESPACE;\nINFO FOR USER db_user ON DATABASE;",
+      "INFO FOR USER db_user ON DATABASE;\nINFO FOR USER db_user;",
+      "CREATE |user:50000| SET name = id.id() RETURN NONE;\nDEFINE INDEX unique_name ON TABLE user FIELDS name UNIQUE;\nINFO FOR INDEX unique_name ON TABLE user;",
+      "CREATE |user:50000| SET name = id.id() RETURN NONE;\nDEFINE INDEX unique_name ON TABLE user FIELDS name UNIQUE CONCURRENTLY;\nINFO FOR INDEX unique_name ON user;\nSLEEP 50ms;\nINFO FOR INDEX unique_name ON user;\nSLEEP 50ms;\nINFO FOR INDEX unique_name ON user;\nSLEEP 50ms;\nINFO FOR INDEX unique_name ON user;",
+      "DEFINE TABLE user SCHEMAFULL;\nDEFINE FIELD name ON user TYPE STRING;\n\nINFO FOR TABLE user;\nINFO FOR TABLE user STRUCTURE;",
+      "LET $cat = CREATE ONLY cat RETURN VALUE id;\n\nLET $first_schema = {\n    revision: rand::uuid(),\n    schema: INFO FOR DB\n};\n\n$first_schema;\n\nCREATE person SET feeds = [$cat];\n\nLET $second_schema = {\n    revision: rand::uuid(),\n    schema: INFO FOR DB\n};\n\n$second_schema;\n\n$first_schema.diff($second_schema);"
+    ],
+    "title": "INFO statement | SurrealQL",
+    "description": "The INFO command outputs information about the setup of the SurrealDB system.",
+    "sidebar_label": "INFO"
+  },
+  "statements.select": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/select.mdx",
+    "hierarchy": "statements.select",
+    "frontmatter": {
+      "sidebar_position": 20,
+      "sidebar_label": "SELECT",
+      "title": "SELECT statement | SurrealQL",
+      "description": "The SELECT statement can be used for selecting and querying data in a database."
+    },
+    "syntax_blocks": [
+      "SELECT \n\tVALUE @field | @fields [ AS @alias ] [ OMIT @fields ... ]\n\tFROM [ ONLY ] @targets\n\t[ WITH [ NOINDEX | INDEX @indexes ... ]]\n\t[ WHERE @conditions ]\n\t[ SPLIT [ ON ] @field, ... ]\n\t[ GROUP [ BY ] @field, ... ]\n\t[ ORDER [ BY ] \n\t\t@field [ COLLATE ] [ NUMERIC ] [ ASC | DESC ], ...\n\t\t| RAND() ]\n\t[ LIMIT [ BY ] @limit ]\n\t[ START [ AT ] @start 0 ]\n\t[ FETCH @fields ... ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ TEMPFILES ]\n\t[ EXPLAIN [ FULL ]]\n;"
+    ],
+    "example_blocks": [
+      "CREATE person:tobie SET\n\tname.first = \"Tobie\",\n\taddress = \"1 Bagshot Row\",\n\temail = \"tobie@surrealdb.com\";\n\n-- Select all fields from a table\nSELECT * FROM person;\n\n-- Select specific fields from a table\nSELECT name, address, email FROM person;\n\n-- Select all fields from a specific record\nSELECT * FROM person:tobie;\n\n-- Select specific fields from a specific record\nSELECT name, address, email FROM person:tobie;\n\n-- Select just a single record\n-- Using the ONLY keyword, just an object\n-- for the record in question will be returned.\n-- This, instead of an array with a single object.\nSELECT * FROM ONLY person:tobie;",
+      "SELECT * FROM person;\n\n-- Field `address` now shows up as \"string::uppercase\"\n-- name.first structure now flattened into a simple field\nSELECT\n\tname.first AS user_name,\n\tstring::uppercase(address)\nFROM person;\n\n-- \"Morgan Hitchcock\" added to `name` field structure,\n-- `angry_address` for field name instead of automatically\n-- generated \"string::uppercase(address) + '!!!'\"\nSELECT\n\tname.first,\n\t\"Morgan Hitchcock\" AS name.last,\n\tstring::uppercase(address) + \"!!!\" AS angry_address\nFROM person;",
+      "-- Select the values of a single field from a table\nSELECT VALUE name FROM person;\n\n-- Select the values of a single field from a specific record\nSELECT VALUE name FROM person:00e1nc508h9f7v63x72O;",
+      "-- Select nested objects/values\nSELECT address.city FROM person;\n\n-- Select all nested array values\n-- note the .* syntax works to select everything from an array or object-like values\nSELECT address.*.coordinates AS coordinates FROM person;\n-- Equivalent to\nSELECT address.coordinates AS coordinates FROM person;\n\n-- Select one item from an array\nSELECT address.coordinates[0] AS latitude FROM person;\n\n-- Select unique values from an array\nSELECT array::distinct(tags) FROM article;\n\n-- Select unique values from a nested array across an entire table\nSELECT array::group(tags) AS tags FROM article GROUP ALL;\n\n-- Use mathematical calculations in a select expression\nSELECT\n\t(( celsius * 1.8 ) + 32) AS fahrenheit\n\tFROM temperature;\n\n-- Return boolean expressions with an alias\nSELECT rating >= 4 as positive FROM review;\n\n-- Select manually generated object structure\nSELECT\n\t{ weekly: false, monthly: true } AS `marketing settings`\nFROM user;\n\n-- Select filtered nested array values\nSELECT address[WHERE active = true] FROM person;\n\n-- Select a person who has reacted to a post using a celebration\n-- Path can be conceptualized as:\n-- person->(reacted_to WHERE type='celebrate')->post\nSELECT * FROM person WHERE ->(reacted_to WHERE type='celebrate')->post;\n\n-- Select a remote field from connected out graph edges\nSELECT ->likes->friend.name AS friends FROM person:tobie;\n\n-- Use the result of a subquery as a returned field\nSELECT *, (SELECT * FROM events WHERE type = 'activity' LIMIT 5) AS history FROM user;\n\n-- Restructure objects in a select expression after `.` operator (since version 2.0.0)\nSELECT address.{city, country} FROM person;",
+      "-- Store the subquery result in a variable and query that result.\nLET $avg_price = (\n\tSELECT math::mean(price) AS avg_price FROM product GROUP ALL\n).avg_price;\n\n-- Find the name of the product where the price is higher than the avg price\nSELECT name FROM product\nWHERE [price] > $avg_price;\n\n-- Use the parent instance's field in a subquery (predefined variable)\nSELECT *, (SELECT * FROM events WHERE host == $parent.id) AS hosted_events FROM user;",
+      "DELETE person;\nCREATE |person:20000| SET age = (rand::float() * 120).round() RETURN NONE;\n\n-- Assign output to a parameter so the SELECT output is not displayed\nLET $_ = SELECT * FROM person WHERE age > 18 AND age < 65;\nLET $_ = SELECT * FROM person WHERE age in 18..=65;",
+      "SELECT * FROM person WHERE age >= 18 AND age <= 65;\nSELECT * FROM person WHERE age IN 18..=65;",
+      "-- Select all person records with IDs between the given range\nSELECT * FROM person:1..1000;\n-- Select all records for a particular location, inclusive\nSELECT * FROM temperature:['London', NONE]..=['London', time::now()];\n-- Select all temperature records with IDs less than a maximum value\nSELECT * FROM temperature:..['London', '2022-08-29T08:09:31'];\n-- Select all temperature records with IDs greater than a minimum value\nSELECT * FROM temperature:['London', '2022-08-29T08:03:39']..;\n-- Select all temperature records with IDs between the specified range\nSELECT * FROM temperature:['London', '2022-08-29T08:03:39']..['London', '2022-08-29T08:09:31'];",
+      "-- Create 5000 `person` records\nCREATE |person:1..5000| RETURN NONE;\n\n-- Set the starting time\nLET $now = time::now();\n-- Put the output somewhere so it won't clutter the screen\nLET $_ = SELECT * FROM person:1..5000;\n-- Get the elapsed time\nLET $time1 = time::now() - $now;\n\nLET $now = time::now();\nLET $_ = SELECT * FROM person WHERE id >= 1 and id <= 5000;\nLET $time2 = time::now() - $now;\nRETURN [$time1, $time2];",
+      "CREATE person:tobie SET\n\tname = 'Tobie',\n\tpassword = '123456',\n\topts.security = 'secure',\n\topts.enabled = true;\nCREATE person:jaime SET\n\tname = 'Jaime',\n\tpassword = 'asdfgh',\n\topts.security = 'secure',\n\topts.enabled = false;\n\nSELECT * FROM person;\n-- Omit the password field and security field in the options object\nSELECT * OMIT password, opts.security FROM person;\n\n-- Using destructuring syntax (since 2.0.0)\nSELECT * OMIT password, opts.{ security, enabled } FROM person;",
+      "-- Selects all records from both 'user' and 'admin' tables.\nSELECT * FROM user, admin;\n\n-- Selects all records from the table named in the variable '$table',\n-- but only if the 'admin' field of those records is true.\n-- Equivalent to 'SELECT * FROM user WHERE admin = true'.\nLET $table = \"user\";\nSELECT * FROM type::table($table) WHERE admin = true;\n\n-- Selects a single record from:\n-- * the table named in the variable '$table',\n-- * and the identifier named in the variable '$id'.\n-- This query is equivalent to 'SELECT * FROM user:admin'.\nLET $table = \"user\";\nLET $id = \"admin\";\nSELECT * FROM type::thing($table, $id);\n\n-- Selects all records for specific users 'tobie' and 'jaime',\n-- as well as all records for the company 'surrealdb'.\nSELECT * FROM user:tobie, user:jaime, company:surrealdb;\n\n-- Selects records from a list of identifiers. The identifiers can be numerical,\n-- string, or specific records such as 'person:lrym5gur8hzws72ux5fa'.\nSELECT * FROM [3648937, \"test\", person:lrym5gur8hzws72ux5fa, person:4luro9170uwcv1xrfvby];\n\n-- Selects data from an object that includes a 'person' key,\n-- which is associated with a specific person record, and an 'embedded' key set to true.\nSELECT * FROM { person: person:lrym5gur8hzws72ux5fa, embedded: true };\n\n-- This command first performs a subquery, which selects all 'user' records and adds a\n-- computed 'adult' field that is true if the user's 'age' is 18 or older.\n-- The main query then selects all records from this subquery where 'adult' is true.\nSELECT * FROM (SELECT age >= 18 AS adult FROM user) WHERE adult = true;",
+      "-- Simple conditional filtering\nSELECT * FROM article WHERE published = true;\n\n-- Conditional filtering based on graph edges\nSELECT * FROM profile WHERE count(->experience->organisation) > 3;\n\n-- Conditional filtering based on graph edge properties\nSELECT * FROM person WHERE ->(reaction WHERE type='celebrate')->post;\n\n-- Conditional filtering with boolean logic\nSELECT * FROM user WHERE (admin AND active) OR owner = true;\n\n-- Select filtered nested array values\nSELECT address[WHERE active = true] FROM person;\n\n-- Select names for 'person' records as long as 'name' is present\n-- and not an empty string \"\"\nSELECT name FROM person WHERE name;",
+      "CREATE user SET\n    name = \"Name\",\n    emails = [\"me@me.com\", \"longer_email@other_service.com\"];\n\n-- Split the results by each value in an array\nSELECT * FROM user SPLIT emails;",
+      "-- Split the results by each value in a nested array\nSELECT * FROM country SPLIT locations.cities;\n\n-- Filter the result of a subquery\nSELECT * FROM (SELECT * FROM person SPLIT loggedin) WHERE loggedin > '2023-05-01';",
+      "-- Group records by a single field\nSELECT country FROM user GROUP BY country;\n\n-- Group results by a nested field\nSELECT settings.published FROM article GROUP BY settings.published;\n\n-- Group results by multiple fields\nSELECT gender, country, city FROM person GROUP BY gender, country, city;\n\n-- Use an aggregate function to select unique values from a nested array across an entire table\nSELECT array::group(tags) AS tags FROM article GROUP ALL;",
+      "INSERT INTO person [\n    { gender: \"M\", age: 20, country: \"Japan\" },\n    { gender: \"M\", age: 25, country: \"Japan\" },\n    { gender: \"F\", age: 23, country: \"US\" },\n    { gender: \"F\", age: 30, country: \"US\" },\n    { gender: \"F\", age: 25, country: \"Korea\" },\n    { gender: \"F\", age: 45, country: \"UK\" },\n];\n\nSELECT\n\tcount() AS total,\n\tmath::mean(age) AS average_age,\n\tgender,\n\tcountry\nFROM person\nGROUP BY gender, country;\n\n-- Get the total number of records in a table\nSELECT count() AS number_of_records FROM person GROUP ALL;",
+      "-- Order records randomly\nSELECT * FROM user ORDER BY rand();\n\n-- Order records descending by a single field\nSELECT * FROM song ORDER BY rating DESC;\n\n-- Order records by multiple fields independently\nSELECT * FROM song ORDER BY artist ASC, rating DESC;\n\n-- Order text fields with Unicode collation\nSELECT * FROM article ORDER BY title COLLATE ASC;\n\n-- Order text fields with which include numeric values\nSELECT * FROM article ORDER BY title NUMERIC ASC;",
+      "-- Select only the top 50 records from the person table\nSELECT * FROM person LIMIT 50;",
+      "-- Start at record 50 and select the following 50 records\nSELECT * FROM user LIMIT 50 START 50;",
+      "-- Record IDs are unique so guaranteed to be no more than 1\nSELECT * FROM ONLY person:jamie;\n\n-- Error because no guarantee that this will return a single record\nSELECT * FROM ONLY person WHERE name = \"Jaime\";\n\n-- Add `LIMIT 1` to ensure that only up to one record will be returned\nSELECT * FROM ONLY person WHERE name = \"Jaime\" LIMIT 1;",
+      "-- Select the first 5 records from the array\nSELECT * FROM [1,2,3,4,5,6,7,8,9,10] LIMIT 5 START 4;",
+      "-- Select all the review information\n-- and the artist's email from the artist table\nSELECT *, artist.email FROM review FETCH artist;\n\n-- Select all the article information\n-- only if the author's age (from the author table) is under 30.\nSELECT * FROM article WHERE author.age < 30 FETCH author;",
+      "-- Cancel this conditional filtering based on graph edge properties\n-- if it's not finished within 5 seconds\nSELECT * FROM person WHERE ->knows->person->(knows WHERE influencer = true) TIMEOUT 5s;",
+      "-- Fetch and process the person, purchased and product targets in parallel\n-- Select every product that was purchased by a person that purchased a product that person tobie also purchased\nSELECT ->purchased->product<-purchased<-person->purchased->product FROM person:tobie PARALLEL;",
+      "-- Select every person and order them by name using temporary files rather than memory.\nSELECT * FROM person ORDER BY name TEMPFILES;",
+      "CREATE person:tobie SET\n\tname = \"Tobie\",\n\taddress = \"1 Bagshot Row\",\n\temail = \"tobie@surrealdb.com\";\n\nSELECT * FROM person WHERE email='tobie@surrealdb.com' EXPLAIN;\nSELECT * FROM person WHERE email='tobie@surrealdb.com' EXPLAIN FULL;",
+      "DEFINE INDEX fast_email ON TABLE person FIELDS email;\n\nCREATE person:tobie SET\n\tname = \"Tobie\",\n\taddress = \"1 Bagshot Row\",\n\temail = \"tobie@surrealdb.com\";\n\nSELECT * FROM person WHERE email='tobie@surrealdb.com' EXPLAIN;\nSELECT * FROM person WHERE email='tobie@surrealdb.com' EXPLAIN FULL;",
+      "-- forces the query planner to use the specified index(es):\nSELECT * FROM person\nWITH INDEX ft_email\nWHERE\n\temail = 'tobie@surrealdb.com' AND\n\tcompany = 'SurrealDB';\n\n-- forces the usage of the table iterator\nSELECT name FROM person WITH NOINDEX WHERE job = 'engineer' AND gender = 'm';",
+      "SELECT * FROM ONLY person:john;",
+      "-- Fails\nSELECT * FROM ONLY table_name;\n-- Succeeds\nSELECT * FROM ONLY table_name LIMIT 1;",
+      "-- Create a new record\nCREATE user:john SET name = 'John' VERSION d'2024-08-19T08:00:00Z';\n[[{ id: user:john, name: 'John' }]]\n\n-- Select the record as it is now\nSELECT * FROM user:john;\n[[{ id: user:john, name: 'John' }]]\n\n-- Select the record as it was at a specific point in time\nSELECT * FROM user:john VERSION d'2024-08-19T08:00:00Z';\n[[{ id: user:john, name: 'John' }]]\n\n-- Select the record as it was at a specific point in time that doesn't exist\nSELECT * FROM user:john VERSION d'2024-08-19T07:00:00Z';\n[[]]\n\n-- Update the record to the user john\nupdate user:john Set hight =\"55\"\n[[{ hight: '55', id: user:john, name: 'John' }]]\n\n-- Confirm that the record is updated\nSELECT * FROM user:john;\n[[{ hight: '55', id: user:john, name: 'John' }]]\n\n-- Select the record for the timestamp before the update\nSELECT * FROM user:john VERSION d'2024-08-19T08:00:00Z';\n[[{ id: user:john, name: 'John' }]]",
+      "SELECT * FROM user VERSION time::now();\n\nLET $now = time::now();\nSELECT * FROM user VERSION $now;\n\nDEFINE FUNCTION fn::yesterday() { time::now() - 1d };\nSELECT * FROM user VERSION fn::yesterday();",
+      "CREATE |person:1..3|;\n\nRELATE person:1->likes->person:2 SET like_strength = 20, know_in_person = true;\nRELATE person:1->likes->person:3 SET like_strength = 5,  know_in_person = false;\nRELATE person:2->likes->person:1 SET like_strength = 10, know_in_person = true;\nRELATE person:2->likes->person:3 SET like_strength = 12, know_in_person = false;\nRELATE person:3->likes->person:1 SET like_strength = 2,  know_in_person = false;\nRELATE person:3->likes->person:2 SET like_strength = 9,  know_in_person = false;\n\nSELECT ->likes AS likes FROM person;\nSELECT ->(SELECT like_strength FROM likes) AS likes FROM person;\nSELECT ->(SELECT like_strength FROM likes WHERE like_strength > 10) AS likes FROM person;\nSELECT ->(likes WHERE like_strength > 10) AS likes FROM person;\nSELECT ->(SELECT like_strength, know_in_person FROM likes ORDER BY like_strength DESC) AS likes FROM person;\nSELECT ->(SELECT count() as count, know_in_person FROM likes GROUP BY know_in_person) AS likes FROM person;\nSELECT ->(likes LIMIT 1) AS likes FROM person;\nSELECT ->(likes START 1) AS likes FROM person;"
+    ],
+    "title": "SELECT statement | SurrealQL",
+    "description": "The SELECT statement can be used for selecting and querying data in a database.",
+    "sidebar_label": "SELECT"
+  },
+  "statements.kill": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/kill.mdx",
+    "hierarchy": "statements.kill",
+    "frontmatter": {
+      "sidebar_position": 13,
+      "sidebar_label": "KILL",
+      "title": "KILL statement | SurrealQL",
+      "description": "The KILL statement is used to terminate a running live query."
+    },
+    "syntax_blocks": [
+      "KILL @value;"
+    ],
+    "example_blocks": [
+      "LIVE SELECT DIFF FROM person;\n-- output: u'0189d6e3-8eac-703a-9a48-d9faa78b44b9'\n\n-- Some time later...\nKILL u\"0189d6e3-8eac-703a-9a48-d9faa78b44b9\";",
+      "-- Define the parameter\nLET $live_query_id = u\"0189d6e3-8eac-703a-9a48-d9faa78b44b9\";\n-- Use the parameter\nKILL $live_query_id;",
+      "LET $rand = rand::uuid();\nKILL $rand;\nKILL u'9276b05b-e59a-49cd-9dd1-17c6fd15c28f';",
+      "LIVE SELECT * FROM person;\n\n-- Output is a UUID:\n-- u'cf447091-9463-4d75-b32a-08513eb2a07c'\n\nKILL u'cf447091-9463-4d75-b32a-08513eb2a07c';"
+    ],
+    "title": "KILL statement | SurrealQL",
+    "description": "The KILL statement is used to terminate a running live query.",
+    "sidebar_label": "KILL"
+  },
+  "statements.let": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/let.mdx",
+    "hierarchy": "statements.let",
+    "frontmatter": {
+      "sidebar_position": 14,
+      "sidebar_label": "LET",
+      "title": "LET statement | SurrealQL",
+      "description": "The LET statement sets and stores a value which can then be used in a subsequent query."
+    },
+    "syntax_blocks": [
+      "LET $@parameter [: @type_name] = @value;"
+    ],
+    "example_blocks": [
+      "-- Define the parameter\nLET $name = \"tobie\";\n-- Use the parameter\nCREATE person SET name = $name;",
+      "-- Define the parameter\nLET $adults = SELECT * FROM person WHERE age > 18;\n-- Use the parameter\nUPDATE $adults SET adult = true;",
+      "LET $num = 10;\n\nLET $num_type =\n         IF type::is::int($num)     { \"integer\" }\n    ELSE IF type::is::decimal($num) { \"decimal\" }\n    ELSE IF type::is::float($num)   { \"float\"   };",
+      "LET $before = \"Before!\";\n\n-- Returns [\"Before!\"];\nRETURN $before;\n\n-- Returns the `person` records before deletion\nDELETE person RETURN $before;\n\n-- Returns \"Before!\" again\nRETURN $before;",
+      "LET $auth = 1;\nLET $session = 10;",
+      "LET $number: int = \"9\";",
+      "CREATE some:record SET vals = [\"true\", \"false\", \"true\"];\nsome:record.vals.filter(|$val| $val = true).len();",
+      "LET $vals: array<bool> = some:record.vals;\nLET $len: number = $vals.filter(|$val| $val = true).len();\n$len;",
+      "-- Use .map() to turn each string into a bool\nLET $vals: array<bool> = some:record.vals.map(|$val| <bool>$val);\nLET $len: number = $vals.filter(|$val| $val = true).len();\n$len;",
+      "LET $number: int | string = \"9\";",
+      "LET $error_info: string | { error: string } = { error: \"Something went wrong plz help\" };"
+    ],
+    "title": "LET statement | SurrealQL",
+    "description": "The LET statement sets and stores a value which can then be used in a subsequent query.",
+    "sidebar_label": "LET"
+  },
+  "statements.upsert": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/upsert.mdx",
+    "hierarchy": "statements.upsert",
+    "frontmatter": {
+      "sidebar_position": 25,
+      "sidebar_label": "UPSERT",
+      "title": "UPSERT statement | SurrealQL",
+      "description": "The UPSERT statement can be used to insert records or modify records that already exist"
+    },
+    "syntax_blocks": [
+      "UPSERT [ ONLY ] @targets\n    [ CONTENT @value\n      | MERGE @value\n      | PATCH @value\n\t  | REPLACE @value\n      | [ SET @field = @value, ... | UNSET @field, ... ]\n    ]\n    [ WHERE @condition ]\n    [ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n    [ TIMEOUT @duration ]\n    [ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+    ],
+    "example_blocks": [
+      "UPSERT person SET name = 'Billy';\nUPSERT person SET name = 'Bobby';\nSELECT * FROM person;",
+      "UPSERT person SET name = 'Jaime' WHERE name = 'Jaime';",
+      "UPSERT person SET name = 'Tobie' WHERE name = 'Jaime';",
+      "UPSERT person SET name = 'Tobie' WHERE name = 'Jaime';\nSELECT * FROM person;",
+      "UPSERT person:test SET name = 'Jaime' WHERE name = 'Jaime';",
+      "UPSERT person:test SET name = 'Tobie' WHERE name = 'Jaime';",
+      "UPSERT person:test SET name = 'Billy' WHERE name = 'Jaime';",
+      "DEFINE INDEX unique_key ON TABLE user FIELDS name, class UNIQUE;\nDEFINE FIELD official_name ON TABLE user VALUE name + \" the \" + class;\nCREATE user SET name = \"Billy\", class = \"wizard\", metadata = { likes: [\"strawberries\"] };\nCREATE user SET name = \"Billy\", class = \"wizard\", metadata = { likes: [\"strawberries\", \"fields\"] };",
+      "UPDATE user SET\n\tmetadata = { likes: [\"strawberries\", \"fields\"] }\nWHERE\n\tname = \"Billy\" AND\n\tclass = \"wizard\";",
+      "-- Checks the index for [\"Mandy\", \"wizard\"], no existing\n-- record found so no problem\nUPSERT user SET name = \"Mandy\", class = \"wizard\";\n\n-- Fails because statement tries to upsert a new user:mandy\n-- on top of the previous randomly generated one\nUPSERT user:mandy SET \n\tname = \"Mandy\",\n\tclass = \"wizard\",\n\tmetadata = { likes: [\"strawberries\" ]};",
+      "UPSERT user SET\n\tname = \"Billy\",\n\tclass = \"wizard\",\n\tmetadata = { likes: [\"strawberries\", \"fields\"] };",
+      "DEFINE INDEX unique_key ON TABLE user FIELDS name, class UNIQUE;\nDEFINE FIELD official_name ON TABLE user VALUE name + \" the \" + class;\n\n-- Add 50000 users to fill up the database\nFOR $i IN <array>0..50000 { CREATE user SET name = <string>$i, class = <string>$i; };\n\n-- Create Billy, one of 50,001 records\nCREATE user SET name = \"Billy\", class = \"wizard\";\n\n-- Updating Billy requires a table scan\nUPDATE user SET\n\tinterests += \"music\"\nWHERE\n\tname = \"Billy\" AND\n\tclass = \"wizard\";\n\n-- But UPSERT uses 'name' and 'class' to check the index anyway,\n-- and thus can use it to access the record without a scan\nUPSERT user SET\n\tname = \"Billy\",\n\tclass = \"wizard\",\n\tinterests += \"travel\";",
+      "-- UPSERT just a single record\n-- Using the ONLY keyword, just an object for the record in question will be returned.\n-- This, instead of an array with a single object.\nUPSERT ONLY person:tobie SET \n\tname = 'Tobie', \n\tcompany = 'SurrealDB', \n\tskills = ['Rust', 'Go', 'JavaScript'];",
+      "-- UPSERT a document and remove a tag from an array\nUPSERT person:tobie SET interests += 'Java';",
+      "-- UPSERT a document and increment a numeric value\nUPSERT webpage:home SET click_count += 1;",
+      "UPSERT event_for:[time::now().format(\"%Y-%m-%d\")] SET\n    number += 1;",
+      "IF (SELECT * FROM event_for:[time::now().format(\"%Y-%m-%d\")]).is_empty() {\n    CREATE event_for:[time::now().format(\"%Y-%m-%d\")] SET number = 1;\n} ELSE {\n    UPDATE event_for:[time::now().format(\"%Y-%m-%d\")] SET number += 1;\n};",
+      "-- UPSERT all records with the same content\nUPSERT person CONTENT {\n\tname: 'Tobie',\n\tcompany: 'SurrealDB',\n\tskills: ['Rust', 'Go', 'JavaScript'],\n};\n\n-- UPSERT a specific record with some content\nUPSERT person:tobie CONTENT {\n\tname: 'Tobie',\n\tcompany: 'SurrealDB',\n\tskills: ['Rust', 'Go', 'JavaScript'],\n};",
+      "DEFINE FIELD created ON person TYPE datetime DEFAULT d'2024-01-01T00:00:00Z' READONLY;\nUPSERT person:gladys SET age = 90;\n-- Does not try to modify `created` field, no error\nUPSERT person:gladys CONTENT { age: 70 };",
+      "-------- Query --------\n[\n\t{\n\t\tage: 90,\n\t\tcreated: d'2024-01-01T00:00:00Z',\n\t\tid: person:gladys\n\t}\n]\n\n-------- Query --------\n'Found changed value for field `created`, with record `person:gladys`, but field is readonly'",
+      "-------- Query --------\n[\n\t{\n\t\tage: 90,\n\t\tcreated: d'2024-01-01T00:00:00Z',\n\t\tid: person:gladys\n\t}\n]\n\n-------- Query --------\n[\n\t{\n\t\tage: 70,\n\t\tcreated: d'2024-01-01T00:00:00Z',\n\t\tid: person:gladys\n\t}\n]",
+      "DEFINE FIELD created ON person TYPE datetime DEFAULT d'2024-01-01T00:00:00Z' READONLY;\nUPSERT person:gladys SET age = 90;\n-- Attempts to change `created` field, error\nUPSERT person:gladys REPLACE { age: 70 };\n-- `created` equals current value, query works\nUPSERT person:gladys REPLACE { age: 70, created: d'2024-01-01T00:00:00Z' };",
+      "-- Inserts a new record with a single field and random ID\nUPSERT person MERGE {\n\tsettings: {\n\t\tmarketing: true,\n\t},\n};\n\n-- Updates certain fields on a specific record\nUPSERT person:tobie MERGE {\n\tsettings: {\n\t\tmarketing: true,\n\t},\n};",
+      "-- Patch the JSON response\nUPSERT person:tobie PATCH [\n\t{\n\t\t\"op\": \"add\",\n\t\t\"path\": \"Engineering\",\n\t\t\"value\": \"true\"\n\t}\n];",
+      "-- Don't return any result\nUPSERT person:tobie SET interests += 'reading' RETURN NONE;\n\n-- Return the changeset diff\nUPSERT person:tobie SET interests += 'reading' RETURN DIFF;\n\n-- Return the record before changes were applied\nUPSERT person:tobie SET interests += 'reading' RETURN BEFORE;\n\n-- Return the record after changes were applied (the default)\nUPSERT person:tobie SET interests += 'reading' RETURN AFTER;\n\n-- Return a specific field only from the upserted records\nUPSERT person:tobie SET interests = ['skiing', 'music'] RETURN name, interests;",
+      "UPSERT person:3 SET important = true WHERE ->knows->person->(knows WHERE influencer = true) TIMEOUT 5s;"
+    ],
+    "title": "UPSERT statement | SurrealQL",
+    "description": "The UPSERT statement can be used to insert records or modify records that already exist",
+    "sidebar_label": "UPSERT"
+  },
+  "statements.for": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/for.mdx",
+    "hierarchy": "statements.for",
+    "frontmatter": {
+      "sidebar_position": 9,
+      "sidebar_label": "FOR",
+      "title": "FOR statement | SurrealQL",
+      "description": "The FOR statement creates a loop that iterates over the values of an array."
+    },
+    "syntax_blocks": [
+      "FOR @item IN @iterable {\n@block\n};"
+    ],
+    "example_blocks": [
+      "-- Create a person for everyone in the array\nFOR $name IN ['Tobie', 'Jaime'] {\n\tCREATE type::thing('person', $name) CONTENT {\n\t\tname: $name\n\t};\n};",
+      "-- Set can_vote to true for every person over 18 years old.\nFOR $person IN (SELECT VALUE id FROM person WHERE age >= 18) {\n\tUPDATE $person SET can_vote = true;\n};",
+      "FOR $year IN 0..=2024 {\n    CREATE historical_events SET\n        for_year = $year,\n        events = \"To be added\";\n}",
+      "LET $table1 = \"person\";\nLET $table2 = \"cat\";\n\nFOR $i in 0..4 {\n    CREATE type::thing($table1, $i);\n\tCREATE type::thing($table2, $i);\n};",
+      "LET $init = [];\n\nFOR $num IN 1..=3 {\n\t$init += $num;\n};\n\nRETURN $init;",
+      "(<array>1..=3).reduce(|$one, $two| $one + $two);"
+    ],
+    "title": "FOR statement | SurrealQL",
+    "description": "The FOR statement creates a loop that iterates over the values of an array.",
+    "sidebar_label": "FOR"
+  },
+  "statements.update": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/update.mdx",
+    "hierarchy": "statements.update",
+    "frontmatter": {
+      "sidebar_position": 24,
+      "sidebar_label": "UPDATE",
+      "title": "UPDATE statement | SurrealQL",
+      "description": "The UPDATE statement can be used to update records in the database. If they already exist, they will be updated. If they do not exist, no records will be updated."
+    },
+    "syntax_blocks": [
+      "UPDATE [ ONLY ] @targets\n\t[ CONTENT @value\n\t  | MERGE @value\n\t  | PATCH @value\n\t  | REPLACE @value\n\t  | [ SET @field = @value, ... | UNSET @field, ... ]\n\t]\n\t[ WHERE @condition ]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+    ],
+    "example_blocks": [
+      "-- Create a Schemaless person table with a random id\nCREATE person CONTENT {\n    name: 'John',\n    company: 'Surrealist',\n    skills: ['JavaScript', 'Go' , 'SurrealQL']\n};\n\n-- Create another person with a specific id\nCREATE person:tobie CONTENT {\n    name: 'Tobie',\n    company: 'SurrealDB',\n    skills: ['JavaScript', 'Go' , 'SurrealQL']\n};",
+      "-- Update all records in a table\n-- The `enjoys` field will also be an array.\n-- The += operator alone is enough to infer the type\nUPDATE person SET \n\tdollars = 50,\n\tskills += 'breathing',\n\tenjoys += 'reading',\n\tfull_name = name + ' Mc' + name + 'erson';",
+      "-- Update a record with a specific string id to add a new skill: 'Rust'\nUPDATE person:tobie SET skills += 'Rust';",
+      "UPDATE person:tobie SET \n\tskills -= 'Go', \n\tdollars -= 1;",
+      "-- Remove the company field by setting it to NONE or using the UNSET keyword\nUPDATE person:tobie SET company = NONE;\n\nUPDATE person:tobie UNSET company;",
+      "-- Update all records which match the condition that `company` is not equal to \"SurrealDB\"\nUPDATE person SET skills += \"System design\" WHERE company != \"SurrealDB\";",
+      "-- Update all records with the same content\nUPDATE person CONTENT {\n\tname: 'John',\n\tcompany: 'SurrealDB',\n\tskills: ['Rust', 'Go', 'JavaScript'],\n};\n\n-- Oops, now they are both named John.\n-- Update a specific record with some content\nUPDATE person:tobie CONTENT {\n\tname: 'Tobie',\n\tcompany: 'SurrealDB',\n\tskills: ['Rust', 'Go', 'JavaScript'],\n};",
+      "DEFINE FIELD created ON person TYPE datetime DEFAULT d'2024-01-01T00:00:00Z' READONLY;\nCREATE person:gladys SET age = 90;\n-- Does not try to modify `created` field, no error\nUPDATE person:gladys CONTENT { age: 70 };",
+      "-------- Query --------\n[\n\t{\n\t\tage: 90,\n\t\tcreated: d'2024-01-01T00:00:00Z',\n\t\tid: person:gladys\n\t}\n]\n\n-------- Query --------\n'Found changed value for field `created`, with record `person:gladys`, but field is readonly'",
+      "-------- Query --------\n[\n\t{\n\t\tage: 90,\n\t\tcreated: d'2024-01-01T00:00:00Z',\n\t\tid: person:gladys\n\t}\n]\n\n-------- Query --------\n[\n\t{\n\t\tage: 70,\n\t\tcreated: d'2024-01-01T00:00:00Z',\n\t\tid: person:gladys\n\t}\n]",
+      "DEFINE FIELD created ON person TYPE datetime DEFAULT d'2024-01-01T00:00:00Z' READONLY;\nCREATE person:gladys SET age = 90;\n-- Attempts to change `created` field, error\nUPDATE person:gladys REPLACE { age: 70 };\n-- `created` equals current value, query works\nUPDATE person:gladys REPLACE { age: 70, created: d'2024-01-01T00:00:00Z' };",
+      "-- Update certain fields on all records\nUPDATE person MERGE {\n\tsettings: {\n\t\tmarketing: true,\n\t},\n};\n\n-- Update certain fields on a specific record\nUPDATE person:tobie MERGE {\n\tsettings: {\n\t\tmarketing: true,\n\t},\n};",
+      "-- Patch the JSON response\nUPDATE person:tobie PATCH [\n\t{\n\t\t\"op\": \"add\",\n\t\t\"path\": \"Engineering\",\n\t\t\"value\": \"true\"\n\t}\n]",
+      "-- Don't return any result\nUPDATE person SET skills += 'reading' RETURN NONE;\n\n-- Return the changeset diff\nUPDATE person SET skills += 'reading' RETURN DIFF;\n\n-- Return the record before changes were applied\nUPDATE person SET skills += 'reading' RETURN BEFORE;\n\n-- Return the record after changes were applied (the default)\nUPDATE person SET skills += 'reading' RETURN AFTER;\n\n-- Return the value of the 'skills' field without the field name\nUPDATE person SET skills += 'reading' RETURN VALUE skills;\n\n-- Return a specific field only from the updated records\nUPDATE person:tobie SET skills = ['skiing', 'music'] RETURN name, interests;",
+      "UPDATE person \n\tSET important = true \n\tWHERE ->knows->person->(knows WHERE influencer = true) \n\tTIMEOUT 5s;"
+    ],
+    "title": "UPDATE statement | SurrealQL",
+    "description": "The UPDATE statement can be used to update records in the database. If they already exist, they will be updated. If they do not exist, no records will be updated.",
+    "sidebar_label": "UPDATE"
+  },
+  "statements.continue": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/continue.mdx",
+    "hierarchy": "statements.continue",
+    "frontmatter": {
+      "sidebar_position": 6,
+      "sidebar_label": "CONTINUE",
+      "title": "CONTINUE statement | SurrealQL",
+      "description": "The CONTINUE statement can be used to skip an iteration of a loop, like within the FOR statement"
+    },
+    "syntax_blocks": [
+      "CONTINUE"
+    ],
+    "example_blocks": [
+      "-- Set can_vote to true for every person over 18 years old.\nFOR $person IN (SELECT id, age FROM person) {\n\tIF ($person.age < 18) {\n\t\tCONTINUE;\n\t};\n\n\tUPDATE $person.id SET can_vote = true;\n};",
+      "-- Data retrieved from somewhere which contains many NONE values\nLET $weather = [\n\t{\n\t\tcity: 'London',\n\t\ttemperature: 22.2,\n\t\ttimestamp: 1722565566389\n\t},\n\tNONE,\n\t{\n\t\tcity: 'London',\n\t\ttemperature: 20.1,\n\t\ttimestamp: 1722652002699\n\t},\n    {\n        city: 'Phoenix',\n        temperature: 45.1,\n        timestamp: 1722565642160\n    },\n    NONE,\n    NONE,\n    {\n        city: 'Phoenix',\n        temperature: 45.1,\n        timestamp: 1722652070372\n    },\n];\n\nFOR $data IN $weather {\n    IF $data IS NONE {\n        CONTINUE;\n    };\n\n\tCREATE weather CONTENT $data;\n};"
+    ],
+    "title": "CONTINUE statement | SurrealQL",
+    "description": "The CONTINUE statement can be used to skip an iteration of a loop, like within the FOR statement",
+    "sidebar_label": "CONTINUE"
+  },
+  "statements.remove": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/remove.mdx",
+    "hierarchy": "statements.remove",
+    "frontmatter": {
+      "sidebar_position": 18,
+      "sidebar_label": "REMOVE",
+      "title": "REMOVE statement | SurrealQL",
+      "description": "The REMOVE statement is used to remove resources such as databases, tables, indexes, events and more."
+    },
+    "syntax_blocks": [
+      "REMOVE [\n\tNAMESPACE [ IF EXISTS ] @name\n\t| DATABASE [ IF EXISTS] @name\n\t| USER [ IF EXISTS ] @name ON [ ROOT | NAMESPACE | DATABASE ]\n\t| ACCESS [ IF EXISTS ] @name ON [ NAMESPACE | DATABASE ]\n\t| EVENT [ IF EXISTS ] @name ON [ TABLE ] @table\n\t| FIELD [ IF EXISTS ] @name ON [ TABLE ] @table\n\t| INDEX [ IF EXISTS ] @name ON [ TABLE ] @table\n    | ANALYZER [ IF EXISTS ] @name\n    | FUNCTION [ IF EXISTS ] fn::@name\n    | PARAM [ IF EXISTS ] $@name\n\t| TABLE [ IF EXISTS ] @name\n]"
+    ],
+    "example_blocks": [
+      "REMOVE NAMESPACE surrealdb;\n\nREMOVE DATABASE blog;\n\nREMOVE USER writer ON NAMESPACE;\n\nREMOVE USER writer ON DATABASE;\n\nREMOVE ACCESS token ON NAMESPACE;\n\nREMOVE ACCESS user ON DATABASE;\n\nREMOVE EVENT new_post ON TABLE article;\n\n-- Only works for Schemafull tables (i.e. tables with a schema)\nREMOVE FIELD tags ON TABLE article;\n\nREMOVE INDEX authors ON TABLE article;\n\nREMOVE ANALYZER example_ascii;\n\nREMOVE FUNCTION fn::update_author;\n\nREMOVE PARAM $author;\n\nREMOVE TABLE article;",
+      "REMOVE NAMESPACE IF EXISTS surrealdb;\n\nREMOVE DATABASE IF EXISTS blog;\n\nREMOVE USER IF EXISTS writer ON NAMESPACE;\n\nREMOVE USER IF EXISTS writer ON DATABASE;\n\nREMOVE ACCESS IF EXISTS token ON NAMESPACE;\n\nREMOVE ACCESS IF EXISTS user ON DATABASE;\n\nREMOVE EVENT IF EXISTS new_post ON TABLE article;\n\n-- Only works for Schemaful tables (i.e. tables with a schema)\nREMOVE FIELD IF EXISTS tags ON TABLE article;\n\nREMOVE INDEX IF EXISTS authors ON TABLE article;\n\nREMOVE ANALYZER IF EXISTS example_ascii;\n\nREMOVE FUNCTION IF EXISTS fn::update_author;\n\nREMOVE PARAM IF EXISTS $author;\n\nREMOVE TABLE IF EXISTS article;"
+    ],
+    "title": "REMOVE statement | SurrealQL",
+    "description": "The REMOVE statement is used to remove resources such as databases, tables, indexes, events and more.",
+    "sidebar_label": "REMOVE"
+  },
+  "statements.delete": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/delete.mdx",
+    "hierarchy": "statements.delete",
+    "frontmatter": {
+      "sidebar_position": 8,
+      "sidebar_label": "DELETE",
+      "title": "DELETE statement | SurrealQL",
+      "description": "The DELETE statement can be used to delete records from the database."
+    },
+    "syntax_blocks": [
+      "DELETE [ FROM | ONLY ] @targets\n\t[ WHERE @condition ]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+    ],
+    "example_blocks": [
+      "-- Delete all records from a table\nDELETE person;",
+      "-- Delete a record with a specific numeric id\nDELETE person:100;\n\n-- Delete a record with a specific string id\nDELETE person:tobie;",
+      "DELETE ONLY person:tobie RETURN BEFORE;",
+      "DELETE ONLY person:tobie;",
+      "-- Update all records which match the condition\nDELETE city WHERE name = 'London';",
+      "-- Don't return any result (the default)\nDELETE user WHERE age < 18 RETURN NONE;\n\n-- Return the changeset diff\nDELETE user WHERE interests CONTAINS 'reading' RETURN DIFF;\n\n-- Return the record before changes were applied\nDELETE user WHERE interests CONTAINS 'reading' RETURN BEFORE;\n\n-- Return the record after changes were applied\nDELETE user WHERE interests CONTAINS 'reading' RETURN AFTER;",
+      "CREATE cat:one SET age = 4;\nCREATE cat:two;\nDELETE cat WHERE age;\nSELECT * FROM cat;",
+      "DEFINE FIELD error_info ON TABLE info TYPE\n      { continue: { message: \"Continue\" } }\n    | { retry_with_id: { error: string  } }\n    | { deprecated: { message: string   } };\n\nCREATE info SET error_info = { continue: { message: \"Continue\" }};\nCREATE info SET error_info = { continue: { message: \"Continue\" }};\nCREATE info SET error_info = { deprecated: { message: \"We don't use this anymore\" }};\n\nDELETE info WHERE error_info.continue;\nSELECT * FROM info;",
+      "DELETE person WHERE ->knows->person->(knows WHERE influencer = false) TIMEOUT 5s;",
+      "RELATE person:tobie->bought->product:iphone;\n\n[\n\t{\n\t\t\"id\": bought:ctwsll49k37a7rmqz9rr,\n\t\t\"in\": person:tobie,\n\t\t\"out\": product:iphone\n\t}\n]",
+      "DELETE person:tobie->bought WHERE out=product:iphone;",
+      "DEFINE EVENT archive_person ON TABLE person WHEN $event = \"DELETE\" THEN {\n    CREATE deleted_person SET\n        data = $before,\n        deleted_at = time::now()\n};\n\nCREATE |person:1..3|;\nDELETE person:1;\n\n-- Only two `person` records left\nSELECT * FROM person;\n-- But the data of `person:1` is still here\nSELECT * FROM deleted_person;"
+    ],
+    "title": "DELETE statement | SurrealQL",
+    "description": "The DELETE statement can be used to delete records from the database.",
+    "sidebar_label": "DELETE"
+  },
+  "statements.throw": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/throw.mdx",
+    "hierarchy": "statements.throw",
+    "frontmatter": {
+      "sidebar_position": 23,
+      "sidebar_label": "THROW",
+      "title": "THROW statement | SurrealQL",
+      "description": "The THROW statement can be used to stop execution of a query and return information on the underlying problem"
+    },
+    "syntax_blocks": [
+      "THROW @error"
+    ],
+    "example_blocks": [
+      "-- Throw an error\nTHROW \"some error message\";",
+      "-- In this example, we throw a custom error when a user provides invalid signin details\nDEFINE ACCESS user ON DATABASE TYPE RECORD\n\tSIGNIN {\n\t\tLET $user = (SELECT * FROM user WHERE username = $username AND crypto::argon2::compare(password, $password));\n\t\tIF !$user {\n\t\t\tTHROW \"You either provided invalid credentials, or a user with the username \" + <string> $username + \" might not exist.\";\n\t\t};\n\n\t\tRETURN $user;\n\t}\n\tDURATION FOR SESSION 1w\n;",
+      "CREATE event SET time = time::now();\nCREATE event SET time = time::now();\nTHROW SELECT * FROM event;",
+      "BEGIN TRANSACTION;\nLET $transfer_amount = 150;\nCREATE account:one SET dollars =  100;\nCREATE account:two SET dollars =  100;\nUPDATE account:one SET dollars -= $transfer_amount;\nUPDATE account:two SET dollars += $transfer_amount;\nIF account:one.dollars < 0 {\n    THROW \"Insufficient funds, would have $\" + <string>account:one.dollars + \" after transfer\"\n};\nCOMMIT TRANSACTION;\nSELECT * FROM account;"
+    ],
+    "title": "THROW statement | SurrealQL",
+    "description": "The THROW statement can be used to stop execution of a query and return information on the underlying problem",
+    "sidebar_label": "THROW"
+  },
+  "statements.return": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/return.mdx",
+    "hierarchy": "statements.return",
+    "frontmatter": {
+      "sidebar_position": 19,
+      "sidebar_label": "RETURN",
+      "title": "RETURN statement | SurrealQL",
+      "description": "The RETURN statement can be used to return an implicit value or the result of a query, and to set the return value for a transaction, block or function."
+    },
+    "syntax_blocks": [
+      "RETURN @value"
+    ],
+    "example_blocks": [
+      "-- Return a simple value\nRETURN 123;\nRETURN \"I am a string!\";\nRETURN {\n\tprop: \"value\"\n};\n\n-- Return the result of a query\nRETURN SELECT * FROM person;\nRETURN (CREATE person).id;",
+      "123;\n\"I am a string!\";\n{\n\tprop: \"value\"\n};\nSELECT * FROM person;\n(CREATE person).id;"
+    ],
+    "title": "RETURN statement | SurrealQL",
+    "description": "The RETURN statement can be used to return an implicit value or the result of a query, and to set the return value for a transaction, block or function.",
+    "sidebar_label": "RETURN"
+  },
+  "statements.begin": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/begin.mdx",
+    "hierarchy": "statements.begin",
+    "frontmatter": {
+      "sidebar_position": 2,
+      "sidebar_label": "BEGIN",
+      "title": "BEGIN statement | SurrealQL",
+      "description": "The BEGIN statement starts a single transaction in which run multiple statements can be run, either succeeding as a whole, or failing."
+    },
+    "syntax_blocks": [
+      "BEGIN [ TRANSACTION ];"
+    ],
+    "example_blocks": [
+      "-- Start a new database transaction. Transactions are a way to ensure multiple operations\n-- either all succeed or all fail, maintaining data integrity.\nBEGIN TRANSACTION;\n\n-- Create a new account with the ID 'one' and set its initial balance to 135605.16\nCREATE account:one SET balance = 135605.16;\n\n-- Create another new account with the ID 'two' and set its initial balance to 91031.31\nCREATE account:two SET balance = 91031.31;\n\n-- Update the balance of account 'one' by adding 300.00 to the current balance.\n-- This could represent a deposit or other form of credit on the balance property.\nUPDATE account:one SET balance += 300.00;\n\n-- Update the balance of account 'two' by subtracting 300.00 from the current balance.\n-- This could represent a withdrawal or other form of debit on the balance property.\nUPDATE account:two SET balance -= 300.00;\n\n-- Finalize the transaction. This will apply the changes to the database. If there was an error\n-- during any of the previous steps within the transaction, all changes would be rolled back and\n-- the database would remain in its initial state.\nCOMMIT TRANSACTION;",
+      "BEGIN;\n\nCREATE account:one SET balance = 135605.16;\nCREATE account:two SET balance = 91031.31, wants_to_send_money = true;\n\nIF !account:two.wants_to_send_money {\n    THROW \"Customer doesn't want to send any money!\";\n};\n\nLET $first = UPDATE ONLY account:one SET balance += 300.00;\nLET $second = UPDATE ONLY account:two SET balance -= 300.00;\n\nRETURN \"Money sent! Status:\\n\" + <string>$first + '\\n' + <string>$second;\n\nCOMMIT;"
+    ],
+    "title": "BEGIN statement | SurrealQL",
+    "description": "The BEGIN statement starts a single transaction in which run multiple statements can be run, either succeeding as a whole, or failing.",
+    "sidebar_label": "BEGIN"
+  },
+  "statements.alter": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/alter.mdx",
+    "hierarchy": "statements.alter",
+    "frontmatter": {
+      "sidebar_position": 1,
+      "sidebar_label": "ALTER",
+      "title": "ALTER statement | SurrealQL",
+      "description": "The ALTER statement can be used to change authentication access and behaviour, global parameters, table configurations, table events, schema definitions, and indexes."
+    },
+    "syntax_blocks": [
+      "ALTER [\n\t| TABLE [ IF EXISTS ] @name\n\t\t[ DROP ]\n\t\t[ SCHEMAFULL | SCHEMALESS ]\n\t\t[ PERMISSIONS [ NONE | FULL\n\t\t\t| FOR select @expression\n\t\t\t| FOR create @expression\n\t\t\t| FOR update @expression\n\t\t\t| FOR delete @expression\n\t\t] ]\n    [ COMMENT @string ]\n]"
+    ],
+    "example_blocks": [
+      "DEFINE TABLE user SCHEMALESS;\nDEFINE FIELD name ON TABLE user TYPE string;\nCREATE user SET name = \"LordofSalty\";\n\n-- Now make it schemafull to ensure that no other fields can be used\nALTER TABLE user SCHEMAFULL;",
+      "-- Will show up as DEFINE TABLE user TYPE ANY SCHEMAFULL PERMISSIONS NONE\nDEFINE TABLE user SCHEMAFULL;\n\n-- Now defined as DEFINE TABLE user TYPE ANY SCHEMAFULL PERMISSIONS FULL\nALTER TABLE user PERMISSIONS FOR create FULL;",
+      "ALTER TABLE IF EXISTS user SCHEMAFULL;"
+    ],
+    "title": "ALTER statement | SurrealQL",
+    "description": "The ALTER statement can be used to change authentication access and behaviour, global parameters, table configurations, table events, schema definitions, and indexes.",
+    "sidebar_label": "ALTER"
+  },
+  "statements.use": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/use.mdx",
+    "hierarchy": "statements.use",
+    "frontmatter": {
+      "sidebar_position": 26,
+      "sidebar_label": "USE",
+      "title": "USE statement | SurrealQL",
+      "description": "The USE statement specifies a namespace and / or a database to use for the subsequent SurrealQL statements when switching between namespaces and databases."
+    },
+    "syntax_blocks": [
+      "USE [ NS @ns ] [ DB @db ];"
+    ],
+    "example_blocks": [
+      "USE NS test; -- Switch to the 'test' Namespace",
+      "USE DB test; -- Switch to the 'test' Database",
+      "USE NS test DB test; -- Switch to the 'test' Namespace and 'test' Database",
+      "INFO FOR NS; -- Check the current Namespace",
+      "INFO FOR DB; -- Check the current Database"
+    ],
+    "title": "USE statement | SurrealQL",
+    "description": "The USE statement specifies a namespace and / or a database to use for the subsequent SurrealQL statements when switching between namespaces and databases.",
+    "sidebar_label": "USE"
+  },
+  "statements.sleep": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/sleep.mdx",
+    "hierarchy": "statements.sleep",
+    "frontmatter": {
+      "sidebar_position": 22,
+      "sidebar_label": "SLEEP",
+      "title": "SLEEP statement | SurrealQL",
+      "description": "The SLEEP statement is used to introduce a delay or pause in the execution of a query or a batch of queries for a specific amount of time."
+    },
+    "syntax_blocks": [
+      "SLEEP @duration;"
+    ],
+    "example_blocks": [
+      "-- Sleep one second\nSLEEP 1s;\n-- Sleep 100 milliseconds\nSLEEP 100ms;",
+      "CREATE |user:50000| SET name = id.id() RETURN NONE;\nDEFINE INDEX unique_name ON TABLE user FIELDS name UNIQUE CONCURRENTLY;\nINFO FOR INDEX unique_name ON TABLE user;\nSLEEP 50ms;\nINFO FOR INDEX unique_name ON TABLE user;\nSLEEP 50ms;\nINFO FOR INDEX unique_name ON TABLE user;\nSLEEP 50ms;\nINFO FOR INDEX unique_name ON TABLE user;"
+    ],
+    "title": "SLEEP statement | SurrealQL",
+    "description": "The SLEEP statement is used to introduce a delay or pause in the execution of a query or a batch of queries for a specific amount of time.",
+    "sidebar_label": "SLEEP"
+  },
+  "statements.rebuild": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/rebuild.mdx",
+    "hierarchy": "statements.rebuild",
+    "frontmatter": {
+      "sidebar_position": 16,
+      "sidebar_label": "REBUILD",
+      "title": "REBUILD statement | SurrealQL",
+      "description": "The REBUILD statement is used to rebuild resources."
+    },
+    "syntax_blocks": [
+      "REBUILD [\n\tINDEX [ IF EXISTS ] @name ON [ TABLE ] @table\n]"
+    ],
+    "example_blocks": [
+      "REBUILD INDEX uniq_isbn ON book;",
+      "REBUILD INDEX IF EXISTS uniq_isbn ON book;"
+    ],
+    "title": "REBUILD statement | SurrealQL",
+    "description": "The REBUILD statement is used to rebuild resources.",
+    "sidebar_label": "REBUILD"
+  },
+  "statements.relate": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/relate.mdx",
+    "hierarchy": "statements.relate",
+    "frontmatter": {
+      "sidebar_position": 17,
+      "sidebar_label": "RELATE",
+      "title": "RELATE statement | SurrealQL",
+      "description": "The RELATE statement can be used to generate graph edges between two records in the database."
+    },
+    "syntax_blocks": [
+      "RELATE [ ONLY ] @from_record -> @table -> @to_record\n\t[ CONTENT @value\n\t  | SET @field = @value ...\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n;"
+    ],
+    "example_blocks": [
+      "CREATE person:aristotle, article:on_sleep_and_sleeplessness;\nRELATE person:aristotle->wrote->article:on_sleep_and_sleeplessness;",
+      "SELECT * FROM person, article;",
+      "SELECT * FROM wrote;",
+      "-- Aristotle's id and the articles he wrote\nSELECT id, ->wrote->article FROM person:aristotle;\n-- Every `person`'s id and written articles\n-- Same output as above as the database has a single `person` record\nSELECT id, ->wrote->article FROM person;\n-- Directly follow the path from Aristotle to his written articles\nRETURN person:aristotle->wrote->article;",
+      "DEFINE INDEX unique_relationships\n    ON TABLE wrote\n    COLUMNS in, out UNIQUE;",
+      "RELATE article:on_sleep_and_sleeplessness->wrote->person:aristotle;",
+      "DEFINE FIELD in  ON TABLE wrote TYPE record<person>;\nDEFINE FIELD out ON TABLE wrote TYPE record<article>;",
+      "INSERT INTO cat (id) VALUES (\"mr_meow\"), (\"mrs_meow\"), (\"kitten\");\nRELATE [cat:mr_meow, cat:mrs_meow]->parent_of->cat:kitten;",
+      "CREATE cat:kitten2;\nRELATE [cat:mr_meow, cat:mrs_meow]->parent_of->[cat:kitten, cat:kitten2];",
+      "RELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET \n\t\tmetadata.time_written = time::now(),\n\t\tmetadata.location = \"Tallinn\";\n\n\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n\tCONTENT {\n\t\tmetadata: {\n\t\t\ttime_written: time::now(),\n\t\t\tlocation: \"Tallinn\"\n\t\t}\n\t};",
+      "-- Add a small synopsis composed of the table name and article ID\nUPDATE wrote SET\n    metadata.description = meta::tb(out) + ' written by ' + <string>in;",
+      "LET $time = time::now();\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    CONTENT {\n        time: {\n            written: $time\n        }\n    };",
+      "LET $time = time::now();\n\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET time.written = $time;",
+      "RELATE ONLY person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm;",
+      "-- These two statements store the result of the subquery in a parameter\n-- The subquery returns an array of IDs\nLET $person =  (SELECT VALUE id FROM person);\nLET $article = (SELECT VALUE id FROM article);\n\n-- This statement creates a relationship record for every combination of Record IDs\n-- Such that if we have 10 records each in the person and article table\n-- We get 100 records in the wrote edge table (10*10 = 100)\n-- In this case it would mean that each article would have 10 authors\nRELATE $person->wrote->$article SET time.written = time::now();",
+      "-- Don't return any result\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET time.written = time::now()\n    RETURN NONE;\n\n-- Return the changeset diff\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET time.written = time::now()\n    RETURN DIFF;\n\n-- Return the record before changes were applied\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET time.written = time::now()\n    RETURN BEFORE;\n\n-- Return the record after changes were applied (the default)\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET time.written = time::now()\n    RETURN AFTER;\n\n-- Return a specific field only from the updated records\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET time.written = time::now()\n    RETURN time;\n\n-- Return only the value of a specific field without the field name\nRELATE person:l19zjikkw1p1h9o6ixrg->wrote->article:8nkk6uj4yprt49z7y3zm\n    SET time.written = time::now()\n    RETURN VALUE time;",
+      "-- Cancel this conditional filtering based on graph edge properties\n-- if not finished within 5 seconds\nSELECT * FROM person WHERE ->knows->person->(knows WHERE influencer = true) TIMEOUT 5s;",
+      "-- Fetch and process the person, purchased and product targets in parallel\n-- Select every product that was purchased by a person that purchased a product that person tobie also purchased\nSELECT ->purchased->product<-purchased<-person->purchased->product FROM person:tobie PARALLEL;",
+      "RELATE person:tobie->bought->product:iphone;",
+      "DELETE person:tobie->bought WHERE out=product:iphone RETURN BEFORE;",
+      "-- Create three people\nCREATE person:one, person:two, person:three;\n\n-- And a love triangle involving them all\nRELATE person:one  ->likes->person:two;\nRELATE person:two  ->likes->person:three;\nRELATE person:three->likes->person:one;\n\n-- Person two moves to Venus permanently, so delete\nDELETE person:two;\n\n-- Only one `likes` relationship is left\nSELECT * FROM likes;",
+      "-- Returns true if $this->has_road path is not empty\nDEFINE FIELD has_road_access ON TABLE house VALUE !!$this->has_road->road;\nCREATE road SET name = \"Dalhurst Way\", length = 10.5;",
+      "LET $road = SELECT * FROM ONLY road WHERE name = \"Dalhurst Way\" LIMIT 1;\nRELATE [\n    house:[\"Dalhurst Way\", 218],\n    house:[\"Dalhurst Way\", 222],\n    house:[\"Dalhurst Way\", 226],\n]->has_road->$road;",
+      "CREATE house:[\"Dalhurst Way\", 218] SET floors = 2, bedrooms = 5;\nCREATE house:[\"Middle of nowhere\", 0] SET floors = 4, bedrooms = 12;",
+      "-------- Query --------\n\n[\n\t{\n\t\tbedrooms: 5,\n\t\tfloors: 2,\n\t\tid: house:[\n\t\t\t'Dalhurst Way',\n\t\t\t218\n\t\t],\n\t\tstreet: []\n\t}\n]\n\n-------- Query --------\n\n[\n\t{\n\t\tbedrooms: 12,\n\t\tfloors: 4,\n\t\tid: house:[\n\t\t\t'Middle of nowhere',\n\t\t\t0\n\t\t],\n\t\tstreet: []\n\t}\n]",
+      "CREATE \n\tperson:aristotle,\n\tarticle:on_sleep_and_sleeplessness,\n\tarticle:on_dreams;\nRELATE person:aristotle->wrote->[\n\t\tarticle:on_sleep_and_sleeplessness,\n\t\tarticle:on_dreams\n\t]\n\t// Written sometime around the year 330 BC\n\tSET time_written = d\"-0330-01-01\";",
+      "-- All queries lead to `person:artistotle` twice,\n-- via different paths and thus different field names\n-- and/or structure\n\n-- Directly from the `wrote` table\nSELECT in FROM wrote;\n\n-- From a single `person` record\nSELECT ->wrote.in FROM person;\nSELECT ->wrote<-person FROM person;\n\n-- From two `article` records\nSELECT <-wrote.in FROM article;\nSELECT <-wrote<-person FROM article;",
+      "SELECT out FROM wrote;\n\nSELECT ->wrote.out FROM person;\nSELECT ->wrote->article FROM person;\n\nSELECT <-wrote.out FROM article;\nSELECT <-wrote->article FROM article;",
+      "SELECT time_written FROM wrote;\nSELECT ->wrote.time_written as time_written FROM person;\nSELECT <-wrote.time_written as time_written FROM article;",
+      "-- This query\nSELECT ->purchased->product<-purchased<-person->purchased->product FROM person:tobie\n\n-- Then becomes\nperson:tobie->purchased->product<-purchased<-person->purchased->product SELECT",
+      "-- Starting with Tobie\nperson:tobie\n-- move on to his purchased products\n->purchased->product\n-- that were also purchased by persons...\n<-purchased<-person\n-- what are all of those persons' purchased products?\n->purchased->product",
+      "-- Select products purchased by people in the last 3 weeks who have purchased the same products that tobie purchased\nSELECT \n\t->purchased->product\n\t<-purchased<-person->(purchased WHERE created_at > time::now() - 3w)\n\t->purchased->product\nFROM person:tobie;",
+      "SELECT \n\t->purchased->(product, subscription)\n\t<-purchased<-person\n\t->purchased->(product, subscription)\nFROM person:tobie;",
+      "SELECT \n\t->purchased->(?)\n\t<-purchased<-person\n\t->purchased->(?)\nFROM person:tobie;",
+      "CREATE person:hermann_hesse, person:abigail, city:calw, book:demian;\nRELATE person:hermann_hesse->wrote->book:demian SET written_in = d'1919-01-01';\nRELATE person:hermann_hesse->born_in->city:calw;\nRELATE person:abigail->likes->person:hermann_hesse;\n\nSELECT \n\t-- all tables in which the record is at `in`\n    ->(?).* AS what_hesse_did,\n\t-- all tables in which the record is at `out`\n    <-(?).* AS what_others_did_to_hesse\nFROM person:hermann_hesse;",
+      "CREATE person:anakin_skywalker, person:luke_skywalker, person:the_emperor;\nRELATE person:anakin_skywalker->served->person:the_emperor;\nRELATE person:anakin_skywalker->attacked->person:the_emperor SET won = true;\nRELATE person:the_emperor->attacked->person:luke_skywalker SET won = false;\nRELATE person:luke_skywalker->son_of->person:anakin_skywalker;\nRELATE person:the_emperor->fooled->person:anakin_skywalker SET date = \"19 BBY\";\n\n-- As a SELECT statement\nSELECT VALUE <->(?)[WHERE person:the_emperor IN [in, out]] FROM ONLY person:anakin_skywalker;\nSELECT VALUE <->(?)[WHERE person:luke_skywalker IN [in, out]] FROM ONLY person:anakin_skywalker;\n\n-- Or returned directly from the record ID\nperson:anakin_skywalker<->(?)[WHERE person:the_emperor IN [in, out]];\nperson:anakin_skywalker<->(?)[WHERE person:luke_skywalker IN [in, out]];",
+      "CREATE person:j_r_r_tolkien SET\n\tname = \"J.R.R. Tolkien\",\n\tborn = d'1891-01-03';\n-- Very approximate date of birth\nCREATE person:plato SET \n\tname = \"Plato\", \n\tborn = \"-0428-06-01\";\n\nCREATE book:fotr SET \n\tname = \"The Fellowship of the Ring\";\nCREATE book:republic SET \n\tname = \"The Republic\",\n\toriginal_name = \"Πολιτεία\";\n\nRELATE person:j_r_r_tolkien->wrote->book:fotr SET written_at = \"North Oxford\";\nRELATE person:plato->wrote->book:republic SET written_at = \"Athens\";\n\nSELECT \n\tname,\n\t-- Isolate 'wrote' to use WHERE\n\t->(wrote WHERE written_at = \"Athens\")->book.* AS books_written_in_athens\nFROM person;\n\nSELECT \n\tname, \n\t-- Isolate 'book' to use WHERE\n\t->wrote->(book WHERE \"Ring\" IN name).* AS books_about_rings\nFROM person;",
+      "SELECT \n\tname, \n\t->(wrote WHERE written_at = \"Athens\")->book.{ name, id } AS books_written_in_athens\nFROM person;",
+      "CREATE city:calgary, city:daejeon;\nRELATE city:calgary->sister_of->city:daejeon;",
+      "SELECT id, ->sister_of->city AS sister_cities FROM city;",
+      "SELECT id, <->sister_of<->city AS sister_cities FROM city;",
+      "[\n\t{\n\t\tid: city:calgary,\n\t\tsister_cities: [\n\t\t\tcity:calgary,\n\t\t\tcity:daejeon\n\t\t]\n\t},\n\t{\n\t\tid: city:daejeon,\n\t\tsister_cities: [\n\t\t\tcity:calgary,\n\t\t\tcity:daejeon\n\t\t]\n\t}\n]",
+      "SELECT id, array::complement(<->sister_of<->city, [id]) AS sister_cities FROM city;",
+      "DEFINE FIELD key ON TABLE sister_of VALUE <string>array::sort([in, out]);\nDEFINE INDEX only_one_sister_city ON TABLE sister_of FIELDS key UNIQUE;",
+      "RELATE city:calgary->sister_of->city:daejeon; -- OK\nRELATE city:daejeon->sister_of->city:calgary;\n-- \"Database index `only_one_sister_city` already contains '[city:calgary, city:daejeon]', with record `sister_of:npab0uoxogmrvpwsvfoa`\"",
+      "DEFINE FIELD in ON TABLE wrote TYPE record<author>;\nDEFINE FIELD out ON TABLE wrote TYPE record<book>;",
+      "DEFINE FIELD in ON TABLE wrote TYPE string;\nDEFINE FIELD out ON TABLE wrote TYPE int;",
+      "DEFINE FIELD out ON TABLE wrote TYPE record<book> ASSERT $value.language = \"English\";\n\nCREATE book:demian SET title = \"Demian. Die Geschichte von Emil Sinclairs Jugend\", language = \"German\";\nCREATE author:hesse SET name = \"Hermann Hesse\";\n\nRELATE author:hesse->wrote->book:demian;",
+      "CREATE cat:one, cat:two, cat:three;\n\nRELATE cat:one->friends_with->cat:two;\nRELATE cat:two->friends_with->cat:three;\n\nSELECT ->friends_with->cat->friends_with->cat FROM cat:one;\n-- create an alias for the result using the `AS` clause.\nSELECT ->friends_with->cat->friends_with->cat AS friends_of_friends FROM cat:one;",
+      "// Output without alias\n{\n\t\"->friends_with\": {\n\t\t\"->cat\": {\n\t\t\t\"->friends_with\": {\n\t\t\t\t\"->cat\": [\n\t\t\t\t\tcat:three\n\t\t\t\t]\n\t\t\t}\n\t\t}\n\t}\n}\n\n// Output with alias\n{\n\tfriends_of_friends: [\n\t\tcat:three\n\t]\n}",
+      "CREATE country:usa SET name = \"USA\";\nCREATE state:pennsylvania SET population = 12970000;\nCREATE state:michigan SET population = 10030000;\nCREATE city:philadelphia, city:pittsburgh, city:detroit, city:grand_rapids;\n\nRELATE country:usa->contains->[state:pennsylvania, state:michigan];\nRELATE state:pennsylvania->contains->[city:philadelphia, city:pittsburgh];\nRELATE state:michigan->contains->[city:detroit, city:grand_rapids];",
+      "SELECT\n    name,\n    ->contains->state AS states,\n    ->contains->state->contains->city AS cities\nFROM country:usa;",
+      "SELECT\n    id,\n    ->contains->state.id,\n    ->contains->state.population,\n    ->contains->state->contains->city.id\nFROM country:usa;",
+      "SELECT\n    id,\n\t-- access id and population on a single line\n    ->contains->state.{id, population},\n    ->contains->state->contains->city.id\nFROM country:usa;",
+      "CREATE person:one, person:two;\n-- These three relations would end up deleted\nRELATE person:one->friends_with->person:two;\nRELATE person:one->dating->person:two;\nRELATE person:one->hates->person:two;\n-- Finally this would be the graph edge connecting the two\nRELATE person:one->married->person:two;",
+      "CREATE person:one, person:two, person:three;\nRELATE person:one->knows->person:two SET\n    has_been_friends = true,\n    has_dated = true,\n    has_hated = true,\n    married_to = true;\n\nRELATE person:one->knows->person:three SET\n    same_high_school = true,\n    has_dated = true;",
+      "SELECT \n\t->knows->person AS knows,\n\t->knows[WHERE has_dated]->person AS has_dated,\n\t->knows[WHERE same_high_school AND has_dated]->person AS dated_and_same_school\n FROM person:one;",
+      "RELATE person:one->knows->person:two SET\n\tsame_high_school = false,\n    has_been_friends = true,\n    has_dated = {\n\t\tfrom: d'2020-12-25',\n\t\tto: d'2023-12-25'\n\t},\n    has_hated = {\n\t\tfrom: d'2023-12-25',\n\t\tto: d'2024-03-01'\n\t},\n    married_to = {\n\t\tsince: d'2024-03-01'\n\t};\n\nRELATE person:one->knows->person:three SET\n    same_high_school = true,\n    has_dated = {\n\t\tfrom: d'2019-09-10',\n\t\tto: d'2020-12-31'\n\t};",
+      "SELECT id, ->knows[WHERE same_high_school AND has_dated.to > d'2020-12-25']->person FROM person:one;",
+      "CREATE |city:1..5| SET name = <string>id.id() + 'ville';\nFOR $pair IN (<array>(1..=5)).windows(2) {\n  \tLET $city1 = type::thing(\"city\", $pair[0]);\n    LET $city2 = type::thing(\"city\", $pair[1]);\n    RELATE $city1->to->$city2 SET \n        type = rand::enum([\"train\", \"road\", \"bike path\"]),\n        distance = <int>(rand::float() * 100).ceil()\n};",
+      "SELECT ->to->city->to->city->to->city AS fourth_city FROM city:1;",
+      "SELECT @.{3}->to->city AS fourth_city FROM city:1;",
+      "SELECT ->to->city->to->city->to.* AS third_journey FROM city:1;",
+      "SELECT @.{2}(->to->city)->to.* AS third_journey FROM city:1;",
+      "city:1.{1..20}->to->city;",
+      "SELECT @.{1..5}.{ \n    id, \n    next_roads: ->to.*,\n    next_cities: ->to->city\n} FROM city;",
+      "CREATE person:one, person:two;\nRELATE person:one->likes->person:two;\nRELATE person:two->likes->person:one;\n-- Open-ended range\nperson:one.{..}->likes->person;",
+      "CREATE |person:1..3|;\nFOR $person IN (SELECT * FROM person) {\n  LET $others = (SELECT * FROM person WHERE id != $person.id);\n    FOR $other IN $others {\n        RELATE $person->likes->$other;\n    }\n};\nRETURN [\n\tperson:1.{2}->likes->person,\n\tperson:1.{3}->likes->person,\n\tperson:1.{4}->likes->person\n];",
+      "SELECT @.{..}.{ id, likes: ->likes->person.@ } FROM person TIMEOUT 1s;",
+      "CREATE person:one, person:two, person:three;\nRELATE person:one->knows->person:two SET\n\tfriends = true,\n    dated = true,\n    married_to = true;\n\nRELATE person:one->knows->person:three SET\n    dated = true;\n\nRELATE person:two->knows->person:three SET\n\tfriends = true;",
+      "SELECT \n\tid, \n\t->(SELECT out.id AS counterpart, !!dated AS dated FROM knows) AS acquaintances\nFROM person;",
+      "SELECT ->(SELECT * FROM knows) FROM person:one;\nSELECT ->knows.* FROM person:one;",
+      "SELECT ->(SELECT *, time::now() AS queried_at FROM knows LIMIT 1) FROM person:one;",
+      "CREATE |person:1..3|;\n\nRELATE person:1->likes->person:2 SET like_strength = 20, know_in_person = true;\nRELATE person:1->likes->person:3 SET like_strength = 5,  know_in_person = false;\nRELATE person:2->likes->person:1 SET like_strength = 10, know_in_person = true;\nRELATE person:2->likes->person:3 SET like_strength = 12, know_in_person = false;\nRELATE person:3->likes->person:1 SET like_strength = 2,  know_in_person = false;\nRELATE person:3->likes->person:2 SET like_strength = 9,  know_in_person = false;\n\nSELECT ->likes AS likes FROM person;\nSELECT ->(SELECT like_strength FROM likes) AS likes FROM person;\nSELECT ->(SELECT like_strength FROM likes WHERE like_strength > 10) AS likes FROM person;\nSELECT ->(likes WHERE like_strength > 10) AS likes FROM person;\nSELECT ->(SELECT like_strength, know_in_person FROM likes ORDER BY like_strength DESC) AS likes FROM person;\nSELECT ->(SELECT count() as count, know_in_person FROM likes GROUP BY know_in_person) AS likes FROM person;\nSELECT ->(likes LIMIT 1) AS likes FROM person;\nSELECT ->(likes START 1) AS likes FROM person;",
+      "CREATE person:one SET name = \"Þor\";\nCREATE dog:one SET name = \"Fenrir\";\nCREATE cat:one SET name = \"Jólakötturinn\";\nRELATE person:one->feeds->cat:one SET at = time::now();\nRELATE dog:one->plays_with->cat:one SET at = time::now();\n\n-- Select from both 'feeds' and 'plays_with'\nSELECT <-(SELECT * FROM feeds, plays_with ORDER BY at) FROM cat:one;\n-- Or any graph table\nSELECT <-(SELECT * FROM ? ORDER BY at) FROM cat:one;",
+      "CREATE person:one, person:two, person:three, person:four;\n\nRELATE person:one->likes:1->person:two;\nRELATE person:one->likes:2->person:three;\nRELATE person:one->likes:3->person:four;\n\nperson:one->likes:2..=4->person;",
+      "RELATE character:one->speaks_to:ulid()->character:two SET content = \"Greetings, adventurer!\";\nRELATE character:one->speaks_to:ulid()->character:two SET content = \"Can you please help me? My sheep have run amok.\";\n\nSELECT\n\t// Grab the latter part of the record ID, turn it into a datetime\n    time::from::ulid(id.id()) AS at,\n    content\nFROM\n    // ULID from 2025-04-25, well before today's date\n    character:one->speaks_to:01JSNG0KZSY3HJ5QSZ7JSMQMGR..;",
+      "CREATE planet:venus, telescope:one;\n\nRELATE telescope:one->observed:[d'2025-04-24T02:02:18.204Z']->planet:venus CONTENT { \n      temperature_profile: {\n        surface: 735.0,\n        upper_atmosphere: 300.0\n      },\n      composition: {\n        CO2: 96.5,\n        N2: 3.5,\n        SO2: 0.015\n      },\n};\n\nRELATE telescope:one->observed:[d'2025-04-25T02:02:18.204Z']->planet:venus CONTENT {\n      temperature_profile: {\n        surface: 737.0,\n        upper_atmosphere: 298.5\n      },\n      composition: {\n        CO2: 96.6,\n        N2: 3.4,\n        SO2: 0.015\n    }\n};\n\nSELECT id, (<-observed:[d'2025-04-24']..).{\n    at: id[0], \n    surface: temperature_profile.surface,\n    atmosphere: temperature_profile.upper_atmosphere\n} AS observations FROM planet;"
+    ],
+    "title": "RELATE statement | SurrealQL",
+    "description": "The RELATE statement can be used to generate graph edges between two records in the database.",
+    "sidebar_label": "RELATE"
+  },
+  "statements.access": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/access.mdx",
+    "hierarchy": "statements.access",
+    "frontmatter": {
+      "sidebar_position": 0,
+      "sidebar_label": "ACCESS",
+      "title": "ACCESS statement | SurrealQL",
+      "description": "The ACCESS statement can be used to manage access grants."
+    },
+    "syntax_blocks": [
+      "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ] [\n\tGRANT [ FOR USER @name | FOR RECORD @record ]\n\t| SHOW [ GRANT @id | ALL | WHERE @expression ] \n\t| REVOKE [ GRANT @id | ALL | WHERE @expression ] \n\t| PURGE [ EXPIRED | REVOKED [ , EXPIRED | REVOKED ] ] [ FOR @duration ]\n]",
+      "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ] \n\tGRANT [ FOR USER @name | FOR RECORD @record ]",
+      "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tSHOW [ GRANT @id | ALL | WHERE @expression ]",
+      "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tREVOKE [ GRANT @id | ALL | WHERE @expression ] \n]",
+      "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tPURGE [ EXPIRED | REVOKED [ , EXPIRED | REVOKED ] ] [ FOR @duration ]\n]"
+    ],
+    "example_blocks": [
+      "-- Define system user for automation\nDEFINE USER automation ON DATABASE PASSWORD 'secret' ROLES VIEWER;\n-- Define bearer access method to generate API keys\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR USER DURATION FOR GRANT 10d;\n-- Generate bearer grant to be used by the automation\nACCESS api GRANT FOR USER automation;",
+      "-- Create record representing a user\nCREATE user:1 CONTENT { name: \"tobie\" };\n-- Define bearer access method to generate API keys\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR RECORD DURATION FOR GRANT 10d;\n-- Generate bearer grant to be used by the user\nACCESS api GRANT FOR RECORD user:1;",
+      "-- Create record representing a user\nCREATE user:1 CONTENT { name: \"tobie\" };\n-- Define bearer access method to generate API keys\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR RECORD DURATION FOR GRANT 10d;\n-- Generate bearer grant to be used by the user\nACCESS api GRANT FOR RECORD user:1;",
+      "ACCESS api SHOW GRANT JdvDFKMCVYoM;",
+      "-- Create records representing users\nCREATE user:1 CONTENT { name: \"tobie\" };\nCREATE user:2 CONTENT { name: \"jaime\" };\n-- Define bearer access method to generate API keys\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR RECORD DURATION FOR GRANT 10d;\n-- Generate bearer grants to be used by the users\nACCESS api GRANT FOR RECORD user:1;\nACCESS api GRANT FOR RECORD user:2;",
+      "ACCESS api SHOW WHERE subject.record.name = \"tobie\";",
+      "-- Create record representing a user\nCREATE user:1 CONTENT { name: \"tobie\" };\n-- Define bearer access method to generate API keys\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR RECORD DURATION FOR GRANT 10d;\n-- Generate bearer grant to be used by the user\nACCESS api GRANT FOR RECORD user:1;",
+      "ACCESS api REVOKE GRANT NJ2I2d7OXxN9;",
+      "-- Create records representing users\nCREATE user:1 CONTENT { name: \"tobie\" };\nCREATE user:2 CONTENT { name: \"jaime\" };\n-- Define bearer access method to generate API keys\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR RECORD DURATION FOR GRANT 10d;\n-- Generate bearer grants to be used by the users\nACCESS api GRANT FOR RECORD user:1;\nACCESS api GRANT FOR RECORD user:2;",
+      "ACCESS api REVOKE WHERE subject.record.name = \"tobie\";",
+      "ACCESS api PURGE EXPIRED;",
+      "ACCESS api PURGE REVOKED FOR 90d;",
+      "ACCESS api PURGE EXPIRED, REVOKED FOR 1y;",
+      "DEFINE ACCESS account ON DATABASE TYPE RECORD\n    SIGNUP ({\n    IF $email = \"me@me.com\" {\n        THROW \"That's my email!!!\"\n    } ELSE {\n        CREATE user SET email = $email, pass = crypto::argon2::generate($pass)}   \n    })\n    SIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )\n    DURATION FOR TOKEN 15m, FOR SESSION 12h\n;"
+    ],
+    "title": "ACCESS statement | SurrealQL",
+    "description": "The ACCESS statement can be used to manage access grants.",
+    "sidebar_label": "ACCESS"
+  },
+  "statements.commit": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/commit.mdx",
+    "hierarchy": "statements.commit",
+    "frontmatter": {
+      "sidebar_position": 4,
+      "sidebar_label": "COMMIT",
+      "title": "COMMIT statement | SurrealQL",
+      "description": "The COMMIT statement is used to commit a set of statements within a transaction, ensuring that all data modifications become a permanent part of the database."
+    },
+    "syntax_blocks": [
+      "COMMIT [ TRANSACTION ];"
+    ],
+    "example_blocks": [
+      "BEGIN TRANSACTION;\n\n-- Setup accounts\nCREATE account:one SET balance = 135605.16;\nCREATE account:two SET balance = 91031.31;\n\n-- Move money\nUPDATE account:one SET balance += 300.00;\nUPDATE account:two SET balance -= 300.00;\n\n-- Finalise all changes\nCOMMIT TRANSACTION;",
+      "BEGIN;\n\nCREATE account:one SET balance = 135605.16;\nCREATE account:two SET balance = 91031.31, wants_to_send_money = true;\n\nIF !account:two.wants_to_send_money {\n    THROW \"Customer doesn't want to send any money!\";\n};\n\nLET $first = UPDATE ONLY account:one SET balance += 300.00;\nLET $second = UPDATE ONLY account:two SET balance -= 300.00;\n\nRETURN \"Money sent! Status:\\n\" + <string>$first + '\\n' + <string>$second;\n\nCOMMIT;"
+    ],
+    "title": "COMMIT statement | SurrealQL",
+    "description": "The COMMIT statement is used to commit a set of statements within a transaction, ensuring that all data modifications become a permanent part of the database.",
+    "sidebar_label": "COMMIT"
+  },
+  "statements.break": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/break.mdx",
+    "hierarchy": "statements.break",
+    "frontmatter": {
+      "sidebar_position": 3,
+      "sidebar_label": "BREAK",
+      "title": "BREAK statement | SurrealQL",
+      "description": "The BREAK statement can be used to break out of a loop."
+    },
+    "syntax_blocks": [
+      "BREAK"
+    ],
+    "example_blocks": [
+      "LET $numbers = [1,2,3,4,5,6,7,8,9];\n\nFOR $num IN $numbers {\n    IF $num > 5 {\n        BREAK;\n\n    } ELSE IF $num < 5 {\n        CREATE type::thing(\n            'person', $num\n        ) CONTENT {\n            name: \"Person number \" + <string>$num\n        };\n    };\n};",
+      "-- Data retrieved from somewhere which contains many NONE values\nLET $weather = [\n\t{\n\t\tcity: 'London',\n\t\ttemperature: 22.2,\n\t\ttimestamp: 1722565566389\n\t},\n\tNONE,\n\t{\n\t\tcity: 'London',\n\t\ttemperature: 20.1,\n\t\ttimestamp: 1722652002699\n\t},\n    {\n        city: 'Phoenix',\n        temperature: 45.1,\n        timestamp: 1722565642160\n    },\n    NONE,\n    NONE,\n    {\n        city: 'Phoenix',\n        temperature: 45.1,\n        timestamp: 1722652070372\n    },\n];\n\n-- Sort the data to move the NONE values to the end\n-- and break once the first NONE is reached\nFOR $data IN array::sort::desc($weather) {\n    IF $data IS NONE {\n        BREAK;\n    } ELSE {\n        CREATE weather CONTENT $data;\n    };\n};"
+    ],
+    "title": "BREAK statement | SurrealQL",
+    "description": "The BREAK statement can be used to break out of a loop.",
+    "sidebar_label": "BREAK"
+  },
+  "statements.create": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/create.mdx",
+    "hierarchy": "statements.create",
+    "frontmatter": {
+      "sidebar_position": 7,
+      "sidebar_label": "CREATE",
+      "title": "CREATE statement | SurrealQL",
+      "description": "The CREATE statement can be used to add a record to the database if it does not already exist."
+    },
+    "syntax_blocks": [
+      "CREATE [ ONLY ] @targets\n\t[ CONTENT @value\n\t  | SET @field = @value ...\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n;"
+    ],
+    "example_blocks": [
+      "-- Create a new record\nCREATE person;",
+      "CREATE person:one;",
+      "-- Use the type::thing() function to provide a record's table and id separately\nCREATE type::thing(\"person\", \"one\");",
+      "-- Create a new record with a text id\nCREATE person:tobie SET\n    name = 'Tobie',\n    company = 'SurrealDB',\n    skills = ['Rust', 'Go', 'JavaScript'];",
+      "-- Create a new record with a numeric id\nCREATE person:100 CONTENT {\n\tname: 'Tobie',\n\tcompany: 'SurrealDB',\n\tskills: ['Rust', 'Go', 'JavaScript'],\n};",
+      "-- Note: meta::tb(id) returns just the table name portion of a record ID\nCREATE townsperson, cat, dog SET\n    created_at = time::now(),\n    name = \"Just a \" + meta::tb(id);",
+      "-- Creates three townperson records with a random ID\nCREATE |townsperson:3|;",
+      "CREATE |townsperson:1..3|;",
+      "CREATE dog, |cat:2|, |townsperson:1..3| SET\n    created_at = time::now(),\n    name = \"Just a \" + meta::tb(id);",
+      "-- Returns an array with a single record inside\nCREATE person:tobie SET\n    name = 'Tobie',\n    company = 'SurrealDB',\n    skills = ['Rust', 'Go', 'JavaScript'];\n\n-- Returns just a single record\nCREATE ONLY person:tobie SET\n    name = 'Tobie',\n    company = 'SurrealDB',\n    skills = ['Rust', 'Go', 'JavaScript'];",
+      "-- Create 10000 records but don't show any of them\nCREATE |person:10000| SET age = 46, username = \"john-smith\" RETURN NONE;",
+      "CREATE person SET age = 46, username = \"john-smith\" RETURN DIFF;",
+      "-- Will always return NONE\nCREATE person SET age = 46, username = \"john-smith\" RETURN BEFORE;",
+      "-- Return the record after creation\nCREATE person SET age = 46, username = \"john-smith\" RETURN AFTER;",
+      "CREATE person\n    SET age = 46,\n    username = \"john-smith\",\n    interests = ['skiing', 'music']\nRETURN\n    age,\n    interests,\n    age + 1 AS age_next_year;\n\nCREATE |person:5|\n    SET age = 20\nRETURN VALUE age;",
+      "-- Query attempting to create half a million `person` records\nCREATE |person:500000| SET age = 46, username = \"john-smith\" TIMEOUT 500ms;",
+      "CREATE person:26, CREATE person:27 PARALLEL;",
+      "-- Create a record for user:john at 8:00AM\nCREATE user:john SET name = 'John' VERSION d'2024-08-19T08:00:00Z';\n[[{ id: user:john, name: 'John' }]]\n\n-- Return the record for user:john at 8:00AM\nSELECT * FROM user:john VERSION d'2024-08-19T08:00:00Z';\n[[{ id: user:john, name: 'John' }]]\n\n-- Create a record for user:john at 8:01AM\nCREATE user:john SET name = 'John-1' VERSION d'2024-08-19T08:01:00Z';\n[[{ id: user:john, name: 'John-1' }]]\n\n-- Return the record for user:john at 8:01AM\nSELECT * FROM user:john VERSION d'2024-08-19T08:01:00Z';\n[[{ id: user:john, name: 'John-1' }]]\n\n-- Return an empty array because the record at the datetime does not exist\nSELECT * FROM user:john VERSION d'2024-08-19T07:00:00Z';\n[[]]",
+      "CREATE |user:10| VERSION d\"2020-09-09\";\n\n[[{ id: user:rtbjoqv1xe9wnxjx5aro }, { id: user:tkik878q8uoddvuucu0a }, { id: user:rcnywgogvlipv3tb8qut }, { id: user:30ynx82x52ff77dxzv1i }, { id: user:59mxi0xosi3im5ccbx8l }, { id: user:nolu7yreqs4e5m7255oa }, { id: user:u384ycj1d2esi3yrasli }, { id: user:n4xnrq98ookevhmdd7d2 }, { id: user:5j5ujfu4dokcpdk51qa8 }, { id: user:jiqmlvrgafeorr50nvn9 }]]\n\nCREATE |user:10| VERSION d\"2020-09-10\";\n[[{ id: user:ze98ow4bzdcndzc5nlqj }, { id: user:gjqu2uh3wnp1cpjg1unt }, { id: user:17bxpjl4ptbxv9k2ghmt }, { id: user:fmqqeajf52neg4c7oaoq }, { id: user:bfn45ewsg86auvekeuz0 }, { id: user:834yq1tyatwopb4726mj }, { id: user:veehoua4cu65ff4wc8pf }, { id: user:y3az4pizc0ddpruixw6g }, { id: user:xrn6eqrtyqgg8cgpm9zp }, { id: user:s06acf74rsnvhvim3ys5 }]]\n\nRETURN count(SELECT * FROM user VERSION d\"2020-09-09\"); -- returns 10\n[10]\n\nRETURN count(SELECT * FROM user); -- returns 21\n[21]",
+      "CREATE user:john SET name = 'John' VERSION time::now();\n\nLET $now = time::now();\nCREATE user:john_the_second SET name = 'John' VERSION $now;\n\nDEFINE FUNCTION fn::yesterday() { time::now() - 1d };\nCREATE user:john_the_third SET name = 'John' VERSION fn::yesterday();",
+      "INFO FOR ROOT;\nINFO FOR NS;\nINFO FOR DB;\nRETURN $session;",
+      "DEFINE DATABASE my_database COMMENT \"Some important info that I prefer to add manually\";",
+      "-- Three DEFINE statements will happen to allow this operation\nCREATE person;\n\nINFO FOR ROOT;\nINFO FOR NS;\nINFO FOR DB;",
+      "ns/db> CREATE person;\n[\"The namespace 'ns' does not exist\"]\n\nns/db> DEFINE NAMESPACE ns;\n[NONE]\n\nns/db> CREATE person;\n[\"The database 'db' does not exist\"]\n\nns/db> DEFINE DATABASE db;\n[NONE]\n\nns/db> CREATE person;\n[\"The table 'person' does not exist\"]\n\nns/db> DEFINE TABLE person;\n[NONE]\n\nns/db> CREATE person;\n[[{ id: person:c76lfw6n4yb1z2dj9xaj }]]"
+    ],
+    "title": "CREATE statement | SurrealQL",
+    "description": "The CREATE statement can be used to add a record to the database if it does not already exist.",
+    "sidebar_label": "CREATE"
+  },
+  "statements.show": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/show.mdx",
+    "hierarchy": "statements.show",
+    "frontmatter": {
+      "sidebar_position": 21,
+      "sidebar_label": "SHOW",
+      "title": "SHOW statement | SurrealQL",
+      "description": "The SHOW statement can be used to replay changes made to a table."
+    },
+    "syntax_blocks": [
+      "SHOW CHANGES FOR TABLE @tablename\n\tSINCE @timestamp | @versionstamp\n\t[ LIMIT @number ]"
+    ],
+    "example_blocks": [
+      "-- Define the change feed and its duration\nDEFINE TABLE reading CHANGEFEED 3d;\n\n-- Create some records in the reading table\nCREATE reading SET story = \"Once upon a time\";\nCREATE reading SET story = \"there was a database\";\n\n-- Replay changes to the reading table since a date\nSHOW CHANGES FOR TABLE reading SINCE d\"2023-09-07T01:23:52Z\" LIMIT 10;\n-- Replay changes to the reading table since a versionstamp\nSHOW CHANGES FOR TABLE reading SINCE 1 LIMIT 10;"
+    ],
+    "title": "SHOW statement | SurrealQL",
+    "description": "The SHOW statement can be used to replay changes made to a table.",
+    "sidebar_label": "SHOW"
+  },
+  "statements.insert": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/insert.mdx",
+    "hierarchy": "statements.insert",
+    "frontmatter": {
+      "sidebar_position": 12,
+      "sidebar_label": "INSERT",
+      "title": "INSERT statement | SurrealQL",
+      "description": "The INSERT statement can be used to insert or update data into the database, using the same statement syntax as the traditional SQL Insert statement."
+    },
+    "syntax_blocks": [
+      "INSERT [ IGNORE | RELATION ] INTO @what\n\t[ @value\n\t  | (@fields) VALUES (@values)\n\t\t[ ON DUPLICATE KEY UPDATE @field = @value ... ]\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n;"
+    ],
+    "example_blocks": [
+      "INSERT INTO company {\n\tname: 'SurrealDB',\n\tfounded: \"2021-09-10\",\n\tfounders: [person:tobie, person:jaime],\n\ttags: ['big data', 'database']\n};",
+      "-- Insert a single record\nINSERT INTO\n\tcompany (name, founded)\n\tVALUES  ('SurrealDB', '2021-09-10');\n\n-- Insert multiple records\nINSERT INTO\n\tcompany (name, founded)\n\tVALUES  ('Acme Inc.', '1967-05-03'), ('Apple Inc.', '1976-04-01');",
+      "INSERT INTO product (name, url) VALUES ('Salesforce', 'salesforce.com') ON DUPLICATE KEY UPDATE tags += 'crm';",
+      "INSERT INTO city (id, population, at_year) VALUES (\"Calgary\", 1665000, 2024)\nON DUPLICATE KEY UPDATE\n\tpopulation = $input.population,\n\tat_year = $input.at_year;",
+      "INSERT INTO recordings_san_francisco (SELECT * FROM temperature WHERE city = 'San Francisco');",
+      "INSERT INTO person [\n   { id: \"jaime\", name: \"Jaime\", surname: \"Morgan Hitchcock\" },\n   { id: \"tobie\", name: \"Tobie\", surname: \"Morgan Hitchcock\" },\n]",
+      "INSERT IGNORE INTO person [\n   { id: \"jaime\", name: \"Jaime\", surname: \"Morgan Hitchcock\" },\n   { id: \"tobie\", name: \"Tobie\", surname: \"Morgan Hitchcock\" },\n\n   { id: \"jaime\", name: \"Jaime\", surname: \"Morgan Hitchcock\" }, -- will not throw an error\n]",
+      "-- Insert a record and return nothing\nINSERT INTO company {\n\tname: 'SurrealDB',\n\tfounded: \"2021-09-10\",\n\tfounders: [person:tobie, person:jaime],\n\ttags: ['big data', 'database']\n} RETURN NONE;",
+      "-- Insert a record and return the diff\nINSERT INTO company {\n\tname: 'SurrealDB',\n\tfounded: \"2021-09-10\",\n\tfounders: [person:tobie, person:jaime],\n\ttags: ['big data', 'database']\n} RETURN DIFF;",
+      "-- Before insert will always return NONE as it is the same as the record being inserted\nINSERT INTO company {\n\tname: 'SurrealDB',\n\tfounded: \"2021-09-10\",\n\tfounders: [person:tobie, person:jaime],\n\ttags: ['big data', 'database']\n} RETURN BEFORE;",
+      "-- Return the record after creation\nINSERT INTO company {\n\tname: 'SurrealDB',\n\tfounded: \"2021-09-10\",\n\tfounders: [person:tobie, person:jaime],\n\ttags: ['big data', 'database']\n} RETURN AFTER;",
+      "INSERT INTO person {\n    age: 46,\n    username : \"john-smith\",\n    interests : ['skiing', 'music'] }\nRETURN\n    age,\n    interests,\n    age + 1 AS age_next_year;\n\nINSERT INTO planet [\n\t{\n\t\tname: 'Venus',\n        surface_temp: 462,\n        temp_55_km_up: 27\n\t},\n\t{\n\t\tname: 'Earth',\n        surface_temp: 15,\n        temp_55_km_up: -55\n\t}\n] RETURN VALUE temp_55_km_up;",
+      "INSERT INTO person [\n   { id: \"jaime\", name: \"Jaime\", surname: \"Morgan Hitchcock\" },\n   { id: \"tobie\", name: \"Tobie\", surname: \"Morgan Hitchcock\" },\n   -- ... 1000 more records\n]",
+      "-- Insert records into the person table\nINSERT INTO person [\n\t{ id: 1 },\n\t{ id: 2 },\n\t{ id: 3 },\n];\n-- Insert a single relation\nINSERT RELATION INTO likes {\n\tin: person:1,\n\tid: 'object',\n\tout: person:2,\n};\n\n-- Insert multiple relations\nINSERT RELATION INTO likes [\n\t{\n\t\tin: person:1,\n\t\tid: 'array',\n\t\tout: person:2,\n\t},\n\t{\n\t\tin: person:2,\n\t\tid: 'array_two',\n\t\tout: person:3,\n\t}\n];\n\n-- Insert a relation and return the value of the likes field\nINSERT RELATION INTO likes (in, id, out)\n\tVALUES (person:1, 'values', person:2);\n\n-- Select the value of the likes field\nSELECT VALUE ->likes FROM person;"
+    ],
+    "title": "INSERT statement | SurrealQL",
+    "description": "The INSERT statement can be used to insert or update data into the database, using the same statement syntax as the traditional SQL Insert statement.",
+    "sidebar_label": "INSERT"
+  },
+  "statements.live": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/live.mdx",
+    "hierarchy": "statements.live",
+    "frontmatter": {
+      "sidebar_position": 15,
+      "sidebar_label": "LIVE",
+      "title": "LIVE SELECT statement | SurrealQL",
+      "description": "The LIVE SELECT statement can be used to initiate a real-time selection from a table, including the option to apply filters."
+    },
+    "syntax_blocks": [
+      "LIVE SELECT\n\t[\n\t\t[ VALUE ] @fields [ AS @alias ]\n\t\t| DIFF\n\t]\n\tFROM @targets\n\t[ WHERE @conditions ]\n\t[ FETCH @fields ... ]\n;"
+    ],
+    "example_blocks": [
+      "LIVE SELECT * FROM person;\n\n['b1f1d115-ad0f-460d-8cbf-dbc7ce48851c']",
+      "LIVE SELECT DIFF FROM person;\n\n['b87cbb0d-ca15-4f0a-8f86-caa680672aa5']",
+      "LIVE SELECT * FROM person WHERE age > 18;",
+      "LIVE SELECT * FROM person WHERE age > 18 FETCH friends;",
+      "LIVE SELECT * FROM person WHERE $field > $value",
+      "LIVE SELECT * FROM $table WHERE field > 50"
+    ],
+    "title": "LIVE SELECT statement | SurrealQL",
+    "description": "The LIVE SELECT statement can be used to initiate a real-time selection from a table, including the option to apply filters.",
+    "sidebar_label": "LIVE"
+  },
+  "statements.cancel": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/cancel.mdx",
+    "hierarchy": "statements.cancel",
+    "frontmatter": {
+      "sidebar_position": 4,
+      "sidebar_label": "CANCEL",
+      "title": "CANCEL statement | SurrealQL",
+      "description": "The CANCEL statement can be used to cancel the statements within a transaction, reverting or rolling back any data modification made within the transaction as a whole."
+    },
+    "syntax_blocks": [
+      "CANCEL [ TRANSACTION ];"
+    ],
+    "example_blocks": [
+      "BEGIN TRANSACTION;\n\n-- Setup accounts\nCREATE account:one SET balance = 135605.16;\nCREATE account:two SET balance = 91031.31;\n\n-- Move money\nUPDATE account:one SET balance += 300.00;\nUPDATE account:two SET balance -= 300.00;\n\n-- Rollback all changes\nCANCEL TRANSACTION;",
+      "BEGIN TRANSACTION;\n\n-- Setup accounts\nCREATE account:one SET balance = 135605.16;\nCREATE account:two SET balance = 200.31;\n\n-- Move money\nUPDATE account:one SET balance += 300.00;\nUPDATE account:two SET balance -= 300.00;\n\nIF account:two.balance < 0 {\n    THROW \"Not enough funds\";\n};\n\nCOMMIT TRANSACTION;"
+    ],
+    "title": "CANCEL statement | SurrealQL",
+    "description": "The CANCEL statement can be used to cancel the statements within a transaction, reverting or rolling back any data modification made within the transaction as a whole.",
+    "sidebar_label": "CANCEL"
+  },
+  "statements.define.indexes": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/indexes.mdx",
+    "hierarchy": "statements.define.indexes",
+    "frontmatter": {
+      "sidebar_position": 10,
+      "sidebar_label": "DEFINE INDEX",
+      "title": "DEFINE INDEX statement | SurrealQL",
+      "description": "Just like in other databases, SurrealDB uses indexes to help optimize query performance. An index can consist of one or more fields in a table and can enforce a uniqueness constraint."
+    },
+    "syntax_blocks": [
+      "DEFINE INDEX [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table [ FIELDS | COLUMNS ]\n@fields\n\t[ UNIQUE\n        | SEARCH ANALYZER @analyzer [ BM25 [(@k1, @b)] ] [ HIGHLIGHTS ]\n        | MTREE DIMENSION @dimension [ TYPE @type ] [ DIST @distance ] [ CAPACITY @capacity]\n        | HNSW DIMENSION @dimension [ TYPE @type ] [DIST @distance] [ EFC @efc ] [ M @m ]\n    ]\n    [ COMMENT @string ]\n    [ CONCURRENTLY ]"
+    ],
+    "example_blocks": [
+      "-- Makes sure that the email address in the user table is always unique\nDEFINE INDEX userEmailIndex ON TABLE user COLUMNS email UNIQUE;",
+      "INFO FOR TABLE user;",
+      "{\n    \"events\": {},\n    \"fields\": {},\n    \"indexes\": {\n        \"userEmailIndex\": {\n            sql: \"DEFINE INDEX userEmailIndex ON user FIELDS email UNIQUE\"\n        }\n    },\n    \"lives\": {},\n    \"tables\": {}\n}",
+      "-- Create a user record and set an email ID.\nCREATE user:1 SET email = 'test@surrealdb.com';",
+      "-- Create another user record and set the same email ID.\nCREATE user:2 SET email = 'test@surrealdb.com';",
+      "DELETE user:1;\nCREATE user:2 SET email = 'test@surrealdb.com'",
+      "-- optimise queries looking for users of a given age\nDEFINE INDEX userAgeIndex ON TABLE user COLUMNS age;",
+      "-- Create an index on the account and email fields of the user table\nDEFINE INDEX test ON user FIELDS account, email;",
+      "-- Define the an analyzer with\nDEFINE ANALYZER example_ascii TOKENIZERS class FILTERS ascii;\n-- Allow full-text search queries on the name of the user\nDEFINE INDEX userNameIndex ON TABLE user COLUMNS name SEARCH ANALYZER example_ascii BM25 HIGHLIGHTS;",
+      "DEFINE INDEX idx_mtree_embedding ON Document FIELDS items.embedding MTREE DIMENSION 4 TYPE I64;",
+      "DEFINE INDEX idx_mtree_embedding_manhattan ON Document FIELDS items.embedding MTREE DIMENSION 4 DIST MANHATTAN;\nDEFINE INDEX idx_mtree_embedding_cosine ON Document FIELDS items.embedding MTREE DIMENSION 4 DIST COSINE;",
+      "CREATE pts:1 SET point = [1,2,3];\nCREATE pts:2 SET point = [4,5,6];\nCREATE pts:3 SET point = [8,9,10];",
+      "DEFINE INDEX mt_pt ON pts FIELDS point MTREE DIMENSION 3;",
+      "SELECT * FROM user WHERE email='test@surrealdb.com' EXPLAIN FULL;",
+      "[\n    {\n        \"detail\": {\n            \"plan\": {\n                \"index\": \"userEmailIndex\",\n                \"operator\": \"=\",\n                \"value\": \"test@surrealdb.com\"\n            },\n            \"table\": \"user\"\n        },\n        \"operation\": \"Iterate Index\"\n    },\n    {\n        \"detail\": {\n            \"count\": 1\n        },\n        \"operation\": \"Fetch\"\n    }\n]",
+      "REBUILD INDEX userEmailIndex ON user;",
+      "-- Create a INDEX if it does not already exist\nDEFINE INDEX IF NOT EXISTS example ON example FIELDS example;",
+      "-- Create an INDEX and overwrite if it already exists\nDEFINE INDEX OVERWRITE example ON example FIELDS example;",
+      "-- Create an INDEX concurrently\nDEFINE INDEX test ON user FIELDS email CONCURRENTLY;\nINFO FOR INDEX test ON user;\nINFO FOR INDEX test ON user;",
+      "-- Check the indexing status\nINFO FOR INDEX test ON user;",
+      "-- Query\n\n{\n\tbuilding: {\n\t\tstatus: 'ready'\n\t}\n}"
+    ],
+    "title": "DEFINE INDEX statement | SurrealQL",
+    "description": "Just like in other databases, SurrealDB uses indexes to help optimize query performance. An index can consist of one or more fields in a table and can enforce a uniqueness constraint.",
+    "sidebar_label": "DEFINE INDEX"
+  },
+  "statements.define.param": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/param.mdx",
+    "hierarchy": "statements.define.param",
+    "frontmatter": {
+      "sidebar_position": 12,
+      "sidebar_label": "DEFINE PARAM",
+      "title": "DEFINE PARAM statement | SurrealQL",
+      "description": "The DEFINE PARAM statement allows you to define global (database-wide) parameters that are available to every client."
+    },
+    "syntax_blocks": [
+      "DEFINE PARAM [ OVERWRITE | IF NOT EXISTS ] $@name \n    VALUE @value\n    [ COMMENT @string ]\n    [ PERMISSIONS [ NONE | FULL | WHERE @condition ] ]"
+    ],
+    "example_blocks": [
+      "DEFINE PARAM $endpointBase VALUE \"https://dummyjson.com\";",
+      "RETURN http::get($endpointBase + \"/products\");",
+      "-- Create a PARAM if it does not already exist\nDEFINE PARAM IF NOT EXISTS $example VALUE 123;",
+      "-- Create an PARAM and overwrite if it already exists\nDEFINE PARAM OVERWRITE $example VALUE 123;"
+    ],
+    "title": "DEFINE PARAM statement | SurrealQL",
+    "description": "The DEFINE PARAM statement allows you to define global (database-wide) parameters that are available to every client.",
+    "sidebar_label": "DEFINE PARAM"
+  },
+  "statements.define.token": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/token.mdx",
+    "hierarchy": "statements.define.token",
+    "frontmatter": {
+      "sidebar_position": 16,
+      "sidebar_label": "DEFINE TOKEN",
+      "title": "DEFINE TOKEN statement | SurrealQL",
+      "description": "SurrealDB can work with third-party authentication providers such as OpenID Connect providers, OAuth providers and other trusted third parties."
+    },
+    "syntax_blocks": [
+      "DEFINE TOKEN [ OVERWRITE | IF NOT EXISTS ] @name ON [ NAMESPACE | DATABASE | SCOPE @scope ] TYPE @type VALUE @value [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE TOKEN token_name\n  -- Use this token provider for database authorization\n  ON DATABASE\n  -- Specify the cryptographic signature algorithm used to verify the token\n  TYPE HS512\n  -- Specify the secret used to sign and verify the authenticity of the token\n  VALUE \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE TOKEN token_name\n  -- Use this token provider for database authorization\n  ON DATABASE\n  -- Specify the cryptographic signature algorithm used to verify the token\n  TYPE RS256\n  -- Specify the public key used to verify the authenticity of the token\n  VALUE \"-----BEGIN PUBLIC KEY-----\nMUO52Me9HEB4ZyU+7xmDpnixzA/CUE7kyUuE0b7t38oCh+sQouREqIjLwgHhFdhh3cQAwr6GH07D\nThioYrZL8xATJ3Youyj8C45QnZcGUif5PkpWXDi0HJSoMFekbW6Pr4xuqIqb2LGxGDVJcLZwJ2AS\nGtu2UAfPXbBD3ffiad393M22g1iHM80YaNi+xgswG7qtXE4lR/Lt4s0MeKKX7stdWI1VIsoB+y3i\nr/OWUvJPjjDNbAsyy8tQmxydv+FUnLEP9TNT4AhN4DXcJ+XsDtW7OWt4EdSVDeKpGbIMvIrh1Pe+\nNilj8UHNyNDHa2AjK3seMo6CMvaIQJKj5o4xGFblFGwvvPD03SbuQLs1FdRjsZCeWLdYeQ3JDHE9\nsFG7DCXlpMJcaYT1mf4XHJ0gPekNLQyewTY3Vxf7FgV3GCNjV20kcDFgJA2+iVW2wSrb+txD1ycE\nkbi8jh0pedWwE40VQWaTh/8eAvX7IHWya/AEro25mq+m6vktNZLbvLphhp586kJK3Tdt3YjpkPre\nM3nkFWOWurIyKbtIV9JemfwCgt89sNV45dTlnEDEZFFGnIgDnWgx3CUo4XmhICEQU8+tklw9jJYx\niCTjhbIDEBHySSSc/pQ4ftHQmhToTlQeOdEy4LYiaEIgl1X+hzRH1hBYvWlNKe4EY1nMCKcjgt0=\n-----END PUBLIC KEY-----\"\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE TOKEN token_name\n  -- Use this token provider for database authorization\n  ON DATABASE\n  -- Specify the JWKS specification used to verify the token\n  TYPE JWKS\n  -- Specify the URL where the JWKS object can be found\n  VALUE \"https://example.com/.well-known/jwks.json\"\n;",
+      "-- Create a TOKEN if it does not already exist\nDEFINE TOKEN IF NOT EXISTS example ON SCOPE example TYPE HS512 VALUE \"example\";",
+      "-- Specify the namespace for the token\nUSE NS abcum;\n\n-- Set the name of the token\nDEFINE TOKEN token_name\n  -- Use this OAuth provider for namespace authorization\n  ON NAMESPACE\n  -- Specify the cryptographic signature algorithm used to verify the token\n  TYPE HS512\n  -- Specify the public key so we can verify the authenticity of the token\n  VALUE \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE TOKEN token_name\n  -- Use this OAuth provider for database authorization\n  ON DATABASE\n  -- Specify the cryptographic signature algorithm used to verify the token\n  TYPE HS512\n  -- Specify the public key so we can verify the authenticity of the token\n  VALUE \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Necessary in order to define a scope token\nDEFINE SCOPE users;\n\nDEFINE TOKEN token_name ON SCOPE users TYPE RS256 VALUE \"-----BEGIN PUBLIC KEY-----\nMUO52Me9HEB4ZyU+7xmDpnixzA/CUE7kyUuE0b7t38oCh+sQouREqIjLwgHhFdhh3cQAwr6GH07D\nThioYrZL8xATJ3Youyj8C45QnZcGUif5PkpWXDi0HJSoMFekbW6Pr4xuqIqb2LGxGDVJcLZwJ2AS\nGtu2UAfPXbBD3ffiad393M22g1iHM80YaNi+xgswG7qtXE4lR/Lt4s0MeKKX7stdWI1VIsoB+y3i\nr/OWUvJPjjDNbAsyy8tQmxydv+FUnLEP9TNT4AhN4DXcJ+XsDtW7OWt4EdSVDeKpGbIMvIrh1Pe+\nNilj8UHNyNDHa2AjK3seMo6CMvaIQJKj5o4xGFblFGwvvPD03SbuQLs1FdRjsZCeWLdYeQ3JDHE9\nsFG7DCXlpMJcaYT1mf4XHJ0gPekNLQyewTY3Vxf7FgV3GCNjV20kcDFgJA2+iVW2wSrb+txD1ycE\nkbi8jh0pedWwE40VQWaTh/8eAvX7IHWya/AEro25mq+m6vktNZLbvLphhp586kJK3Tdt3YjpkPre\nM3nkFWOWurIyKbtIV9JemfwCgt89sNV45dTlnEDEZFFGnIgDnWgx3CUo4XmhICEQU8+tklw9jJYx\niCTjhbIDEBHySSSc/pQ4ftHQmhToTlQeOdEy4LYiaEIgl1X+hzRH1hBYvWlNKe4EY1nMCKcjgt0=\n-----END PUBLIC KEY-----\";\n\nDEFINE TABLE user SCHEMAFULL\n  -- Authorized users can select, update, delete and create user records\n  PERMISSIONS FOR select, update, delete, create\n  -- The current scope must be \"users\"\n  WHERE $scope = \"users\"\n  -- The email of the user being queried must match the email claim in the token\n  -- Only matching records will be changed or returned\n  AND email = $token.email\n;\n\nDEFINE INDEX email ON user FIELDS email UNIQUE;\nDEFINE FIELD email ON user TYPE string ASSERT string::is::email($value);\nDEFINE FIELD name ON user TYPE string;\nDEFINE FIELD nickname ON user TYPE string;\nDEFINE FIELD picture ON user TYPE string;"
+    ],
+    "title": "DEFINE TOKEN statement | SurrealQL",
+    "description": "SurrealDB can work with third-party authentication providers such as OpenID Connect providers, OAuth providers and other trusted third parties.",
+    "sidebar_label": "DEFINE TOKEN"
+  },
+  "statements.define.table": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/table.mdx",
+    "hierarchy": "statements.define.table",
+    "frontmatter": {
+      "sidebar_position": 15,
+      "sidebar_label": "DEFINE TABLE",
+      "title": "DEFINE TABLE statement | SurrealQL",
+      "description": "The DEFINE TABLE statement allows you to declare your table by name, enabling you to apply strict controls to a table's schema and access permissions."
+    },
+    "syntax_blocks": [
+      "DEFINE TABLE [ OVERWRITE | IF NOT EXISTS ] @name\n\t[ DROP ]\n\t[ SCHEMAFULL | SCHEMALESS ]\n\t[ TYPE [ ANY | NORMAL | RELATION [ IN | FROM ] @table [ OUT | TO ] @table [ ENFORCED ]]]\n\t[ AS SELECT @projections\n\t\tFROM @tables\n\t\t[ WHERE @condition ]\n\t\t[ GROUP [ BY ] @groups ]\n\t]\n\t[ CHANGEFEED @duration [ INCLUDE ORIGINAL ] ]\n\t[ PERMISSIONS [ NONE | FULL\n\t\t| FOR select @expression\n\t\t| FOR create @expression\n\t\t| FOR update @expression\n\t\t| FOR delete @expression\n\t] ]\n    [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Declare the name of a table.\nDEFINE TABLE reading;",
+      "-- By marking a table as DROP, you disallow any records to be created or updated.\n-- Records that currently exist in the table will not automatically be deleted, you can still remove them manually.\nDEFINE TABLE reading DROP;",
+      "-- Define the change feed and its duration\n-- Optionally, append INCLUDE ORIGINAL to include info\n-- on the current record before a change took place\nDEFINE TABLE reading CHANGEFEED 3d;\n\n-- Create some records in the reading table\nCREATE reading SET story = \"Once upon a time\";\nCREATE reading SET story = \"there was a database\";\n\n-- Replay changes to the reading table since a certain date\n-- Must be after the timestamp at which the changefeed began\nSHOW CHANGES FOR TABLE reading SINCE d\"2023-09-07T01:23:52Z\" LIMIT 10;\n\n-- Alternatively, show the changes for the table since a version number\nSHOW CHANGES FOR TABLE reading SINCE 0 LIMIT 10;",
+      "-- Create schemafull user table.\nDEFINE TABLE user SCHEMAFULL;\n\n-- Define some fields.\nDEFINE FIELD firstName ON TABLE user TYPE string;\nDEFINE FIELD lastName ON TABLE user TYPE string;\nDEFINE FIELD email ON TABLE user TYPE string\n  ASSERT string::is::email($value);\nDEFINE INDEX userEmailIndex ON TABLE user COLUMNS email UNIQUE;\n\n-- SEE IT IN ACTION\n-- 1: Add a user with all required fields and an undefined one, 'photoURI'.\nCREATE user CONTENT {\n    firstName: 'Tobie',\n    lastName: 'Hitchcock',\n    email: 'Tobie.Hitchcock@surrealdb.com',\n    photoURI: 'photo/yxCFi22Jw2.webp'\n};\n-- 2: Statement will not fail but photoURI will be ignored as it is not a\n--    defined field.\n\n-- 3: Query the data\nSELECT * FROM user",
+      "-- Create schemaless user table.\nDEFINE TABLE user SCHEMALESS;\n\n-- Define some fields.\nDEFINE FIELD firstName ON TABLE user TYPE string;\nDEFINE FIELD lastName ON TABLE user TYPE string;\nDEFINE FIELD email ON TABLE user TYPE string\n  ASSERT string::is::email($value);\nDEFINE INDEX userEmailIndex ON TABLE user COLUMNS email UNIQUE;\n\n-- SEE IT IN ACTION - Example 1\n-- 1: Add a user with all required fields and an undefined one.\nCREATE user SET firstName = 'Tobie', lastName = 'Hitchcock', email = 'Tobie.Hitchcock@surrealdb.com', photoURI = 'photo/yxCFi22Jw2.webp';\n-- 2: Statement will succeed because user is a SCHEMALESS table.\n\n-- SEE IT IN ACTION - Example 2\n-- 1: Add a user with an invalid email address and include a new field that was never defined.\nCREATE user SET firstName = 'Jamie', lastName = 'Hitchcock', email = 'Jamie.Hitchcock', photoURI = 'photo/yxCFi22Jw2.webp';\n-- 2: Statement will fail because the value for email was not valid.",
+      "DEFINE TABLE person SCHEMAFULL;\n\nDEFINE FIELD first_name ON TABLE person TYPE string ASSERT string::len($value) < 20;\nDEFINE FIELD last_name  ON TABLE person TYPE string ASSERT string::len($value) < 20;\nDEFINE FIELD name       ON TABLE person             VALUE first_name + ' ' + last_name;\n\n// Creates a `person` with the name \"Bob Bobson\"\nCREATE person SET first_name = \"Bob\", last_name = \"Bobson\";",
+      "-- Define a table as a view which aggregates data from the review table\nDEFINE TABLE avg_product_review TYPE NORMAL AS\nSELECT\n\tcount() AS number_of_reviews,\n\tmath::mean(<float> rating) AS avg_review,\n\t->product.id AS product_id,\n\t->product.name AS product_name\nFROM review\nGROUP BY product_id, product_name;\n\n-- Query the projection\nSELECT * FROM avg_product_review;",
+      "CREATE some_table;\nDEFINE TABLE some_other_table;\n\nINFO FOR DB;",
+      "-- Specify access permissions for the 'post' table\nDEFINE TABLE post SCHEMALESS\n\tPERMISSIONS\n\t\tFOR select\n\t\t\t-- Published posts can be selected\n\t\t\tWHERE published = true\n\t\t\t-- A user can select all their own posts\n\t\t\tOR user = $auth.id\n\t\tFOR create, update\n\t\t\t-- A user can create or update their own posts\n\t\t\tWHERE user = $auth.id\n\t\tFOR delete\n\t\t\t-- A user can delete their own posts\n\t\t\tWHERE user = $auth.id\n\t\t\t-- Or an admin can delete any posts\n\t\t\tOR $auth.admin = true\n;",
+      "-- Create a TABLE if it does not already exist\nDEFINE TABLE IF NOT EXISTS reading",
+      "-- Create an TABLE and overwrite if it already exists\nDEFINE TABLE OVERWRITE example;",
+      "DEFINE TABLE person TYPE ANY;\nDEFINE TABLE person;",
+      "-- Since it's default, we can also omit the TYPE clause\nDEFINE TABLE person TYPE NORMAL;",
+      "-- Just a RELATION table, no constraints on the type of table\nDEFINE TABLE likes TYPE RELATION;\n\n-- Define a relation table, and constrain the type of relation which can be stored\nDEFINE TABLE likes TYPE RELATION FROM user TO post;\n-- OR use IN and OUT alternatively to FROM and TO\nDEFINE TABLE likes TYPE RELATION IN user OUT post;\n-- To allow a link to one of a possible set of record types, use the | operator\nDEFINE TABLE likes TYPE RELATION FROM user TO post|video;\nDEFINE TABLE likes TYPE RELATION IN user OUT post|video;",
+      "-- Define a relation table, and constrain the type of relation which can be stored\nDEFINE TABLE assigned_to SCHEMAFULL TYPE RELATION IN tag OUT sticky\n    PERMISSIONS\n        FOR create, select, update, delete\n            WHERE in.owner == $auth.id AND out.author == $auth.id;",
+      "RELATE city:one->road_to->city:two SET\n    distance = 12.4,\n    slope = 5.4;",
+      "SELECT ->road_to->city FROM city;\n\nCREATE city:one, city:two;\nSELECT ->road_to->city FROM city;",
+      "DEFINE TABLE road_to TYPE RELATION IN city OUT city ENFORCED;\n\nRELATE city:one->road_to->city:three SET\n    distance = 5.5,\n    slope = 30.0;"
+    ],
+    "title": "DEFINE TABLE statement | SurrealQL",
+    "description": "The DEFINE TABLE statement allows you to declare your table by name, enabling you to apply strict controls to a table's schema and access permissions.",
+    "sidebar_label": "DEFINE TABLE"
+  },
+  "statements.define.namespace": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/namespace.mdx",
+    "hierarchy": "statements.define.namespace",
+    "frontmatter": {
+      "sidebar_position": 11,
+      "sidebar_label": "DEFINE NAMESPACE",
+      "title": "DEFINE NAMESPACE statement | SurrealQL",
+      "description": "The DEFINE NAMESPACE statement can be used to setup namespaces, which can contain multiple databases."
+    },
+    "syntax_blocks": [
+      "DEFINE NAMESPACE [ OVERWRITE | IF NOT EXISTS ] @name [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Namespace for Abcum Ltd.\nDEFINE NAMESPACE abcum;",
+      "-- Create a NAMESPACE if it does not already exist\nDEFINE NAMESPACE IF NOT EXISTS example;",
+      "-- Create an NAMESPACE and overwrite if it already exists\nDEFINE NAMESPACE OVERWRITE example;"
+    ],
+    "title": "DEFINE NAMESPACE statement | SurrealQL",
+    "description": "The DEFINE NAMESPACE statement can be used to setup namespaces, which can contain multiple databases.",
+    "sidebar_label": "DEFINE NAMESPACE"
+  },
+  "statements.define.event": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/event.mdx",
+    "hierarchy": "statements.define.event",
+    "frontmatter": {
+      "sidebar_position": 7,
+      "sidebar_label": "DEFINE EVENT",
+      "title": "DEFINE EVENT statement | SurrealQL",
+      "description": "The DEFINE EVENT statement can be used to create events which can be triggered after any change or modification to the data in a record."
+    },
+    "syntax_blocks": [
+      "DEFINE EVENT [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table [ WHEN @expression ] THEN @expression [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Create a new event whenever a user changes their email address\n-- One-statement event\nDEFINE EVENT OVERWRITE test ON TABLE user WHEN $before.email != $after.email THEN (\n    CREATE log SET \n        user       = $value.id,\n        // Turn events like \"CREATE\" into string \"email created\"\n        action     = 'email' + ' ' + $event.lowercase() + 'd',\n        // `email` field may be NONE, log as '' if so\n        old_email  = $before.email ?? '',\n        new_email  = $after.email  ?? '',\n        at         = time::now()\n);\nUPSERT user:test SET email = 'old_email@test.com';\nUPSERT user:test SET email = 'new_email@test.com';\nDELETE user:test;\nSELECT * FROM log ORDER BY at ASC;",
+      "DEFINE EVENT purchase_made ON TABLE purchase\n    WHEN $before == NONE\n    THEN {\n        LET $customer = (SELECT * FROM customer WHERE id = $after.customer);\n        LET $product = (SELECT * FROM product WHERE id = $after.product);\n\n        RELATE $customer->bought->$product CONTENT {\n            quantity: $after.quantity,\n            total: $after.total,\n            status: 'Pending',\n        };\n\n        CREATE log SET\n            customer_id = $after.customer,\n            product_id = $after.product,\n            action = 'purchase_created',\n            timestamp = time::now();\n    };",
+      "-- CREATE event is triggered when a new record is inserted into the table.\n-- Here we are updating the status of the post to PUBLISHED\n-- when a new record is inserted into the publish_post table.\nDEFINE EVENT publish_post ON TABLE publish_post\n    WHEN $event = \"CREATE\"\n    THEN (\n        UPDATE post SET status = \"PUBLISHED\" WHERE id = $after.post_id\n    );\n\n-- UPDATE event\n-- Here we are creating a notification when a user is updated.\nDEFINE EVENT user_updated ON TABLE user\n    WHEN $event = \"UPDATE\"\n    THEN (\n        CREATE notification SET message = \"User updated\", user_id = $after.id, created_at = time::now()\n    );\n\n-- DELETE event is triggered when a record is deleted from the table.\n-- Here we are creating a notification when a user is deleted.\nDEFINE EVENT user_deleted ON TABLE user\n    WHEN $event = \"DELETE\"\n    THEN (\n        CREATE notification SET message = \"User deleted\", user_id = $before.id, created_at = time::now()\n    );\n\n-- You can combine multiple events based on your use cases.\n-- Here we are creating a log when a user is created, updated or deleted.\nDEFINE EVENT user_event ON TABLE user\n    WHEN $event = \"CREATE\" OR $event = \"UPDATE\" OR $event = \"DELETE\"\n    THEN (\n        CREATE log SET\n            table = \"user\",\n            event = $event,\n            happened_at = time::now()\n    );",
+      "-- Create a EVENT if it does not already exist\nDEFINE EVENT IF NOT EXISTS example ON example THEN {};",
+      "-- Create an EVENT and overwrite if it already exists\nDEFINE EVENT OVERWRITE example ON example THEN {};",
+      "CREATE comment SET\n    post = post:tomatosoup,\n    content = \"So delicious!\",\n    author = $auth.id\n;",
+      "DEFINE EVENT on_comment_created ON TABLE comment\n    WHEN $event = \"CREATE\"\n    THEN {\n        -- Check if the post allows for adding comments.\n        -- User record doesn't have access to the `post` table.\n        IF $after.post.disable_comments {\n            THROW \"Can't create a comment - Comments are disabled for this post\";\n        };\n\n        -- Set the `approved` field on the new comment - automatically approve\n        -- comments made by the author of the post.\n        -- For security reasons, record users don't have any permissions for the `approved` field.\n        UPDATE $after.id SET\n            approved = $after.post.author == $after.author;\n    };"
+    ],
+    "title": "DEFINE EVENT statement | SurrealQL",
+    "description": "The DEFINE EVENT statement can be used to create events which can be triggered after any change or modification to the data in a record.",
+    "sidebar_label": "DEFINE EVENT"
+  },
+  "statements.define.scope": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/scope.mdx",
+    "hierarchy": "statements.define.scope",
+    "frontmatter": {
+      "sidebar_position": 13,
+      "sidebar_label": "DEFINE SCOPE",
+      "title": "DEFINE SCOPE statement | SurrealQL",
+      "description": "Setting scope access allows SurrealDB to operate as a web database. With scopes you can set authentication and access rules which enable fine-grained access to tables and fields."
+    },
+    "syntax_blocks": [
+      "DEFINE SCOPE [ OVERWRITE | IF NOT EXISTS ] @name SESSION @duration SIGNUP @expression SIGNIN @expression [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Enable scope authentication directly in SurrealDB\nDEFINE SCOPE account SESSION 24h\n\tSIGNUP ( CREATE user SET email = $email, pass = crypto::argon2::generate($pass) )\n\tSIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )\n;",
+      "-- Create a SCOPE if it does not already exist\nDEFINE SCOPE IF NOT EXISTS example;"
+    ],
+    "title": "DEFINE SCOPE statement | SurrealQL",
+    "description": "Setting scope access allows SurrealDB to operate as a web database. With scopes you can set authentication and access rules which enable fine-grained access to tables and fields.",
+    "sidebar_label": "DEFINE SCOPE"
+  },
+  "statements.define.index": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/index.mdx",
+    "hierarchy": "statements.define.index",
+    "frontmatter": {
+      "sidebar_position": 1,
+      "sidebar_label": "Overview",
+      "title": "DEFINE statement | SurrealQL",
+      "description": "The DEFINE statement can be used to specify authentication access and behaviour, global parameters, table configurations, table events, schema definitions, and indexes."
+    },
+    "syntax_blocks": [
+      "DEFINE [\n\tNAMESPACE [ OVERWRITE | IF NOT EXISTS ] @name\n\t| DATABASE [ OVERWRITE | IF NOT EXISTS ] @name\n\t| USER [ OVERWRITE | IF NOT EXISTS ] @name ON [ ROOT | NAMESPACE | DATABASE ] [ PASSWORD @pass | PASSHASH @hash ] ROLES @roles\n\t| TABLE [ OVERWRITE | IF NOT EXISTS ] @name\n\t\t[ DROP ]\n\t\t[ SCHEMAFULL | SCHEMALESS ]\n\t\t[ AS SELECT @projections\n\t\t\tFROM @tables\n\t\t\t[ WHERE @condition ]\n\t\t\t[ GROUP [ BY ] @groups ]\n\t\t]\n\t\t[ PERMISSIONS [ NONE | FULL\n\t\t\t| FOR select @expression\n\t\t\t| FOR create @expression\n\t\t\t| FOR update @expression\n\t\t\t| FOR delete @expression\n\t\t] ]\n\t| EVENT [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table WHEN @expression THEN @expression\n\t| FIELD [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table\n\t\t[ [ FLEXIBLE ] TYPE @type ]\n\t\t[ VALUE @expression ]\n\t\t[ ASSERT @expression ]\n\t\t[ PERMISSIONS [ NONE | FULL\n\t\t\t| FOR select @expression\n\t\t\t| FOR create @expression\n\t\t\t| FOR update @expression\n\t\t\t| FOR delete @expression\n\t\t] ]\n\t| PARAM [ OVERWRITE | IF NOT EXISTS ] $@name VALUE @value\n\t| FUNCTION [ OVERWRITE | IF NOT EXISTS ] fn::@name ( [ ( @argument:@type ... ) ] ) { [@query] [RETURNS @returned] }\n\t| ANALYZER [ OVERWRITE | IF NOT EXISTS ] @name\n\t\t[ TOKENIZERS @tokenizers ]\n\t\t[ FILTERS @filters ]\n\t| INDEX [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table [ FIELDS | COLUMNS ] @fields\n\t\t[ UNIQUE | SEARCH ANALYZER @analyzer [ BM25 [(@k1, @b)] ] [ HIGHLIGHTS ] ]\n\t| SEQUENCE [ OVERWRITE | IF NOT EXISTS ] @name\n\t\t[ BATCH @batch ]\n\t\t[ START @start ]\n\t| ACCESS [ OVERWRITE | IF NOT EXISTS ] @name ON [ NAMESPACE | DATABASE ]\n\t\tTYPE [\n\t\t\tJWT [ ALGORITHM @algorithm KEY @key | URL @url ]\n\t\t\t| RECORD\n\t\t\t\t[ SIGNUP @expression ]\n\t\t\t\t[ SIGNIN @expression ]\n\t\t\t\t[ WITH JWT [ ALGORITHM @algorithm KEY @key | URL @url ] [ WITH ISSUER KEY @key ] ]\n\t\t]\n\t\t[ DURATION [ FOR TOKEN @duration ] [ FOR SESSION @duration ] ]\n    [ COMMENT @string ]\n]"
+    ],
+    "example_blocks": [
+      "DEFINE FIELD name ON TABLE person TYPE string COMMENT \"Todo: add assertion for maximum length\";\nINFO FOR TABLE person;",
+      "DEFINE USER db_user ON DATABASE PASSWORD \"strongpassword\" ROLES OWNER;\nDEFINE TABLE person SCHEMAFULL;\nINFO FOR DB;"
+    ],
+    "title": "DEFINE statement | SurrealQL",
+    "description": "The DEFINE statement can be used to specify authentication access and behaviour, global parameters, table configurations, table events, schema definitions, and indexes.",
+    "sidebar_label": "Overview"
+  },
+  "statements.define.api": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/api.mdx",
+    "hierarchy": "statements.define.api",
+    "frontmatter": {
+      "sidebar_position": 3,
+      "sidebar_label": "DEFINE API",
+      "title": "DEFINE API statement | SurrealQL",
+      "description": "A DEFINE API statement can be used to set endpoints with custom middleware and permissions."
+    },
+    "syntax_blocks": [
+      "DEFINE API [ OVERWRITE | IF NOT EXISTS ] @endpoint\n    [ FOR @HTTP_method, .. ]\n    [ MIDDLEWARE @function, .. ]\n    [ THEN { @value } ]\n    [ PERMISSIONS [ NONE | FULL | @expression ]"
+    ],
+    "example_blocks": [
+      "api::invoke(\"/test\");\n\napi::invoke(\"/test\", {\n    body: {\n       hi: \"please\",\n        give: \"me\",\n        the: \"information\"\n    }\n});",
+      "DEFINE API OVERWRITE \"/test/:anything_goes\" FOR get THEN {\n    RETURN {\n        body: {\n            some: \"data\"\n        }\n    }\n};\n\napi::invoke(\"/test/this_matches\");\napi::invoke(\"/test/same_here\");\napi::invoke(\"/test/but/this/wont/match\");",
+      "DEFINE API OVERWRITE \"/test/*anything_goes\" FOR get THEN {\n    RETURN {\n        body: {\n            some: \"data\"\n        }\n    }\n};\n\napi::invoke(\"/test/this_matches\");\napi::invoke(\"/test/same_here\");\napi::invoke(\"/test/works/with/multiple/paths/now\");"
+    ],
+    "title": "DEFINE API statement | SurrealQL",
+    "description": "A DEFINE API statement can be used to set endpoints with custom middleware and permissions.",
+    "sidebar_label": "DEFINE API"
+  },
+  "statements.define.sequence": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/sequence.mdx",
+    "hierarchy": "statements.define.sequence",
+    "frontmatter": {
+      "sidebar_position": 14,
+      "sidebar_label": "DEFINE SEQUENCE",
+      "title": "DEFINE SEQUENCE statement | SurrealQL",
+      "description": "A DEFINE SEQUENCE statement defines a distributed generator of monotonically increasing numeric sequences."
+    },
+    "syntax_blocks": [
+      "DEFINE SEQUENCE [ OVERWRITE | IF NOT EXISTS ] @name [ BATCH @batch ] [ START @start ] [ TIMEOUT @duration ]"
+    ],
+    "example_blocks": [
+      "DEFINE SEQUENCE mySeq;",
+      "DEFINE SEQUENCE mySeq2 BATCH 1000 START 100 TIMEOUT 5s;\nsequence::nextval('mySeq2');\n-- Output: 100\n\nDEFINE SEQUENCE mySeq3 BATCH 1000 START 100 TIMEOUT 0s;\nsequence::nextval('mySeq2');\n-- Output: 'The query was not executed because it exceeded the timeout'"
+    ],
+    "title": "DEFINE SEQUENCE statement | SurrealQL",
+    "description": "A DEFINE SEQUENCE statement defines a distributed generator of monotonically increasing numeric sequences.",
+    "sidebar_label": "DEFINE SEQUENCE"
+  },
+  "statements.define.bucket": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/bucket.mdx",
+    "hierarchy": "statements.define.bucket",
+    "frontmatter": {
+      "sidebar_position": 4,
+      "sidebar_label": "DEFINE BUCKET",
+      "title": "DEFINE BUCKET statement | SurrealQL",
+      "description": "A DEFINE BUCKET statement can be used to set endpoints with custom middleware and permissions."
+    },
+    "syntax_blocks": [
+      "DEFINE BUCKET [ OVERWRITE | IF NOT EXISTS ] @name [ @backend ]\nPERMISSIONS @expression [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "DEFINE BUCKET my_bucket BACKEND \"memory\";",
+      "-- Create a file by adding some content\nf\"my_bucket:/my_book.txt\".put(\"Once there were four children whose names were Peter, Susan, Edmund, and Lucy.\");\n-- Copy it to a new file name\nf\"my_bucket:/my_book.txt\".copy(\"lion_witch_wardrobe.txt\");\n-- Read the file as bytes\nf\"my_bucket:/lion_witch_wardrobe.txt\".get();\n-- Cast the bytes to a string\n<string>f\"my_bucket:/lion_witch_wardrobe.txt\".get();",
+      "DEFINE BUCKET my_bucket BACKEND \"file:/some_directory\";\nDEFINE BUCKET my_bucket BACKEND \"file:/some_directory\";",
+      "'Bucket backend not supported: Path not allowed'",
+      "DEFINE BUCKET my_bucket;\n\n-- Writes to e.g. `my_global_bucket:/test_ns/test_db/my_bucket/my_book.txt`\nf\"my_bucket:/my_book.txt\".put(\"Once there were four children whose names were Peter, Susan, Edmund, and Lucy.\");"
+    ],
+    "title": "DEFINE BUCKET statement | SurrealQL",
+    "description": "A DEFINE BUCKET statement can be used to set endpoints with custom middleware and permissions.",
+    "sidebar_label": "DEFINE BUCKET"
+  },
+  "statements.define.analyzer": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/analyzer.mdx",
+    "hierarchy": "statements.define.analyzer",
+    "frontmatter": {
+      "sidebar_position": 2,
+      "sidebar_label": "DEFINE ANALYZER",
+      "title": "DEFINE ANALYZER statement | SurrealQL",
+      "description": "In the context of a database, an analyzer plays a crucial role in text processing and searching. It is defined by its name, a set of tokenizers, and a collection of filters."
+    },
+    "syntax_blocks": [
+      "DEFINE ANALYZER [ OVERWRITE | IF NOT EXISTS ] @name [ FUNCTION @function ] [ TOKENIZERS @tokenizers ] [ FILTERS @filters ] [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "DEFINE FUNCTION fn::backwardsify($input: string) -> string {\n    $input.split('').fold('', |$a, $b| $b + $a);\n};\n\nDEFINE ANALYZER backwards FUNCTION fn::backwardsify TOKENIZERS blank;\n\nsearch::analyze(\"backwards\", \"I like SurrealDB\");",
+      "DEFINE ANALYZER example_blank TOKENIZERS blank;\nsearch::analyze(\"example_blank\", \"hello world\");",
+      "DEFINE ANALYZER example_camel TOKENIZERS camel;\nsearch::analyze(\"example_camel\", \"helloWorld\");",
+      "DEFINE ANALYZER example_class TOKENIZERS class;\nsearch::analyze(\"example_class\", \"123abc!XYZ\");",
+      "DEFINE ANALYZER example_punct TOKENIZERS punct;\nsearch::analyze(\"example_punct\", \"Hello, World!\");",
+      "DEFINE ANALYZER example_ascii TOKENIZERS class FILTERS ascii;\nsearch::analyze(\"example_ascii\", \"résumé café\");",
+      "DEFINE ANALYZER example_lowercase TOKENIZERS class FILTERS lowercase;\nsearch::analyze(\"example_lowercase\", \"Hello World\");",
+      "DEFINE ANALYZER example_uppercase TOKENIZERS class FILTERS uppercase;\nsearch::analyze(\"example_uppercase\", \"Hello World\");",
+      "DEFINE ANALYZER example_edgengram TOKENIZERS class FILTERS edgengram(1,3);\nsearch::analyze(\"example_edgengram\", \"apple banana\");",
+      "DEFINE ANALYZER lemme_english TOKENIZERS blank,class FILTERS lowercase,mapper('../tests/data/lemmatization-en.txt');\n\nRETURN [\n    search::analyze(\"lemme_english\", \"He drove and swam\"),\n];",
+      "DEFINE ANALYZER lemme_english TOKENIZERS blank,class FILTERS lowercase,mapper('../tests/data/lemmatization-en.txt');\n\nLET $text = \"The Wheel of Time turns, and Ages come and pass, leaving memories that become legend. Legend fades to myth, and even myth is long forgotten when the Age that gave it birth comes again. In one Age, called the Third Age by some, an Age yet to come, an Age long past, a wind rose in the Mountains of Mist. The wind was not the beginning. There are neither beginnings nor endings to the turning of the Wheel of Time. But it was a beginning.\";\n\nLET $words = search::analyze(\"lemme_english\", $text)\n    .filter(|$c| $c.is_alpha());\nFOR $word IN $words {\n    UPSERT type::thing(\"word\", $word) SET frequency += 1;\n};\n\nSELECT * FROM word WHERE frequency >=3 ORDER BY frequency DESC;",
+      "DEFINE ANALYZER error_filter FILTERS mapper('error_filter.txt');\n\nLET $messages = \n\t[\"File not found\", \"Datei nicht gefunden\", \"Zeitüberschreitung\"]\n\t.map(|$word| $word.replace(' ', '_'))\n\t.join(' ');\nsearch::analyze(\"error_filter\", $messages);",
+      "DEFINE ANALYZER error_filter FILTERS mapper('error_filter.txt');\nDEFINE INDEX OVERWRITE errors ON TABLE error FIELDS message SEARCH ANALYZER error_filter;\n\nFOR $message IN [\"File not found\", \"Datei nicht gefunden\", \"Zeitüberschreitung\"] {\n\tCREATE error SET message = $message.replace(' ', '_'), at = time::now();\n};\n\nSELECT * FROM error WHERE message @@ \"NOT_FOUND\";",
+      "DEFINE ANALYZER example_ngram TOKENIZERS class FILTERS ngram(1,3);\nsearch::analyze(\"example_ngram\", \"apple banana\");",
+      "DEFINE ANALYZER english_snowball TOKENIZERS class FILTERS snowball(english);\nDEFINE ANALYZER german_snowball TOKENIZERS class FILTERS snowball(german);\n\nRETURN [\n    search::analyze(\"english_snowball\", \"Looking at some running cats\"),\n    search::analyze(\"german_snowball\", \"Sollen wir was trinken gehen?\")\n];",
+      "-- Create an ANALYZER if it does not already exist\nDEFINE ANALYZER IF NOT EXISTS example TOKENIZERS blank;",
+      "-- Create an ANALYZER and overwrite if it already exists\nDEFINE ANALYZER OVERWRITE example TOKENIZERS blank;",
+      "-- Creates a simple analyzer removing diacritics marks\nDEFINE ANALYZER ascii TOKENIZERS class FILTERS lowercase,ascii;",
+      "-- Creates an analyzer suitable for English text\nDEFINE ANALYZER english TOKENIZERS class FILTERS snowball(english);",
+      "-- Creates an analyzer suitable for auto-completion.\nDEFINE ANALYZER autocomplete FILTERS lowercase,edgengram(2,10);",
+      "-- Creates an analyzer suitable for source code analysis.\nDEFINE ANALYZER code TOKENIZERS class,camel FILTERS lowercase,ascii;"
+    ],
+    "title": "DEFINE ANALYZER statement | SurrealQL",
+    "description": "In the context of a database, an analyzer plays a crucial role in text processing and searching. It is defined by its name, a set of tokenizers, and a collection of filters.",
+    "sidebar_label": "DEFINE ANALYZER"
+  },
+  "statements.define.field": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/field.mdx",
+    "hierarchy": "statements.define.field",
+    "frontmatter": {
+      "sidebar_position": 8,
+      "sidebar_label": "DEFINE FIELD",
+      "title": "DEFINE FIELD statement | SurrealQL",
+      "description": "The DEFINE FIELD statement allows you to instantiate a named field on a table, enabling you to set the field's achema and configuration."
+    },
+    "syntax_blocks": [
+      "DEFINE FIELD [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table\n\t[ [ FLEXIBLE ] TYPE @type ]\n\t[ REFERENCE \n\t\t[   ON DELETE REJECT | \n\t\t\tON DELETE CASCADE | \n\t\t\tON DELETE IGNORE |\n\t\t\tON DELETE UNSET | \n\t\t\tON DELETE THEN @expression ]\n\t]\n\t[ DEFAULT [ALWAYS] @expression ]\n  [ READONLY ]\n\t[ VALUE @expression ]\n\t[ ASSERT @expression ]\n\t[ PERMISSIONS [ NONE | FULL\n\t\t| FOR select @expression\n\t\t| FOR create @expression\n\t\t| FOR update @expression\n\t] ]\n  [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Declare the name of a field.\nDEFINE FIELD email ON TABLE user;",
+      "-- Define nested object property types\nDEFINE FIELD emails.address ON TABLE user TYPE string;\nDEFINE FIELD emails.primary ON TABLE user TYPE bool;\n\n-- Define individual fields on an array\nDEFINE FIELD metadata[0] ON person TYPE datetime;\nDEFINE FIELD metadata[1] ON person TYPE int;",
+      "DEFINE FIELD OVERWRITE fd ON c TYPE { a: string, b: number };\nDEFINE FIELD OVERWRITE fd.* ON c TYPE number;",
+      "-- Set a field to have the string data type\nDEFINE FIELD email ON TABLE user TYPE string;\n\n-- Set a field to have the datetime data type\nDEFINE FIELD created ON TABLE user TYPE datetime;\n\n-- Set a field to have the bool data type\nDEFINE FIELD locked ON TABLE user TYPE bool;\n\n-- Set a field to have the number data type\nDEFINE FIELD login_attempts ON TABLE user TYPE number;",
+      "-- Set a field to have either the uuid or int type\nDEFINE FIELD user_id ON TABLE user TYPE uuid|int;",
+      "-- Set a field to have the array data type\nDEFINE FIELD roles ON TABLE user TYPE array<string>;\n\n-- Set a field to have the array data type, equivalent to `array<any>`\nDEFINE FIELD posts ON TABLE user TYPE array;\n\n-- Set a field to have the array object data type\nDEFINE FIELD emails ON TABLE user TYPE array<object>;\n\n-- Field for a block in a game showing the possible directions a character can move next.\n-- The array can contain no more than four directions\nDEFINE FIELD next_paths ON TABLE block TYPE array<\"north\" | \"east\" | \"south\" | \"west\", 4>;",
+      "-- A user may enter a biography, but it is not required.\n-- By using the option type you also allow for NONE values.\nDEFINE FIELD biography ON TABLE user TYPE option<string>;",
+      "DEFINE FIELD user ON TABLE POST TYPE option<record<user>>;",
+      "DEFINE TABLE user SCHEMAFULL;\nDEFINE FIELD name ON TABLE user TYPE string;\nDEFINE FIELD metadata ON TABLE user FLEXIBLE TYPE object;\nDEFINE FIELD metadata.user_id ON TABLE TYPE int;",
+      "CREATE ONLY user SET\n    name = \"User1\",\n    metadata = {\n        user_id: 8876687,\n        country_code: \"ee\",\n        time_zone: \"EEST\",\n        age: 25\n};",
+      "{\n\tid: user:ke8w4u38gbm3ofp2u8fb,\n\tmetadata: {\n\t\tuser_id: 8876687\n\t},\n\tname: 'User1'\n}",
+      "DEFINE TABLE user SCHEMAFULL;\nDEFINE FIELD metadata ON TABLE user TYPE object;\n\nCREATE ONLY user SET\n    name = \"User1\",\n    metadata = {\n        user_id: 8876687,\n        country_code: \"ee\",\n        time_zone: \"EEST\",\n        age: 25\n};",
+      "-- A user is not locked by default.\nDEFINE FIELD locked ON TABLE user TYPE bool\n-- Set a default value if empty\nDEFAULT false;",
+      "DEFINE TABLE product SCHEMAFULL;\n-- Set a default value of 123.456 for the primary field\nDEFINE FIELD primary ON product TYPE number DEFAULT ALWAYS 123.456;",
+      "-- This will return an error\nCREATE product:test SET primary = NULL;\n\n-- result \nFound NULL for field `primary`, with record `product:test`, but expected a number",
+      "-- This will set the value of the `primary` field to `123.456`\nCREATE product:test;\n\n-- This will set the value of the `primary` field to `463.456`\nUPSERT product:test SET primary = 463.456;\n\n-- This will set the value of the `primary` field to `123.456`\nUPSERT product:test SET primary = NONE;",
+      "DEFINE FIELD updated ON TABLE user DEFAULT time::now();\n\n-- Set `updated` to the year 1900\nCREATE user SET updated = d\"1900-01-01\";\n-- Then set to the year 1910\nUPDATE user SET updated = d\"1910-01-01\";",
+      "DEFINE FIELD updated ON TABLE user VALUE time::now();\n\n-- Ignores 1900 date, sets `updated` to current time\nCREATE user SET updated = d\"1900-01-01\";\n-- Ignores again, updates to current time\nUPDATE user SET updated = d\"1900-01-01\";",
+      "DEFINE FIELD updated ON TABLE user VALUE time::now();\n\nCREATE user:one;\nSELECT * FROM ONLY user:one;\n-- Sleep for one second\nSLEEP 1s;\n-- `updated` is still the same\nSELECT * FROM ONLY user:one;",
+      "DEFINE FIELD accessed_at ON TABLE user VALUE <future> { time::now() };\n\nCREATE user:one;\nSELECT * FROM ONLY user:one;\n-- Sleep for one second\nSLEEP 1s;\n-- `accessed_at` is a different value now\nSELECT * FROM ONLY user:one;",
+      "-- Ensure that an email address is always stored in lowercase characters\nDEFINE FIELD email ON TABLE user TYPE string\n  VALUE string::lowercase($value);",
+      "-- Give the user table an email field. Store it in a string\nDEFINE FIELD email ON TABLE user TYPE string\n  -- Check if the value is a properly formatted email address\n  ASSERT string::is::email($value);",
+      "DEFINE FIELD num ON data TYPE int ASSERT {\n    IF $input % 2 = 0 {\n        RETURN true\n    } ELSE {\n        THROW \"Tried to make a \" + <string>$this + \" but `num` field requires an even number\"\n    }\n};\n\nCREATE data SET num = 11;",
+      "DEFINE FIELD created ON resource VALUE time::now() READONLY;",
+      "-- Create a field if it does not already exist\nDEFINE FIELD IF NOT EXISTS email ON TABLE user TYPE string;",
+      "-- Create an FIELD and overwrite if it already exists\nDEFINE FIELD OVERWRITE example ON TABLE user TYPE string;",
+      "DEFINE FIELD info ON TABLE some_table TYPE string;\nINFO FOR TABLE some_table;",
+      "-- Set permissions for the email field\nDEFINE FIELD email ON TABLE user\n  PERMISSIONS\n    FOR select WHERE published=true OR user=$auth.id\n    FOR update WHERE user=$auth.id OR $auth.role=\"admin\";",
+      "-- An ACL can be applied to any kind of resource (record)\nDEFINE FIELD resource ON TABLE acl TYPE record;\n-- We associate the acl with a user using record<user>\nDEFINE FIELD user ON TABLE acl TYPE record<user>;\n\n-- The permissions for the user+resource will be stored in an array.\nDEFINE FIELD permissions ON TABLE acl TYPE array\n  -- The array must not be empty because at least one permission is required to make a valid ACL\n  -- The items in the array must also be restricted to specific permissions\n  ASSERT\n      array::len($value) > 0\n      AND $value ALLINSIDE [\"create\", \"read\", \"write\", \"delete\"];\n\n-- SEE IT IN ACTION\n-- 1: Add users\nCREATE user:tobie SET firstName = 'Tobie', lastName = 'Hitchcock',\n  email = 'Tobie.Hitchcock@surrealdb.com';\nCREATE user:abc SET firstName = 'A', lastName = 'B',\n  email = 'c@d.com';\nCREATE user:efg SET firstName = 'E', lastName = 'F',\n  email = 'g@h.com';\n\n-- 2: Create a resource\nCREATE document:SurrealDB_whitepaper SET\n  name = \"some messaging queue\";\n\n-- 3: Associate with ACL\nCREATE acl SET user = user:tobie, resource = document:SurrealDB_whitepaper, permissions = [\"create\", \"write\", \"read\"];\nCREATE acl SET user = user:abc, resource = document:SurrealDB_whitepaper, permissions = [\"read\", \"delete\"];\n\n-- Test Asserts using failure examples\n-- A: Create ACL without permissions field\nCREATE acl SET\n  user = user:efg,\n  permissions = [], # FAIL - permissions must not be empty\n  resource = document:SurrealDB_whitepaper;\n-- B: Create acl with invalid permisson\nCREATE acl SET\n  user = user:efg,\n  permissions = [\"all\"], # FAIL - This value is not allowed in the array\n  resource = document:SurrealDB_whitepaper;",
+      "-- Specify a field on the user table\nDEFINE FIELD countrycode ON user TYPE string\n\t-- Ensure country code is ISO-3166\n\tASSERT $value = /[A-Z]{3}/\n\t-- Set a default value if empty\n\tVALUE $value OR $before OR 'GBR'\n;",
+      "DEFINE TABLE person SCHEMAFULL;\n\nDEFINE FIELD first_name ON TABLE person TYPE string VALUE string::lowercase($value);\nDEFINE FIELD last_name  ON TABLE person TYPE string VALUE string::lowercase($value);\nDEFINE FIELD name       ON TABLE person             VALUE first_name + ' ' + last_name;\n\n// Creates a `person` with the name \"bob bobson\"\nCREATE person SET first_name = \"BOB\", last_name = \"BOBSON\";",
+      "DEFINE FIELD extra_self ON TABLE person VALUE $this;\nCREATE person:one SET name = \"Little person\", age = 6;",
+      "DEFINE FIELD followers\n\tON TABLE person\n\tVALUE <future> { (SELECT VALUE <-follows<-person.id FROM ONLY $this) };\n\nCREATE person:one, person:two, person:three;\n\nRELATE person:one->follows->person:three;\nSELECT * FROM person:three;\n\nRELATE person:two->follows->person:three;\nSELECT * FROM person:three;",
+      "DEFINE TABLE person SCHEMAFULL;\n\nDEFINE FIELD first_name ON TABLE person TYPE string VALUE string::lowercase($value);\nDEFINE FIELD last_name  ON TABLE person TYPE string VALUE string::lowercase($value);\nDEFINE FIELD full_name  ON TABLE person             VALUE first_name + ' ' + last_name;\n\n// Creates a `person` with `full_name` of \"bob BOBSON\", not \"bob bobson\"\nCREATE person SET first_name = \"Bob\", last_name = \"BOBSON\";",
+      "DEFINE FIELD coffee ON TABLE order TYPE \"regular\" | \"large\" | { special_order: string };\n\nCREATE order SET coffee = { special_order: \"Venti Quadruple Ristretto Half-Decaf Soy Latte with 4 pumps of sugar-free vanilla syrup\" };\nCREATE order SET coffee = \"small\";",
+      "DEFINE FIELD filter ON TABLE search_settings TYPE\n      \"None\"\n    | { type: \"Ascii\" }\n    | { type: \"EdgeNgram\", from: int, to: int }\n    | { type: \"Lowercase\" }\n    | { type: \"Ngram\", from: int, to: int }\n    | { type: \"Snowball\", language: string }\n    | { type: \"Uppercase\" };",
+      "DEFINE FIELD id ON TABLE something TYPE string;\nDEFINE FIELD id ON TABLE something TYPE int;\nDEFINE FIELD id ON TABLE something TYPE uuid;\n\n-- using multiple data types for a Complex Record ID\nDEFINE FIELD id ON TABLE log TYPE [record, \"info\" | \"warn\" | \"error\", datetime];\n\n-- Incorrect ID format, generates an error\nCREATE log SET level = \"info\", time = time::now(), message = \"Database started\";\n\n-- Acceptable ID format\nCREATE log:[user:one, \"info\", time::now()] SET message = \"Database started\";"
+    ],
+    "title": "DEFINE FIELD statement | SurrealQL",
+    "description": "The DEFINE FIELD statement allows you to instantiate a named field on a table, enabling you to set the field's achema and configuration.",
+    "sidebar_label": "DEFINE FIELD"
+  },
+  "statements.define.function": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/function.mdx",
+    "hierarchy": "statements.define.function",
+    "frontmatter": {
+      "sidebar_position": 9,
+      "sidebar_label": "DEFINE FUNCTION",
+      "title": "DEFINE FUNCTION statement | SurrealQL",
+      "description": "The DEFINE FUNCTION statement allows you to define custom functions that can be reused throughout a database."
+    },
+    "syntax_blocks": [
+      "DEFINE FUNCTION [ OVERWRITE | IF NOT EXISTS ] fn::@name( [ @argument: @type ... ] ) {\n\t[ @query ... ]\n\t[ RETURN @returned ]\n} [ COMMENT @string ] [ PERMISSIONS [ NONE | FULL | WHERE @condition]]"
+    ],
+    "example_blocks": [
+      "-- It is necessary to prefix the name of your function with \"fn::\"\n-- This indicates that it's a custom function\nDEFINE FUNCTION fn::greet($name: string) {\n\tRETURN \"Hello, \" + $name + \"!\";\n}\n\n-- Returns: \"Hello, Tobie!\"\nRETURN fn::greet(\"Tobie\");",
+      "-- Define a function that checks if a relation exists between two nodes\nDEFINE FUNCTION fn::relation_exists(\n\t$in: record,\n\t$tb: string,\n\t$out: record\n) {\n\t-- Check if a relation exists between the two nodes.\n\tLET $results = SELECT VALUE id FROM type::table($tb) WHERE in = $in AND out = $out;\n\t-- Return true if a relation exists, false otherwise\n    RETURN array::len($results) > 0;\n};",
+      "DEFINE FUNCTION fn::last_option($required: number, $optional: option<number>) {\n\tRETURN {\n\t\trequired_present: type::is::number($required),\n\t\toptional_present: type::is::number($optional),\n\t}\n};\n\nRETURN fn::last_option(1, 2);\n{\n\trequired_present: true,\n\toptional_present: true,\n};\n\nRETURN fn::last_option(1);\n{\n\trequired_present: true,\n\toptional_present: false,\n};",
+      "DEFINE FUNCTION fn::relate_all($records: array<record>) {\n  IF $records.len() < 2 {\n      -- Don't do anything, ending the recursion\n  }  ELSE {\n      LET $first = $records[0];\n      LET $remainder = $records[1..];\n      FOR $counterpart IN $remainder {\n          RELATE $first->to->$counterpart;\n      };\n      fn::relate_all($remainder);\n  }\n};\n\nCREATE |person:1..7|;\n\nfn::relate_all(SELECT VALUE id FROM person);\n\nSELECT id, ->to->? FROM person;",
+      "-- Define a function that fetches all expiration years from the payment_details table and denies access to all none-admin users\nDEFINE FUNCTION fn::fetchAllPaymentDetails() {\n\tRETURN (SELECT stored_cards.expiry_year FROM payment_details LIMIT 5);\n} PERMISSIONS NONE;\n\nRETURN fn::fetchAllPaymentDetails();",
+      "-- Define a function that fetches all products with the condition that only admin users can access it\nDEFINE FUNCTION fn::fetchAllProducts() {\n\tRETURN (SELECT * FROM product LIMIT 10);\n} PERMISSIONS WHERE $auth.admin = true;",
+      "-- Create a FUNCTION if it does not already exist\nDEFINE FUNCTION IF NOT EXISTS fn::example() {};",
+      "-- Create an FUNCTION and overwrite if it already exists\nDEFINE FUNCTION OVERWRITE fn::example {};"
+    ],
+    "title": "DEFINE FUNCTION statement | SurrealQL",
+    "description": "The DEFINE FUNCTION statement allows you to define custom functions that can be reused throughout a database.",
+    "sidebar_label": "DEFINE FUNCTION"
+  },
+  "statements.define.user": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/user.mdx",
+    "hierarchy": "statements.define.user",
+    "frontmatter": {
+      "sidebar_position": 17,
+      "sidebar_label": "DEFINE USER",
+      "title": "DEFINE USER statement | SurrealQL",
+      "description": "Use the DEFINE USER statement to create system users on SurrealDB."
+    },
+    "syntax_blocks": [
+      "DEFINE USER [ OVERWRITE | IF NOT EXISTS ] @name\n\tON [ ROOT | NAMESPACE | DATABASE ]\n\t[ PASSWORD @pass | PASSHASH @hash ]\n\t[ ROLES @roles ]\n\t[ DURATION [ FOR TOKEN @duration [ , ] ] [ FOR SESSION @duration ] ]\n  [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Create the user with an owner role and some example durations\nDEFINE USER username ON ROOT PASSWORD '123456' ROLES OWNER DURATION FOR SESSION 15m, FOR TOKEN 5s;",
+      "-- Specify the namespace\nUSE NS abcum;\n-- Create the user with an editor role and some example durations\nDEFINE USER username ON NAMESPACE PASSWORD '123456' ROLES EDITOR DURATION FOR SESSION 12h, FOR TOKEN 1m;",
+      "-- Specify the namespace and database for the user\nUSE NS abcum DB app_vitalsense;\n-- Create the user with a viewer role and some example durations\nDEFINE USER username ON DATABASE PASSWORD '123456' ROLES VIEWER DURATION FOR SESSION 5d, FOR TOKEN 2h;",
+      "-- Create a USER if it does not already exist\nDEFINE USER IF NOT EXISTS example ON ROOT PASSWORD \"example\" ROLES OWNER;",
+      "-- Create an USER and overwrite if it already exists\nDEFINE USER OVERWRITE example ON ROOT PASSWORD \"example\" ROLES OWNER;"
+    ],
+    "title": "DEFINE USER statement | SurrealQL",
+    "description": "Use the DEFINE USER statement to create system users on SurrealDB.",
+    "sidebar_label": "DEFINE USER"
+  },
+  "statements.define.database": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/database.mdx",
+    "hierarchy": "statements.define.database",
+    "frontmatter": {
+      "sidebar_position": 6,
+      "sidebar_label": "DEFINE DATABASE",
+      "title": "DEFINE DATABASE statement | SurrealQL",
+      "description": "The DEFINE DATABASE statement allows you to instantiate a named database, enabling you to specify security and configuration options."
+    },
+    "syntax_blocks": [
+      "DEFINE DATABASE [ OVERWRITE | IF NOT EXISTS ] @name [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Specify the namespace for the database\nUSE NS abcum;\n\n-- Define database\nDEFINE DATABASE app_vitalsense;",
+      "-- Create a DATABASE if it does not already exist\nDEFINE DATABASE IF NOT EXISTS app_vitalsense;",
+      "-- Create a DATABASE and overwrite if it already exists\nDEFINE DATABASE OVERWRITE app_vitalsense;"
+    ],
+    "title": "DEFINE DATABASE statement | SurrealQL",
+    "description": "The DEFINE DATABASE statement allows you to instantiate a named database, enabling you to specify security and configuration options.",
+    "sidebar_label": "DEFINE DATABASE"
+  },
+  "statements.define.access.record": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/access/record.mdx",
+    "hierarchy": "statements.define.access.record",
+    "frontmatter": {
+      "sidebar_position": 10,
+      "sidebar_label": "RECORD",
+      "title": "DEFINE ACCESS ... TYPE RECORD statement | SurrealQL",
+      "description": "A record access method allows accessing SurrealDB as a record user."
+    },
+    "syntax_blocks": [
+      "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON DATABASE TYPE RECORD\n    [ SIGNUP @expression ]\n    [ SIGNIN @expression ]\n    [ WITH JWT\n      [ ALGORITHM @algorithm KEY @key | URL @url ]\n      [ WITH ISSUER KEY @key ]\n    ]\n    [ WITH REFRESH ]\n  [ AUTHENTICATE @expression ]\n  [ DURATION\n    [ FOR TOKEN @duration ]\n    [ FOR SESSION @duration ]\n  ]"
+    ],
+    "example_blocks": [
+      "DEFINE ACCESS account ON DATABASE TYPE RECORD\n\tSIGNUP ( CREATE user SET email = $email, pass = crypto::argon2::generate($pass) )\n\tSIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )\n\tDURATION FOR TOKEN 15m, FOR SESSION 12h\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\nDEFINE ACCESS token_name ON DATABASE TYPE RECORD WITH JWT\nALGORITHM RS256 KEY \"-----BEGIN PUBLIC KEY-----\nMUO52Me9HEB4ZyU+7xmDpnixzA/CUE7kyUuE0b7t38oCh+sQouREqIjLwgHhFdhh3cQAwr6GH07D\nThioYrZL8xATJ3Youyj8C45QnZcGUif5PkpWXDi0HJSoMFekbW6Pr4xuqIqb2LGxGDVJcLZwJ2AS\nGtu2UAfPXbBD3ffiad393M22g1iHM80YaNi+xgswG7qtXE4lR/Lt4s0MeKKX7stdWI1VIsoB+y3i\nr/OWUvJPjjDNbAsyy8tQmxydv+FUnLEP9TNT4AhN4DXcJ+XsDtW7OWt4EdSVDeKpGbIMvIrh1Pe+\nNilj8UHNyNDHa2AjK3seMo6CMvaIQJKj5o4xGFblFGwvvPD03SbuQLs1FdRjsZCeWLdYeQ3JDHE9\nsFG7DCXlpMJcaYT1mf4XHJ0gPekNLQyewTY3Vxf7FgV3GCNjV20kcDFgJA2+iVW2wSrb+txD1ycE\nkbi8jh0pedWwE40VQWaTh/8eAvX7IHWya/AEro25mq+m6vktNZLbvLphhp586kJK3Tdt3YjpkPre\nM3nkFWOWurIyKbtIV9JemfwCgt89sNV45dTlnEDEZFFGnIgDnWgx3CUo4XmhICEQU8+tklw9jJYx\niCTjhbIDEBHySSSc/pQ4ftHQmhToTlQeOdEy4LYiaEIgl1X+hzRH1hBYvWlNKe4EY1nMCKcjgt0=\n-----END PUBLIC KEY-----\";\n\nDEFINE TABLE user SCHEMAFULL\n  -- Authorized users can select, update, delete and create user records\n  PERMISSIONS FOR select, update, delete, create\n  -- The access method must be \"users\"\n  WHERE $access = \"users\"\n  -- The record of the user being queried must match the one identified in the token\n  -- Only matching records will be changed or returned\n  AND id = $auth.id\n  -- Allow privileged tokens to query any user\n  OR $token.privileged = true\n;",
+      "DEFINE ACCESS token_name ON DATABASE TYPE RECORD WITH JWT\nALGORITHM RS256\n  KEY \"-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu1SU1LfVLPHCozMxH2Mo\n4lgOEePzNm0tRgeLezV6ffAt0gunVTLw7onLRnrq0/IzW7yWR7QkrmBL7jTKEn5u\n+qKhbwKfBstIs+bMY2Zkp18gnTxKLxoS2tFczGkPLPgizskuemMghRniWaoLcyeh\nkd3qqGElvW/VDL5AaWTg0nLVkjRo9z+40RQzuVaE8AkAFmxZzow3x+VJYKdjykkJ\n0iT9wCS0DRTXu269V264Vf/3jvredZiKRkgwlL9xNAwxXFg0x/XFw005UWVRIkdg\ncKWTjpBP2dPwVZ4WWC+9aGVd+Gyn1o0CLelf4rEjGoXbAAEgAqeGUxrcIlbjXfbc\nmwIDAQAB\n-----END PUBLIC KEY-----\"\n  WITH ISSUER KEY \"-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC7VJTUt9Us8cKj\nMzEfYyjiWA4R4/M2bS1GB4t7NXp98C3SC6dVMvDuictGeurT8jNbvJZHtCSuYEvu\nNMoSfm76oqFvAp8Gy0iz5sxjZmSnXyCdPEovGhLa0VzMaQ8s+CLOyS56YyCFGeJZ\nqgtzJ6GR3eqoYSW9b9UMvkBpZODSctWSNGj3P7jRFDO5VoTwCQAWbFnOjDfH5Ulg\np2PKSQnSJP3AJLQNFNe7br1XbrhV//eO+t51mIpGSDCUv3E0DDFcWDTH9cXDTTlR\nZVEiR2BwpZOOkE/Z0/BVnhZYL71oZV34bKfWjQIt6V/isSMahdsAASACp4ZTGtwi\nVuNd9tybAgMBAAECggEBAKTmjaS6tkK8BlPXClTQ2vpz/N6uxDeS35mXpqasqskV\nlaAidgg/sWqpjXDbXr93otIMLlWsM+X0CqMDgSXKejLS2jx4GDjI1ZTXg++0AMJ8\nsJ74pWzVDOfmCEQ/7wXs3+cbnXhKriO8Z036q92Qc1+N87SI38nkGa0ABH9CN83H\nmQqt4fB7UdHzuIRe/me2PGhIq5ZBzj6h3BpoPGzEP+x3l9YmK8t/1cN0pqI+dQwY\ndgfGjackLu/2qH80MCF7IyQaseZUOJyKrCLtSD/Iixv/hzDEUPfOCjFDgTpzf3cw\nta8+oE4wHCo1iI1/4TlPkwmXx4qSXtmw4aQPz7IDQvECgYEA8KNThCO2gsC2I9PQ\nDM/8Cw0O983WCDY+oi+7JPiNAJwv5DYBqEZB1QYdj06YD16XlC/HAZMsMku1na2T\nN0driwenQQWzoev3g2S7gRDoS/FCJSI3jJ+kjgtaA7Qmzlgk1TxODN+G1H91HW7t\n0l7VnL27IWyYo2qRRK3jzxqUiPUCgYEAx0oQs2reBQGMVZnApD1jeq7n4MvNLcPv\nt8b/eU9iUv6Y4Mj0Suo/AU8lYZXm8ubbqAlwz2VSVunD2tOplHyMUrtCtObAfVDU\nAhCndKaA9gApgfb3xw1IKbuQ1u4IF1FJl3VtumfQn//LiH1B3rXhcdyo3/vIttEk\n48RakUKClU8CgYEAzV7W3COOlDDcQd935DdtKBFRAPRPAlspQUnzMi5eSHMD/ISL\nDY5IiQHbIH83D4bvXq0X7qQoSBSNP7Dvv3HYuqMhf0DaegrlBuJllFVVq9qPVRnK\nxt1Il2HgxOBvbhOT+9in1BzA+YJ99UzC85O0Qz06A+CmtHEy4aZ2kj5hHjECgYEA\nmNS4+A8Fkss8Js1RieK2LniBxMgmYml3pfVLKGnzmng7H2+cwPLhPIzIuwytXywh\n2bzbsYEfYx3EoEVgMEpPhoarQnYPukrJO4gwE2o5Te6T5mJSZGlQJQj9q4ZB2Dfz\net6INsK0oG8XVGXSpQvQh3RUYekCZQkBBFcpqWpbIEsCgYAnM3DQf3FJoSnXaMhr\nVBIovic5l0xFkEHskAjFTevO86Fsz1C2aSeRKSqGFoOQ0tmJzBEs1R6KqnHInicD\nTQrKhArgLXX4v3CddjfTRJkFWDbE/CkvKZNOrcf1nhaGCPspRJj2KUkj1Fhl9Cnc\ndn/RsYEONbwQSjIfMPkvxF+8HQ==\n-----END PRIVATE KEY-----\"\n;",
+      "DEFINE ACCESS token_name ON DATABASE TYPE RECORD WITH JWT\n-- Symmetric algorithm with a symmetric key\n-- The same key is used to sign and verify\nALGORITHM HS512 KEY \"secret\";\n-- The following clause is implicit:\n-- WITH ISSUER ALGORITHM HS512 KEY \"secret\"",
+      "DEFINE ACCESS user ON DATABASE TYPE RECORD\n\tSIGNUP ( CREATE user SET email = $email, pass = crypto::argon2::generate($pass) )\n\tSIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )\n\tWITH REFRESH\n\tDURATION FOR GRANT 15d, FOR TOKEN 1m, FOR SESSION 12h\n;",
+      "DEFINE ACCESS user ON DATABASE TYPE RECORD\n    WITH JWT ALGORITHM HS512 KEY 'secret'\n    AUTHENTICATE {\n        IF $auth.id {\n            RETURN $auth.id;\n        } ELSE IF $token.email {\n            RETURN SELECT * FROM user WHERE email = $token.email;\n        };\n    }\n;",
+      "DEFINE ACCESS user ON DATABASE TYPE RECORD\n    SIGNUP ( CREATE user SET email = $email, pass = crypto::argon2::generate($pass), enabled = true )\n    SIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )\n    AUTHENTICATE {\n        IF !$auth.enabled {\n            THROW \"This user is not enabled\";\n        };\n\n        RETURN $auth;\n    }\n;",
+      "DEFINE ACCESS user ON DATABASE TYPE RECORD\n    SIGNUP ( CREATE user SET email = $email, pass = crypto::argon2::generate($pass) )\n    SIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )\n    AUTHENTICATE {\n        IF type::thing(\"token\", $token.jti).revoked = true {\n            THROW \"This token has been revoked\";\n        };\n        INSERT INTO token { id: $token.jti, exp: $token.exp, revoked: false };\n        CREATE audit CONTENT { token: $token.jti, time: time::now() };\n        RETURN $auth;\n    }\n    DURATION FOR TOKEN 30d, FOR SESSION 1h\n;",
+      "-- Create a RECORD access method for the example database if it does not already exist\nDEFINE ACCESS IF NOT EXISTS example ON DATABASE TYPE RECORD;",
+      "-- Create a RECORD access method for the example database and overwrite if it already exists\nDEFINE ACCESS OVERWRITE example ON DATABASE TYPE RECORD;"
+    ],
+    "title": "DEFINE ACCESS ... TYPE RECORD statement | SurrealQL",
+    "description": "A record access method allows accessing SurrealDB as a record user.",
+    "sidebar_label": "RECORD"
+  },
+  "statements.define.access.index": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/access/index.mdx",
+    "hierarchy": "statements.define.access.index",
+    "frontmatter": {
+      "sidebar_position": 10,
+      "sidebar_label": "DEFINE ACCESS",
+      "title": "DEFINE ACCESS statement | SurrealQL",
+      "description": "Defining an access method allows SurrealDB to grant access to resources using different kinds of credentials."
+    },
+    "syntax_blocks": [
+      "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON [ ROOT | NAMESPACE | DATABASE ]\n  TYPE [\n    JWT [ ALGORITHM @algorithm KEY @key | URL @url ]\n    | RECORD\n      [ SIGNUP @expression ]\n      [ SIGNIN @expression ]\n      [ WITH JWT\n        [ ALGORITHM @algorithm KEY @key | URL @url ]\n        [ WITH ISSUER KEY @key ]\n      ]\n      [ WITH REFRESH ]\n    | BEARER FOR [ USER | RECORD ]\n  [ AUTHENTICATE @expression ]\n  [ DURATION\n    [ FOR GRANT @duration ]\n    [ FOR TOKEN @duration ]\n    [ FOR SESSION @duration ]\n  ]\n  [ COMMENT @string ]"
+    ],
+    "example_blocks": [
+      "-- Create a RECORD access method for accounts\n-- On successful authentication, a token expiring after 15 minutes will be returned\n-- This token can be used to establish a session that will expire after 6 hours\n-- The token will be automatically used to authenticate the session\nDEFINE ACCESS account ON DATABASE TYPE RECORD\n\tSIGNUP ( CREATE user SET email = $email, pass = crypto::argon2::generate($pass) )\n\tSIGNIN ( SELECT * FROM user WHERE email = $email AND crypto::argon2::compare(pass, $pass) )\n\tDURATION FOR TOKEN 15m, FOR SESSION 12h\n;",
+      "-- Create an ACCESS if it does not already exist\nDEFINE ACCESS IF NOT EXISTS example ON NAMESPACE ...;",
+      "-- Create an ACCESS and overwrite if it already exists\nDEFINE ACCESS OVERWRITE example ON NAMESPACE ...;"
+    ],
+    "title": "DEFINE ACCESS statement | SurrealQL",
+    "description": "Defining an access method allows SurrealDB to grant access to resources using different kinds of credentials.",
+    "sidebar_label": "DEFINE ACCESS"
+  },
+  "statements.define.access.bearer": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/access/bearer.mdx",
+    "hierarchy": "statements.define.access.bearer",
+    "frontmatter": {
+      "sidebar_position": 10,
+      "sidebar_label": "BEARER",
+      "title": "DEFINE ACCESS ... TYPE BEARER statement | SurrealQL",
+      "description": "A bearer access method allows accessing SurrealDB using a bearer key."
+    },
+    "syntax_blocks": [
+      "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON [ NAMESPACE | DATABASE ]\n  TYPE BEARER FOR [ USER | RECORD ]\n  [ AUTHENTICATE @expression ]\n  [ DURATION\n    [ FOR GRANT @duration ]\n    [ FOR TOKEN @duration ]\n    [ FOR SESSION @duration ]\n  ]"
+    ],
+    "example_blocks": [
+      "DEFINE ACCESS api ON DATABASE TYPE USER DURATION FOR GRANT 30d, FOR TOKEN 15m, FOR SESSION 12h;",
+      "-- Define system user that access will be granted to\nDEFINE USER automation ON DATABASE PASSWORD 'secret' ROLES VIEWER;\n-- Define bearer access method to generate API keys for system users\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR USER DURATION FOR GRANT 10d;\n-- Generate bearer grant to be used by a specific automation\nACCESS api GRANT FOR USER automation;",
+      "-- Create record representing a user\nCREATE user:1 CONTENT { name: \"tobie\" };\n-- Define bearer access method to generate API keys for record users\nDEFINE ACCESS api ON DATABASE TYPE BEARER FOR RECORD DURATION FOR GRANT 10d;\n-- Generate bearer grant to be used by a specific automation belonging to the user\nACCESS api GRANT FOR RECORD user:1;",
+      "-- Create a BEARER access method for the example database if it does not already exist\nDEFINE ACCESS IF NOT EXISTS example ON DATABASE TYPE BEARER;",
+      "-- Create a BEARER access method for the example database and overwrite if it already exists\nDEFINE ACCESS OVERWRITE example ON DATABASE TYPE BEARER;"
+    ],
+    "title": "DEFINE ACCESS ... TYPE BEARER statement | SurrealQL",
+    "description": "A bearer access method allows accessing SurrealDB using a bearer key.",
+    "sidebar_label": "BEARER"
+  },
+  "statements.define.access.jwt": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/statements/define/access/jwt.mdx",
+    "hierarchy": "statements.define.access.jwt",
+    "frontmatter": {
+      "sidebar_position": 10,
+      "sidebar_label": "JWT",
+      "title": "DEFINE ACCESS ... TYPE JWT statement | SurrealQL",
+      "description": "A JWT access method allows accessing SurrealDB with a token signed by a trusted issuer."
+    },
+    "syntax_blocks": [
+      "DEFINE ACCESS [ OVERWRITE | IF NOT EXISTS ] @name\n  ON [ ROOT | NAMESPACE | DATABASE ]\n  TYPE JWT [ ALGORITHM @algorithm KEY @key | URL @url ]\n  [ AUTHENTICATE @expression ]\n  [ DURATION FOR SESSION @duration ]"
+    ],
+    "example_blocks": [
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE ACCESS token_name\n  -- Use this token provider for database authentication\n  ON DATABASE\n  -- Specify the type of access being defined\n  TYPE JWT\n  -- Specify the cryptographic signature algorithm used to verify the token\n  ALGORITHM HS512\n  -- Specify the symmetric key used to sign and verify the authenticity of the token\n  KEY \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE ACCESS token_name\n  -- Use this token provider for database authentication\n  ON DATABASE\n  -- Specify the type of access being defined\n  TYPE JWT\n  -- Specify the cryptographic signature algorithm used to verify the token\n  ALGORITHM RS256\n  -- Specify the public key used to verify the authenticity of the token\n  KEY \"-----BEGIN PUBLIC KEY-----\nMUO52Me9HEB4ZyU+7xmDpnixzA/CUE7kyUuE0b7t38oCh+sQouREqIjLwgHhFdhh3cQAwr6GH07D\nThioYrZL8xATJ3Youyj8C45QnZcGUif5PkpWXDi0HJSoMFekbW6Pr4xuqIqb2LGxGDVJcLZwJ2AS\nGtu2UAfPXbBD3ffiad393M22g1iHM80YaNi+xgswG7qtXE4lR/Lt4s0MeKKX7stdWI1VIsoB+y3i\nr/OWUvJPjjDNbAsyy8tQmxydv+FUnLEP9TNT4AhN4DXcJ+XsDtW7OWt4EdSVDeKpGbIMvIrh1Pe+\nNilj8UHNyNDHa2AjK3seMo6CMvaIQJKj5o4xGFblFGwvvPD03SbuQLs1FdRjsZCeWLdYeQ3JDHE9\nsFG7DCXlpMJcaYT1mf4XHJ0gPekNLQyewTY3Vxf7FgV3GCNjV20kcDFgJA2+iVW2wSrb+txD1ycE\nkbi8jh0pedWwE40VQWaTh/8eAvX7IHWya/AEro25mq+m6vktNZLbvLphhp586kJK3Tdt3YjpkPre\nM3nkFWOWurIyKbtIV9JemfwCgt89sNV45dTlnEDEZFFGnIgDnWgx3CUo4XmhICEQU8+tklw9jJYx\niCTjhbIDEBHySSSc/pQ4ftHQmhToTlQeOdEy4LYiaEIgl1X+hzRH1hBYvWlNKe4EY1nMCKcjgt0=\n-----END PUBLIC KEY-----\"\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE ACCESS token_name\n  -- Use this token provider for database authentication\n  ON DATABASE\n  -- Specify the type of access being defined\n  TYPE JWT\n  -- Specify the URL where the JWKS object can be found\n  URL \"https://example.com/.well-known/jwks.json\"\n;",
+      "-- Set the name of the token\nDEFINE ACCESS token_name\n  -- Use this token provider for root authentication\n  ON ROOT\n  -- Specify the type of access being defined\n  TYPE JWT\n  -- Specify the cryptographic signature algorithm used to verify the token\n  ALGORITHM HS512\n  -- Specify the symmetric key used to sign and verify the authenticity of the token\n  KEY \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\n;",
+      "-- Specify the namespace for the token\nUSE NS abcum;\n\n-- Set the name of the token\nDEFINE ACCESS token_name\n  -- Use this token provider for namespace authentication\n  ON NAMESPACE\n  -- Specify the type of access being defined\n  TYPE JWT\n  -- Specify the cryptographic signature algorithm used to verify the token\n  ALGORITHM HS512\n  -- Specify the symmetric key used to sign and verify the authenticity of the token\n  KEY \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\n;",
+      "-- Specify the namespace and database for the token\nUSE NS abcum DB app_vitalsense;\n\n-- Set the name of the token\nDEFINE ACCESS token_name\n  -- Use this token provider for database authentication\n  ON DATABASE\n  -- Specify the type of access being defined\n  TYPE JWT\n  -- Specify the cryptographic signature algorithm used to verify the token\n  ALGORITHM HS512\n  -- Specify the symmetric key used to sign and verify the authenticity of the token\n  KEY \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\n;",
+      "DEFINE ACCESS user ON DATABASE TYPE JWT\nALGORITHM HS512 KEY \"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\"\nAUTHENTICATE {\n  IF $token.iss != \"surrealdb-test\" { THROW \"Invalid token issuer\" };\n  IF type::is::array($token.aud) {\n    IF \"surrealdb-test\" NOT IN $token.aud { THROW \"Invalid token audience\" }\n  } ELSE {\n    IF $token.aud IS NOT \"surrealdb-test\" { THROW \"Invalid token audience\" }\n  };\n}\nDURATION FOR SESSION 2h;",
+      "-- Create a JWT access method for the example database if it does not already exist\nDEFINE ACCESS IF NOT EXISTS example ON DATABASE TYPE JWT ALGORITHM HS512 KEY\n\"sNSYneezcr8kqphfOC6NwwraUHJCVAt0XjsRSNmssBaBRh3WyMa9TRfq8ST7fsU2H2kGiOpU4GbAF1bCiXmM1b3JGgleBzz7rsrz6VvYEM4q3CLkcO8CMBIlhwhzWmy8\";",
+      "-- Create a JWT access method for the example database and overwrite it if it already exists\nDEFINE ACCESS OVERWRITE example ON DATABASE TYPE JWT ALGORITHM HS512 KEY 'secret';"
+    ],
+    "title": "DEFINE ACCESS ... TYPE JWT statement | SurrealQL",
+    "description": "A JWT access method allows accessing SurrealDB with a token signed by a trusted issuer.",
+    "sidebar_label": "JWT"
+  },
+  "datamodel.closures": {
+    "file_path": "/home/konverts/projects/documentation/docs.surrealdb.com/src/content/doc-surrealql/datamodel/closures.mdx",
+    "hierarchy": "datamodel.closures",
+    "frontmatter": {
+      "sidebar_position": 6,
+      "sidebar_label": "Closures",
+      "title": "Closures | SurrealQL",
+      "description": "Anonymous functions in SurrealDB allow you to define small, reusable pieces of logic that can be used throughout your queries."
+    },
+    "syntax_blocks": [
+      "$@parameter = |@parameters| @expression;"
+    ],
+    "example_blocks": [
+      "-- Define an anonymous function that doubles a number\n$double = |$n: number| $n * 2;\nRETURN $double(2);  -- Returns 4\n\n-- Define a function that concatenates two strings\n$concat = |$a: string, $b: string| $a + $b;\nRETURN $concat(\"Hello, \", \"World!\");  -- Returns \"Hello, World!\"",
+      "-- Define a function that greets a person\n$greet = |$name: string| -> string { \"Hello, \" + $name + \"!\" };\nRETURN $greet(\"Alice\");   -- Returns \"Hello, Alice!\"",
+      "-- Define a function with a return type\n$to_upper = |$text: string| -> string { string::uppercase($text) };\nRETURN $to_upper(\"hello\");  -- Returns \"HELLO\"\nRETURN $to_upper(123);      -- Error: type mismatch\n\n-- Define a function that accepts only numbers\n$square = |$num: number| $num * $num;\nRETURN $square(4);    -- Returns 16\nRETURN $square(\"4\");  -- Error: type mismatch",
+      "\"Two\"\n    .replace(\"Two\", \"2\")\n    .chain(|$num| <number>$num * 1000);",
+      "[NONE, NONE, \"good data\", \"Also good\", \"important\", NULL]\n    .filter(|$v| $v.is_string())\n    .all(|$s| $s.len() > 5)\n    .chain(|$v| <string>$v);"
+    ],
+    "title": "Closures | SurrealQL",
+    "description": "Anonymous functions in SurrealDB allow you to define small, reusable pieces of logic that can be used throughout your queries.",
+    "sidebar_label": "Closures"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "system_components": {
+    "intent_router": {
+      "path": "/home/konverts/projects/surrealAIdoc/output/intent_router.yml",
+      "tokens": 420
+    },
+    "compact_schema": {
+      "path": "/home/konverts/projects/surrealAIdoc/output/surrealql_schema_compact.yml",
+      "tokens": 923
+    },
+    "total_system_tokens": 1343
+  },
+  "sow_compliance": {
+    "target_tokens": "1,200-1,900",
+    "actual_tokens": 1343,
+    "within_target": true,
+    "token_efficiency": "29.3% under target"
+  }
+}

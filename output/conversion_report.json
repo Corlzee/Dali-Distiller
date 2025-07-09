@@ -1,0 +1,16 @@
+{
+  "extraction_stats": {
+    "total_files": 48,
+    "syntax_blocks": 54,
+    "statements_processed": 46
+  },
+  "schema_stats": {
+    "full_schema_tokens": 5233,
+    "compact_schema_tokens": 923,
+    "token_reduction": "82.4%"
+  },
+  "files_generated": [
+    "/home/konverts/projects/surrealAIdoc/output/surrealql_schema_full.yml",
+    "/home/konverts/projects/surrealAIdoc/output/surrealql_schema_compact.yml"
+  ]
+}
