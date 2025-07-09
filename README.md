@@ -1,5 +1,11 @@
 # Dali-Distiller - AI-Optimized SurrealQL Schema System
 
+<div align="center">
+  <img src="not-entirely-dali.png" alt="Dali-Distiller: Where Documentation Melts Into Perfection" width="400"/>
+  
+  *"This is not entirely Dalí... but it distills perfectly."* 🎨
+</div>
+
 > **Mission**: Transform Claude from SurrealQL novice to expert using token-efficient documentation extraction and intent mapping.
 > 
 > *"Like Salvador Dalí transforming reality into impossible art, Dali-Distiller transforms chaotic documentation into surreal perfection."* 🎨
