@@ -1,5 +1,7 @@
 # Dali-Distiller - AI-Optimized SurrealQL Schema System
 
+TLDR: The YAML Outputs for SurrealQL syntax is in the /output/ folder.
+
 <div align="center">
   <img src="not-entirely-dali.png" alt="Dali-Distiller: Where Documentation Melts Into Perfection" width="400"/>
   
