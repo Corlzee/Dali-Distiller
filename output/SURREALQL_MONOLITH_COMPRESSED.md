@@ -1,3 +1,14 @@
+# SurrealQL Complete Schema Documentation
+# Generated from SurrealDB 2.3.7 documentation
+# Coverage: 85% of SurrealQL syntax
+# Purpose: Force-feed documentation to lazy AI assistants
+
+================================================================================
+
+## COMPRESSED SCHEMA (2,185 tokens)
+### For smaller LLMs or token-constrained environments
+
+```yaml
 {surrealql: {funcs: {api: {invoke: 's?o>o', timeout: d>*}, arr: {add: av>a, append: av>a, at: ai>*, boolean_and: aa>*, boolean_not: a>*, boolean_or: aa>*, boolean_xor: aa>*, clump: ai>a, combine: aa>a,
         complement: aa>a, concat: aa>a, difference: aa>a, distinct: a>a, fill: [a*>a, a*ii>a], first: a>*, flatten: a>a, fold: a**>v, group: a>a, insert: avn>a, intersect: aa>a, is_empty: a>b, join: as>s,
         last: a>*, len: a>n, logical_and: aa>*, logical_or: aa>*, logical_xor: aa>*, map: a*>*, matches: av>ab, max: a*>*, min: a*>*, pop: a>v, prepend: av>a, push: av>a, range: ii>a, reduce: a*>v, remove: an>a,
@@ -25,3 +36,26 @@
         k: [DEFINE, USER, OVERWRITE]}, del: {k: [DELETE, FROM, ONLY]}, for: {k: [FOR, IN]}, inf: {k: [INFO, FOR, ROOT]}, ins: {k: [INSERT, IGNORE, RELATION]}, kil: {k: [KILL]}, let: {k: [LET]}, liv: {k: [
           LIVE, SELECT, VALUE]}, reb: {k: [REBUILD, INDEX, IF]}, rel: {k: [RELATE, ONLY, CONTENT]}, rem: {k: [REMOVE, NAMESPACE, IF]}, ret: {k: [RETURN]}, sel: {k: [SELECT, VALUE, AS]}, sho: {k: [SHOW,
           CHANGES, FOR]}, sle: {k: [SLEEP]}, thr: {k: [THROW]}, upd: {k: [UPDATE, ONLY, CONTENT]}, ups: {k: [UPSERT, ONLY, CONTENT]}, use: {k: [USE, NS, DB]}}, v: 2.3.7}}
+
+```
+
+### Type Abbreviations:
+```
+a=array s=string n=number b=bool o=object r=record
+i=int f=float d=duration t=datetime g=geometry u=uuid
+v=value y=bytes *=any 0=null ?=option<>
+```
+
+================================================================================
+
+## USAGE INSTRUCTIONS
+
+1. Load this entire file into context
+2. Use schema to generate correct SurrealQL syntax
+3. Reference function signatures and operator syntax
+4. Follow statement patterns for proper query structure
+
+## REMEMBER:
+- This is 85% of SurrealQL syntax compressed from 297,445 tokens
+- Missing: query clauses (FETCH, EXPLAIN), advanced type specs, comments
+- When in doubt, check the schema!

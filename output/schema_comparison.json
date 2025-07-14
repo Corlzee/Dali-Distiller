@@ -1,0 +1,25 @@
+{
+  "schema_comparison": {
+    "source_stats": {
+      "statements": 42,
+      "functions": {
+        "namespaces": 20,
+        "total": 253
+      },
+      "operators": {
+        "categories": 8,
+        "total": 36
+      }
+    },
+    "outputs": {
+      "full": {
+        "tokens": 12714,
+        "target_use": "GPT-4/Claude"
+      },
+      "compressed": {
+        "tokens": 2185,
+        "target_use": "Smaller LLMs"
+      }
+    }
+  }
+}
