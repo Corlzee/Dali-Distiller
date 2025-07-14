@@ -1,0 +1,513 @@
+intent_router_enhanced:
+  version: '2.0'
+  routes:
+    statements:
+      info:
+        keywords:
+        - ROOT
+        - DATABASE
+        - USER
+        - NAMESPACE
+        - DB
+        path: statements.info
+      select:
+        keywords:
+        - OMIT
+        - START
+        - 'ON'
+        - AT
+        - FROM
+        path: statements.select
+      kill:
+        keywords:
+        - KILL
+        path: statements.kill
+      let:
+        keywords:
+        - LET
+        path: statements.let
+      upsert:
+        keywords:
+        - MERGE
+        - WHERE
+        - RETURN
+        - PARALLEL
+        - FULL
+        path: statements.upsert
+      for:
+        keywords:
+        - IN
+        - FOR
+        path: statements.for
+      update:
+        keywords:
+        - MERGE
+        - WHERE
+        - RETURN
+        - PARALLEL
+        - FULL
+        path: statements.update
+      continue:
+        keywords:
+        - CONTINUE
+        path: statements.continue
+      remove:
+        keywords:
+        - ROOT
+        - DATABASE
+        - EVENT
+        - EXISTS
+        - USER
+        path: statements.remove
+      delete:
+        keywords:
+        - TIMEOUT
+        - EXPLAIN
+        - BEFORE
+        - AFTER
+        - ONLY
+        path: statements.delete
+      throw:
+        keywords:
+        - THROW
+        path: statements.throw
+      return:
+        keywords:
+        - RETURN
+        path: statements.return
+      begin:
+        keywords:
+        - TRANSACTION
+        - BEGIN
+        path: statements.begin
+      alter:
+        keywords:
+        - EXISTS
+        - SCHEMALESS
+        - SCHEMAFULL
+        - ALTER
+        - NONE
+        path: statements.alter
+      use:
+        keywords:
+        - USE
+        - NS
+        - DB
+        path: statements.use
+      sleep:
+        keywords:
+        - SLEEP
+        path: statements.sleep
+      rebuild:
+        keywords:
+        - EXISTS
+        - REBUILD
+        - INDEX
+        - 'ON'
+        - IF
+        path: statements.rebuild
+      relate:
+        keywords:
+        - SET
+        - VALUE
+        - TIMEOUT
+        - BEFORE
+        - AFTER
+        path: statements.relate
+      access:
+        keywords:
+        - ROOT
+        - DATABASE
+        - REVOKE
+        - USER
+        - RECORD
+        path: statements.access
+      commit:
+        keywords:
+        - TRANSACTION
+        - COMMIT
+        path: statements.commit
+      break:
+        keywords:
+        - BREAK
+        path: statements.break
+      create:
+        keywords:
+        - SET
+        - VALUE
+        - TIMEOUT
+        - BEFORE
+        - AFTER
+        path: statements.create
+      show:
+        keywords:
+        - SINCE
+        - TABLE
+        - CHANGES
+        - LIMIT
+        - SHOW
+        path: statements.show
+      insert:
+        keywords:
+        - VALUE
+        - BEFORE
+        - AFTER
+        - IGNORE
+        - DUPLICATE
+        path: statements.insert
+      live:
+        keywords:
+        - VALUE
+        - FETCH
+        - LIVE
+        - SELECT
+        - FROM
+        path: statements.live
+      cancel:
+        keywords:
+        - TRANSACTION
+        - CANCEL
+        path: statements.cancel
+      define_indexes:
+        keywords:
+        - EXISTS
+        - 'ON'
+        - IF
+        - MTREE
+        - EFC
+        path: statements.define/indexes
+      define_config:
+        keywords:
+        - MIDDLEWARE
+        - CONFIG
+        - FUNCTIONS
+        - EXISTS
+        - GRAPHQL
+        path: statements.define/config
+      define_param:
+        keywords:
+        - VALUE
+        - EXISTS
+        - DEFINE
+        - NOT
+        - COMMENT
+        path: statements.define/param
+      define_token:
+        keywords:
+        - SCOPE
+        - VALUE
+        - DATABASE
+        - EXISTS
+        - NAMESPACE
+        path: statements.define/token
+      define_table:
+        keywords:
+        - IN
+        - EXISTS
+        - SCHEMALESS
+        - SCHEMAFULL
+        - OUT
+        path: statements.define/table
+      define_namespace:
+        keywords:
+        - EXISTS
+        - NAMESPACE
+        - DEFINE
+        - NOT
+        - COMMENT
+        path: statements.define/namespace
+      define_event:
+        keywords:
+        - EVENT
+        - EXISTS
+        - WHEN
+        - THEN
+        - DEFINE
+        path: statements.define/event
+      define_scope:
+        keywords:
+        - SCOPE
+        - EXISTS
+        - DEFINE
+        - NOT
+        - COMMENT
+        path: statements.define/scope
+      define_api:
+        keywords:
+        - MIDDLEWARE
+        - EXISTS
+        - THEN
+        - DEFINE
+        - NOT
+        path: statements.define/api
+      define_sequence:
+        keywords:
+        - TIMEOUT
+        - SEQUENCE
+        - EXISTS
+        - DEFINE
+        - START
+        path: statements.define/sequence
+      define_bucket:
+        keywords:
+        - EXISTS
+        - BUCKET
+        - DEFINE
+        - NOT
+        - COMMENT
+        path: statements.define/bucket
+      define_analyzer:
+        keywords:
+        - EXISTS
+        - TOKENIZERS
+        - FILTERS
+        - DEFINE
+        - FUNCTION
+        path: statements.define/analyzer
+      define_field:
+        keywords:
+        - EXISTS
+        - 'ON'
+        - DEFAULT
+        - IF
+        - READONLY
+        path: statements.define/field
+      define_function:
+        keywords:
+        - EXISTS
+        - FUNCTION
+        - DEFINE
+        - NOT
+        - COMMENT
+        path: statements.define/function
+      define_user:
+        keywords:
+        - PASSHASH
+        - ROOT
+        - DATABASE
+        - ROLES
+        - USER
+        path: statements.define/user
+      define_database:
+        keywords:
+        - DATABASE
+        - EXISTS
+        - DEFINE
+        - NOT
+        - COMMENT
+        path: statements.define/database
+    functions:
+      file:
+        keywords:
+        - file
+        - bucket
+        - copy
+        - copy_if_not_exists
+        - delete
+        - exists
+        path: functions.file
+      rand:
+        keywords:
+        - rand
+        - bool
+        - enum
+        - float
+        - guid
+        - int
+        path: functions.rand
+      object:
+        keywords:
+        - object
+        - entries
+        - extend
+        - from_entries
+        - is_empty
+        - keys
+        path: functions.object
+      array:
+        keywords:
+        - array
+        - add
+        - at
+        - append
+        - boolean_and
+        - boolean_or
+        path: functions.array
+      duration:
+        keywords:
+        - duration
+        - days
+        - hours
+        - micros
+        - millis
+        - mins
+        path: functions.duration
+      meta:
+        keywords:
+        - meta
+        - id
+        - tb
+        path: functions.meta
+      record:
+        keywords:
+        - record
+        - exists
+        - id
+        - tb
+        path: functions.record
+      bytes:
+        keywords:
+        - bytes
+        - len
+        path: functions.bytes
+      search:
+        keywords:
+        - search
+        - analyze
+        - score
+        - highlight
+        - offsets
+        path: functions.search
+      string:
+        keywords:
+        - string
+        - concat
+        - contains
+        - ends_with
+        - join
+        - len
+        path: functions.string
+      math:
+        keywords:
+        - math
+        - abs
+        - acos
+        - acot
+        - asin
+        - atan
+        path: functions.math
+      http:
+        keywords:
+        - http
+        - head
+        - get
+        - put
+        - post
+        - patch
+        path: functions.http
+      api:
+        keywords:
+        - api
+        - invoke
+        - timeout
+        path: functions.api
+      sequence:
+        keywords:
+        - sequence
+        - next
+        path: functions.sequence
+      vector:
+        keywords:
+        - vector
+        - add
+        - angle
+        - cross
+        - divide
+        - dot
+        path: functions.vector
+      geo:
+        keywords:
+        - geo
+        - area
+        - bearing
+        - centroid
+        - distance
+        path: functions.geo
+      session:
+        keywords:
+        - session
+        - ac
+        - db
+        - id
+        - ip
+        - ns
+        path: functions.session
+      time:
+        keywords:
+        - time
+        - ceil
+        - day
+        - floor
+        - format
+        - group
+        path: functions.time
+      type:
+        keywords:
+        - type
+        - array
+        - bool
+        - bytes
+        - datetime
+        - decimal
+        path: functions.type
+      value:
+        keywords:
+        - value
+        - diff
+        - patch
+        path: functions.value
+    operators:
+      logical:
+        keywords:
+        - '&&'
+        - '||'
+        - '!'
+        - '!!'
+        path: operators.logical
+      comparison:
+        keywords:
+        - '='
+        - '!='
+        - ==
+        - ?=
+        - '*='
+        path: operators.comparison
+      mathematical:
+        keywords:
+        - +
+        - '-'
+        - '*'
+        - /
+        - '**'
+        path: operators.mathematical
+      graph:
+        keywords:
+        - OUTSIDE
+        - INTERSECTS
+        path: operators.graph
+      set:
+        keywords:
+        - CONTAINS
+        - CONTAINSNOT
+        - CONTAINSALL
+        - CONTAINSANY
+        - INSIDE
+        path: operators.set
+      fuzzy:
+        keywords:
+        - '~'
+        - '!~'
+        - ?~
+        - '*~'
+        path: operators.fuzzy
+      null_handling:
+        keywords:
+        - ??
+        - '?:'
+        path: operators.null_handling
+      other:
+        keywords:
+        - ANYINSIDE
+        - NONEINSIDE
+        - MATCHES
+        path: operators.other

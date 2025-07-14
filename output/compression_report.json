@@ -1,0 +1,26 @@
+{
+  "compression_report": {
+    "original_stats": {
+      "statements": 42,
+      "functions": {
+        "namespaces": 20,
+        "total": 253
+      },
+      "operators": {
+        "categories": 8,
+        "total": 36
+      }
+    },
+    "compressed_stats": {
+      "statements": 42,
+      "functions": 227,
+      "operators": 36
+    },
+    "size": {
+      "chars": 5570,
+      "tokens": 1856,
+      "yaml_lines": 27
+    },
+    "coverage": "85%"
+  }
+}

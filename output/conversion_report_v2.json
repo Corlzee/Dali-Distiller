@@ -1,0 +1,45 @@
+{
+  "conversion_report": {
+    "timestamp": "/home/konverts/projects/surrealAIdoc",
+    "stats": {
+      "statements": 42,
+      "functions": {
+        "file": 13,
+        "rand": 8,
+        "object": 8,
+        "array": 49,
+        "duration": 9,
+        "meta": 2,
+        "record": 3,
+        "bytes": 1,
+        "search": 4,
+        "string": 17,
+        "math": 38,
+        "http": 6,
+        "api": 2,
+        "sequence": 1,
+        "vector": 11,
+        "geo": 4,
+        "session": 8,
+        "time": 22,
+        "type": 19,
+        "value": 2
+      },
+      "operators": {
+        "logical": 4,
+        "comparison": 9,
+        "mathematical": 5,
+        "graph": 2,
+        "set": 7,
+        "fuzzy": 4,
+        "null_handling": 2,
+        "other": 3
+      }
+    },
+    "token_estimates": {
+      "schema": 15467,
+      "router": 2399,
+      "total": 17866
+    }
+  }
+}

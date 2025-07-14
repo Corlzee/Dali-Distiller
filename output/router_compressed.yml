@@ -1,0 +1,2 @@
+{router: {f: [fil, ran, obj, arr, dur, met, rec, byt, sea, str, mat, htt, api, seq, vec, geo, ses, tim, typ, val], o: [log, com, mat, gra, set, fuz, nul, oth], s: {control: [if, for, while, begin, commit],
+      modify: [insert, update, delete, upsert], query: [select, from, where], schema: [define, alter, drop]}, v: '2.0'}}

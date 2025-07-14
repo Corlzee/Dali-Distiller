@@ -1,0 +1,4109 @@
+{
+  "metadata": {
+    "version": "2.3.7",
+    "extraction_date": "/home/konverts/projects/surrealAIdoc",
+    "stats": {
+      "statements": 42,
+      "functions": {
+        "namespaces": 20,
+        "total": 253
+      },
+      "operators": {
+        "categories": 8,
+        "total": 36
+      }
+    }
+  },
+  "statements": {
+    "info": {
+      "name": "info",
+      "syntax": [
+        "INFO FOR [\n\tROOT\n\t| NS | NAMESPACE\n\t| DB | DATABASE\n\t| TABLE @table\n\t| USER @user [ON @level]\n    | INDEX @index ON @table\n];"
+      ],
+      "frontmatter": {
+        "sidebar_position": 11,
+        "sidebar_label": "INFO",
+        "title": "INFO statement | SurrealQL",
+        "description": "The INFO command outputs information about the setup of the SurrealDB system."
+      },
+      "file_path": "src/content/doc-surrealql/statements/info.mdx"
+    },
+    "select": {
+      "name": "select",
+      "syntax": [
+        "SELECT \n\tVALUE @field | @fields [ AS @alias ] [ OMIT @fields ... ]\n\tFROM [ ONLY ] @targets\n\t[ WITH [ NOINDEX | INDEX @indexes ... ]]\n\t[ WHERE @conditions ]\n\t[ SPLIT [ ON ] @field, ... ]\n\t[ GROUP [ BY ] @field, ... ]\n\t[ ORDER [ BY ] \n\t\t@field [ COLLATE ] [ NUMERIC ] [ ASC | DESC ], ...\n\t\t| RAND() ]\n\t[ LIMIT [ BY ] @limit ]\n\t[ START [ AT ] @start 0 ]\n\t[ FETCH @fields ... ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ TEMPFILES ]\n\t[ EXPLAIN [ FULL ]]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 20,
+        "sidebar_label": "SELECT",
+        "title": "SELECT statement | SurrealQL",
+        "description": "The SELECT statement can be used for selecting and querying data in a database."
+      },
+      "file_path": "src/content/doc-surrealql/statements/select.mdx"
+    },
+    "kill": {
+      "name": "kill",
+      "syntax": [
+        "KILL @value;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 13,
+        "sidebar_label": "KILL",
+        "title": "KILL statement | SurrealQL",
+        "description": "The KILL statement is used to terminate a running live query."
+      },
+      "file_path": "src/content/doc-surrealql/statements/kill.mdx"
+    },
+    "let": {
+      "name": "let",
+      "syntax": [
+        "LET $@parameter [: @type_name] = @value;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 14,
+        "sidebar_label": "LET",
+        "title": "LET statement | SurrealQL",
+        "description": "The LET statement sets and stores a value which can then be used in a subsequent query."
+      },
+      "file_path": "src/content/doc-surrealql/statements/let.mdx"
+    },
+    "upsert": {
+      "name": "upsert",
+      "syntax": [
+        "UPSERT [ ONLY ] @targets\n    [ CONTENT @value\n      | MERGE @value\n      | PATCH @value\n\t  | REPLACE @value\n      | [ SET @field = @value, ... | UNSET @field, ... ]\n    ]\n    [ WHERE @condition ]\n    [ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n    [ TIMEOUT @duration ]\n    [ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 25,
+        "sidebar_label": "UPSERT",
+        "title": "UPSERT statement | SurrealQL",
+        "description": "The UPSERT statement can be used to insert records or modify records that already exist"
+      },
+      "file_path": "src/content/doc-surrealql/statements/upsert.mdx"
+    },
+    "for": {
+      "name": "for",
+      "syntax": [
+        "FOR @item IN @iterable {\n@block\n};"
+      ],
+      "frontmatter": {
+        "sidebar_position": 9,
+        "sidebar_label": "FOR",
+        "title": "FOR statement | SurrealQL",
+        "description": "The FOR statement creates a loop that iterates over the values of an array."
+      },
+      "file_path": "src/content/doc-surrealql/statements/for.mdx"
+    },
+    "update": {
+      "name": "update",
+      "syntax": [
+        "UPDATE [ ONLY ] @targets\n\t[ CONTENT @value\n\t  | MERGE @value\n\t  | PATCH @value\n\t  | REPLACE @value\n\t  | [ SET @field = @value, ... | UNSET @field, ... ]\n\t]\n\t[ WHERE @condition ]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 24,
+        "sidebar_label": "UPDATE",
+        "title": "UPDATE statement | SurrealQL",
+        "description": "The UPDATE statement can be used to update records in the database. If they already exist, they will be updated. If they do not exist, no records will be updated."
+      },
+      "file_path": "src/content/doc-surrealql/statements/update.mdx"
+    },
+    "continue": {
+      "name": "continue",
+      "syntax": [
+        "CONTINUE"
+      ],
+      "frontmatter": {
+        "sidebar_position": 6,
+        "sidebar_label": "CONTINUE",
+        "title": "CONTINUE statement | SurrealQL",
+        "description": "The CONTINUE statement can be used to skip an iteration of a loop, like within the FOR statement"
+      },
+      "file_path": "src/content/doc-surrealql/statements/continue.mdx"
+    },
+    "remove": {
+      "name": "remove",
+      "syntax": [
+        "REMOVE [\n\tNAMESPACE [ IF EXISTS ] @name\n\t| DATABASE [ IF EXISTS] @name\n\t| USER [ IF EXISTS ] @name ON [ ROOT | NAMESPACE | DATABASE ]\n\t| ACCESS [ IF EXISTS ] @name ON [ NAMESPACE | DATABASE ]\n\t| EVENT [ IF EXISTS ] @name ON [ TABLE ] @table\n\t| FIELD [ IF EXISTS ] @name ON [ TABLE ] @table\n\t| INDEX [ IF EXISTS ] @name ON [ TABLE ] @table\n    | ANALYZER [ IF EXISTS ] @name\n    | FUNCTION [ IF EXISTS ] fn::@name\n    | PARAM [ IF EXISTS ] $@name\n\t| TABLE [ IF EXISTS ] @name\n]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 18,
+        "sidebar_label": "REMOVE",
+        "title": "REMOVE statement | SurrealQL",
+        "description": "The REMOVE statement is used to remove resources such as databases, tables, indexes, events and more."
+      },
+      "file_path": "src/content/doc-surrealql/statements/remove.mdx"
+    },
+    "delete": {
+      "name": "delete",
+      "syntax": [
+        "DELETE [ FROM | ONLY ] @targets\n\t[ WHERE @condition ]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n\t[ EXPLAIN [ FULL ]]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 8,
+        "sidebar_label": "DELETE",
+        "title": "DELETE statement | SurrealQL",
+        "description": "The DELETE statement can be used to delete records from the database."
+      },
+      "file_path": "src/content/doc-surrealql/statements/delete.mdx"
+    },
+    "throw": {
+      "name": "throw",
+      "syntax": [
+        "THROW @error"
+      ],
+      "frontmatter": {
+        "sidebar_position": 23,
+        "sidebar_label": "THROW",
+        "title": "THROW statement | SurrealQL",
+        "description": "The THROW statement can be used to stop execution of a query and return information on the underlying problem"
+      },
+      "file_path": "src/content/doc-surrealql/statements/throw.mdx"
+    },
+    "return": {
+      "name": "return",
+      "syntax": [
+        "RETURN @value"
+      ],
+      "frontmatter": {
+        "sidebar_position": 19,
+        "sidebar_label": "RETURN",
+        "title": "RETURN statement | SurrealQL",
+        "description": "The RETURN statement can be used to return an implicit value or the result of a query, and to set the return value for a transaction, block or function."
+      },
+      "file_path": "src/content/doc-surrealql/statements/return.mdx"
+    },
+    "begin": {
+      "name": "begin",
+      "syntax": [
+        "BEGIN [ TRANSACTION ];"
+      ],
+      "frontmatter": {
+        "sidebar_position": 2,
+        "sidebar_label": "BEGIN",
+        "title": "BEGIN statement | SurrealQL",
+        "description": "The BEGIN statement starts a single transaction in which run multiple statements can be run, either succeeding as a whole, or failing."
+      },
+      "file_path": "src/content/doc-surrealql/statements/begin.mdx"
+    },
+    "alter": {
+      "name": "alter",
+      "syntax": [
+        "ALTER [\n\t| TABLE [ IF EXISTS ] @name\n\t\t[ DROP ]\n\t\t[ SCHEMAFULL | SCHEMALESS ]\n\t\t[ PERMISSIONS [ NONE | FULL\n\t\t\t| FOR select @expression\n\t\t\t| FOR create @expression\n\t\t\t| FOR update @expression\n\t\t\t| FOR delete @expression\n\t\t] ]\n    [ COMMENT @string ]\n]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 1,
+        "sidebar_label": "ALTER",
+        "title": "ALTER statement | SurrealQL",
+        "description": "The ALTER statement can be used to change authentication access and behaviour, global parameters, table configurations, table events, schema definitions, and indexes."
+      },
+      "file_path": "src/content/doc-surrealql/statements/alter.mdx"
+    },
+    "use": {
+      "name": "use",
+      "syntax": [
+        "USE [ NS @ns ] [ DB @db ];"
+      ],
+      "frontmatter": {
+        "sidebar_position": 26,
+        "sidebar_label": "USE",
+        "title": "USE statement | SurrealQL",
+        "description": "The USE statement specifies a namespace and / or a database to use for the subsequent SurrealQL statements when switching between namespaces and databases."
+      },
+      "file_path": "src/content/doc-surrealql/statements/use.mdx"
+    },
+    "sleep": {
+      "name": "sleep",
+      "syntax": [
+        "SLEEP @duration;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 22,
+        "sidebar_label": "SLEEP",
+        "title": "SLEEP statement | SurrealQL",
+        "description": "The SLEEP statement is used to introduce a delay or pause in the execution of a query or a batch of queries for a specific amount of time."
+      },
+      "file_path": "src/content/doc-surrealql/statements/sleep.mdx"
+    },
+    "rebuild": {
+      "name": "rebuild",
+      "syntax": [
+        "REBUILD [\n\tINDEX [ IF EXISTS ] @name ON [ TABLE ] @table\n]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 16,
+        "sidebar_label": "REBUILD",
+        "title": "REBUILD statement | SurrealQL",
+        "description": "The REBUILD statement is used to rebuild resources."
+      },
+      "file_path": "src/content/doc-surrealql/statements/rebuild.mdx"
+    },
+    "relate": {
+      "name": "relate",
+      "syntax": [
+        "RELATE [ ONLY ] @from_record -> @table -> @to_record\n\t[ CONTENT @value\n\t  | SET @field = @value ...\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 17,
+        "sidebar_label": "RELATE",
+        "title": "RELATE statement | SurrealQL",
+        "description": "The RELATE statement can be used to generate graph edges between two records in the database."
+      },
+      "file_path": "src/content/doc-surrealql/statements/relate.mdx"
+    },
+    "access": {
+      "name": "access",
+      "syntax": [
+        "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ] [\n\tGRANT [ FOR USER @name | FOR RECORD @record ]\n\t| SHOW [ GRANT @id | ALL | WHERE @expression ] \n\t| REVOKE [ GRANT @id | ALL | WHERE @expression ] \n\t| PURGE [ EXPIRED | REVOKED [ , EXPIRED | REVOKED ] ] [ FOR @duration ]\n]",
+        "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ] \n\tGRANT [ FOR USER @name | FOR RECORD @record ]",
+        "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tSHOW [ GRANT @id | ALL | WHERE @expression ]",
+        "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tREVOKE [ GRANT @id | ALL | WHERE @expression ] \n]",
+        "ACCESS @name [ ON [ ROOT | NAMESPACE | DATABASE ] ]\n\tPURGE [ EXPIRED | REVOKED [ , EXPIRED | REVOKED ] ] [ FOR @duration ]\n]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 0,
+        "sidebar_label": "ACCESS",
+        "title": "ACCESS statement | SurrealQL",
+        "description": "The ACCESS statement can be used to manage access grants."
+      },
+      "file_path": "src/content/doc-surrealql/statements/access.mdx"
+    },
+    "commit": {
+      "name": "commit",
+      "syntax": [
+        "COMMIT [ TRANSACTION ];"
+      ],
+      "frontmatter": {
+        "sidebar_position": 4,
+        "sidebar_label": "COMMIT",
+        "title": "COMMIT statement | SurrealQL",
+        "description": "The COMMIT statement is used to commit a set of statements within a transaction, ensuring that all data modifications become a permanent part of the database."
+      },
+      "file_path": "src/content/doc-surrealql/statements/commit.mdx"
+    },
+    "break": {
+      "name": "break",
+      "syntax": [
+        "BREAK"
+      ],
+      "frontmatter": {
+        "sidebar_position": 3,
+        "sidebar_label": "BREAK",
+        "title": "BREAK statement | SurrealQL",
+        "description": "The BREAK statement can be used to break out of a loop."
+      },
+      "file_path": "src/content/doc-surrealql/statements/break.mdx"
+    },
+    "create": {
+      "name": "create",
+      "syntax": [
+        "CREATE [ ONLY ] @targets\n\t[ CONTENT @value\n\t  | SET @field = @value ...\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n\t[ TIMEOUT @duration ]\n\t[ PARALLEL ]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 7,
+        "sidebar_label": "CREATE",
+        "title": "CREATE statement | SurrealQL",
+        "description": "The CREATE statement can be used to add a record to the database if it does not already exist."
+      },
+      "file_path": "src/content/doc-surrealql/statements/create.mdx"
+    },
+    "show": {
+      "name": "show",
+      "syntax": [
+        "SHOW CHANGES FOR TABLE @tablename\n\tSINCE @timestamp | @versionstamp\n\t[ LIMIT @number ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 21,
+        "sidebar_label": "SHOW",
+        "title": "SHOW statement | SurrealQL",
+        "description": "The SHOW statement can be used to replay changes made to a table."
+      },
+      "file_path": "src/content/doc-surrealql/statements/show.mdx"
+    },
+    "insert": {
+      "name": "insert",
+      "syntax": [
+        "INSERT [ IGNORE | RELATION ] INTO @what\n\t[ @value\n\t  | (@fields) VALUES (@values)\n\t\t[ ON DUPLICATE KEY UPDATE @field = @value ... ]\n\t]\n\t[ RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param, ... | RETURN VALUE @statement_param ]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 12,
+        "sidebar_label": "INSERT",
+        "title": "INSERT statement | SurrealQL",
+        "description": "The INSERT statement can be used to insert or update data into the database, using the same statement syntax as the traditional SQL Insert statement."
+      },
+      "file_path": "src/content/doc-surrealql/statements/insert.mdx"
+    },
+    "live": {
+      "name": "live",
+      "syntax": [
+        "LIVE SELECT\n\t[\n\t\t[ VALUE ] @fields [ AS @alias ]\n\t\t| DIFF\n\t]\n\tFROM @targets\n\t[ WHERE @conditions ]\n\t[ FETCH @fields ... ]\n;"
+      ],
+      "frontmatter": {
+        "sidebar_position": 15,
+        "sidebar_label": "LIVE",
+        "title": "LIVE SELECT statement | SurrealQL",
+        "description": "The LIVE SELECT statement can be used to initiate a real-time selection from a table, including the option to apply filters."
+      },
+      "file_path": "src/content/doc-surrealql/statements/live.mdx"
+    },
+    "cancel": {
+      "name": "cancel",
+      "syntax": [
+        "CANCEL [ TRANSACTION ];"
+      ],
+      "frontmatter": {
+        "sidebar_position": 4,
+        "sidebar_label": "CANCEL",
+        "title": "CANCEL statement | SurrealQL",
+        "description": "The CANCEL statement can be used to cancel the statements within a transaction, reverting or rolling back any data modification made within the transaction as a whole."
+      },
+      "file_path": "src/content/doc-surrealql/statements/cancel.mdx"
+    },
+    "define/indexes": {
+      "name": "indexes",
+      "syntax": [
+        "DEFINE INDEX [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table [ FIELDS | COLUMNS ]\n@fields\n\t[ UNIQUE\n        | SEARCH ANALYZER @analyzer [ BM25 [(@k1, @b)] ] [ HIGHLIGHTS ]\n        | MTREE DIMENSION @dimension [ TYPE @type ] [ DIST @distance ] [ CAPACITY @capacity]\n        | HNSW DIMENSION @dimension [ TYPE @type ] [DIST @distance] [ EFC @efc ] [ M @m ]\n    ]\n    [ COMMENT @string ]\n    [ CONCURRENTLY ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 10,
+        "sidebar_label": "DEFINE INDEX",
+        "title": "DEFINE INDEX statement | SurrealQL",
+        "description": "Just like in other databases, SurrealDB uses indexes to help optimize query performance. An index can consist of one or more fields in a table and can enforce a uniqueness constraint."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/indexes.mdx"
+    },
+    "define/config": {
+      "name": "config",
+      "syntax": [
+        "DEFINE CONFIG [ OVERWRITE | IF NOT EXISTS ] \n\n  [ API [ MIDDLEWARE @expression, .. ] [ PERMISSIONS [ NONE | FULL | @expression ] ]\n\n  [ GRAPHQL \n    [ AUTO | NONE ]\n    [ TABLES (AUTO | NONE | INCLUDE table1, table2, ...) ]\n    [ FUNCTIONS (AUTO | NONE | INCLUDE [function1, function2, ...] | EXCLUDE [function1, function2, ...]) ] ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 5,
+        "sidebar_label": "DEFINE CONFIG",
+        "title": "DEFINE CONFIG statement | SurrealQL",
+        "description": "This statement allows you to set external configurations on the database, either for API middleware and permissions, or for how the database's tables and functions are exposed via the GraphQL API."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/config.mdx"
+    },
+    "define/param": {
+      "name": "param",
+      "syntax": [
+        "DEFINE PARAM [ OVERWRITE | IF NOT EXISTS ] $@name \n    VALUE @value\n    [ COMMENT @string ]\n    [ PERMISSIONS [ NONE | FULL | WHERE @condition ] ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 12,
+        "sidebar_label": "DEFINE PARAM",
+        "title": "DEFINE PARAM statement | SurrealQL",
+        "description": "The DEFINE PARAM statement allows you to define global (database-wide) parameters that are available to every client."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/param.mdx"
+    },
+    "define/token": {
+      "name": "token",
+      "syntax": [
+        "DEFINE TOKEN [ OVERWRITE | IF NOT EXISTS ] @name ON [ NAMESPACE | DATABASE | SCOPE @scope ] TYPE @type VALUE @value [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 16,
+        "sidebar_label": "DEFINE TOKEN",
+        "title": "DEFINE TOKEN statement | SurrealQL",
+        "description": "SurrealDB can work with third-party authentication providers such as OpenID Connect providers, OAuth providers and other trusted third parties."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/token.mdx"
+    },
+    "define/table": {
+      "name": "table",
+      "syntax": [
+        "DEFINE TABLE [ OVERWRITE | IF NOT EXISTS ] @name\n\t[ DROP ]\n\t[ SCHEMAFULL | SCHEMALESS ]\n\t[ TYPE [ ANY | NORMAL | RELATION [ IN | FROM ] @table [ OUT | TO ] @table [ ENFORCED ]]]\n\t[ AS SELECT @projections\n\t\tFROM @tables\n\t\t[ WHERE @condition ]\n\t\t[ GROUP [ BY ] @groups ]\n\t]\n\t[ CHANGEFEED @duration [ INCLUDE ORIGINAL ] ]\n\t[ PERMISSIONS [ NONE | FULL\n\t\t| FOR select @expression\n\t\t| FOR create @expression\n\t\t| FOR update @expression\n\t\t| FOR delete @expression\n\t] ]\n    [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 15,
+        "sidebar_label": "DEFINE TABLE",
+        "title": "DEFINE TABLE statement | SurrealQL",
+        "description": "The DEFINE TABLE statement allows you to declare your table by name, enabling you to apply strict controls to a table's schema and access permissions."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/table.mdx"
+    },
+    "define/namespace": {
+      "name": "namespace",
+      "syntax": [
+        "DEFINE NAMESPACE [ OVERWRITE | IF NOT EXISTS ] @name [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 11,
+        "sidebar_label": "DEFINE NAMESPACE",
+        "title": "DEFINE NAMESPACE statement | SurrealQL",
+        "description": "The DEFINE NAMESPACE statement can be used to setup namespaces, which can contain multiple databases."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/namespace.mdx"
+    },
+    "define/event": {
+      "name": "event",
+      "syntax": [
+        "DEFINE EVENT [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table [ WHEN @expression ] THEN @expression [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 7,
+        "sidebar_label": "DEFINE EVENT",
+        "title": "DEFINE EVENT statement | SurrealQL",
+        "description": "The DEFINE EVENT statement can be used to create events which can be triggered after any change or modification to the data in a record."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/event.mdx"
+    },
+    "define/scope": {
+      "name": "scope",
+      "syntax": [
+        "DEFINE SCOPE [ OVERWRITE | IF NOT EXISTS ] @name SESSION @duration SIGNUP @expression SIGNIN @expression [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 13,
+        "sidebar_label": "DEFINE SCOPE",
+        "title": "DEFINE SCOPE statement | SurrealQL",
+        "description": "Setting scope access allows SurrealDB to operate as a web database. With scopes you can set authentication and access rules which enable fine-grained access to tables and fields."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/scope.mdx"
+    },
+    "define/api": {
+      "name": "api",
+      "syntax": [
+        "DEFINE API [ OVERWRITE | IF NOT EXISTS ] @endpoint\n    [ FOR @HTTP_method, .. ]\n    [ MIDDLEWARE @function, .. ]\n    [ THEN { @value } ]\n    [ PERMISSIONS [ NONE | FULL | @expression ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 3,
+        "sidebar_label": "DEFINE API",
+        "title": "DEFINE API statement | SurrealQL",
+        "description": "A DEFINE API statement can be used to set endpoints with custom middleware and permissions."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/api.mdx"
+    },
+    "define/sequence": {
+      "name": "sequence",
+      "syntax": [
+        "DEFINE SEQUENCE [ OVERWRITE | IF NOT EXISTS ] @name [ BATCH @batch ] [ START @start ] [ TIMEOUT @duration ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 14,
+        "sidebar_label": "DEFINE SEQUENCE",
+        "title": "DEFINE SEQUENCE statement | SurrealQL",
+        "description": "A DEFINE SEQUENCE statement defines a distributed generator of monotonically increasing numeric sequences."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/sequence.mdx"
+    },
+    "define/bucket": {
+      "name": "bucket",
+      "syntax": [
+        "DEFINE BUCKET [ OVERWRITE | IF NOT EXISTS ] @name [ @backend ]\nPERMISSIONS @expression [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 4,
+        "sidebar_label": "DEFINE BUCKET",
+        "title": "DEFINE BUCKET statement | SurrealQL",
+        "description": "A DEFINE BUCKET statement can be used to set endpoints with custom middleware and permissions."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/bucket.mdx"
+    },
+    "define/analyzer": {
+      "name": "analyzer",
+      "syntax": [
+        "DEFINE ANALYZER [ OVERWRITE | IF NOT EXISTS ] @name [ FUNCTION @function ] [ TOKENIZERS @tokenizers ] [ FILTERS @filters ] [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 2,
+        "sidebar_label": "DEFINE ANALYZER",
+        "title": "DEFINE ANALYZER statement | SurrealQL",
+        "description": "In the context of a database, an analyzer plays a crucial role in text processing and searching. It is defined by its name, a set of tokenizers, and a collection of filters."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/analyzer.mdx"
+    },
+    "define/field": {
+      "name": "field",
+      "syntax": [
+        "DEFINE FIELD [ OVERWRITE | IF NOT EXISTS ] @name ON [ TABLE ] @table\n\t[ [ FLEXIBLE ] TYPE @type ]\n\t[ REFERENCE \n\t\t[   ON DELETE REJECT | \n\t\t\tON DELETE CASCADE | \n\t\t\tON DELETE IGNORE |\n\t\t\tON DELETE UNSET | \n\t\t\tON DELETE THEN @expression ]\n\t]\n\t[ DEFAULT [ALWAYS] @expression ]\n  [ READONLY ]\n\t[ VALUE @expression ]\n\t[ ASSERT @expression ]\n\t[ PERMISSIONS [ NONE | FULL\n\t\t| FOR select @expression\n\t\t| FOR create @expression\n\t\t| FOR update @expression\n\t] ]\n  [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 8,
+        "sidebar_label": "DEFINE FIELD",
+        "title": "DEFINE FIELD statement | SurrealQL",
+        "description": "The DEFINE FIELD statement allows you to instantiate a named field on a table, enabling you to set the field's achema and configuration."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/field.mdx"
+    },
+    "define/function": {
+      "name": "function",
+      "syntax": [
+        "DEFINE FUNCTION [ OVERWRITE | IF NOT EXISTS ] fn::@name( [ @argument: @type ... ] ) {\n\t[ @query ... ]\n\t[ RETURN @returned ]\n} [ COMMENT @string ] [ PERMISSIONS [ NONE | FULL | WHERE @condition]]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 9,
+        "sidebar_label": "DEFINE FUNCTION",
+        "title": "DEFINE FUNCTION statement | SurrealQL",
+        "description": "The DEFINE FUNCTION statement allows you to define custom functions that can be reused throughout a database."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/function.mdx"
+    },
+    "define/user": {
+      "name": "user",
+      "syntax": [
+        "DEFINE USER [ OVERWRITE | IF NOT EXISTS ] @name\n\tON [ ROOT | NAMESPACE | DATABASE ]\n\t[ PASSWORD @pass | PASSHASH @hash ]\n\t[ ROLES @roles ]\n\t[ DURATION [ FOR TOKEN @duration [ , ] ] [ FOR SESSION @duration ] ]\n  [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 17,
+        "sidebar_label": "DEFINE USER",
+        "title": "DEFINE USER statement | SurrealQL",
+        "description": "Use the DEFINE USER statement to create system users on SurrealDB."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/user.mdx"
+    },
+    "define/database": {
+      "name": "database",
+      "syntax": [
+        "DEFINE DATABASE [ OVERWRITE | IF NOT EXISTS ] @name [ COMMENT @string ]"
+      ],
+      "frontmatter": {
+        "sidebar_position": 6,
+        "sidebar_label": "DEFINE DATABASE",
+        "title": "DEFINE DATABASE statement | SurrealQL",
+        "description": "The DEFINE DATABASE statement allows you to instantiate a named database, enabling you to specify security and configuration options."
+      },
+      "file_path": "src/content/doc-surrealql/statements/define/database.mdx"
+    }
+  },
+  "functions": {
+    "file": {
+      "namespace": "file",
+      "functions": [
+        {
+          "raw": "file::bucket(file) -> string",
+          "namespace": "file",
+          "function": "bucket",
+          "parameters": [
+            {
+              "type": "file"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "file::copy(string)",
+          "namespace": "file",
+          "function": "copy",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "file::copy_if_not_exists(string)",
+          "namespace": "file",
+          "function": "copy_if_not_exists",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "file::delete(string)",
+          "namespace": "file",
+          "function": "delete",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "file::exists(string) -> bool",
+          "namespace": "file",
+          "function": "exists",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "file::get(string) -> bytes",
+          "namespace": "file",
+          "function": "get",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "bytes"
+        },
+        {
+          "raw": "file::head() -> object",
+          "namespace": "file",
+          "function": "head",
+          "parameters": [],
+          "return_type": "object"
+        },
+        {
+          "raw": "file::key(file) -> string",
+          "namespace": "file",
+          "function": "key",
+          "parameters": [
+            {
+              "type": "file"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "file::list(string, list_options: option<object>) -> array<object>",
+          "namespace": "file",
+          "function": "list",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "name": "list_options",
+              "type": "option<object>"
+            }
+          ],
+          "return_type": "array<object>"
+        },
+        {
+          "raw": "file::put()",
+          "namespace": "file",
+          "function": "put",
+          "parameters": [],
+          "return_type": null
+        },
+        {
+          "raw": "file::put_if_not_exists()",
+          "namespace": "file",
+          "function": "put_if_not_exists",
+          "parameters": [],
+          "return_type": null
+        },
+        {
+          "raw": "file::rename()",
+          "namespace": "file",
+          "function": "rename",
+          "parameters": [],
+          "return_type": null
+        },
+        {
+          "raw": "file::rename_if_not_exists()",
+          "namespace": "file",
+          "function": "rename_if_not_exists",
+          "parameters": [],
+          "return_type": null
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 9,
+        "sidebar_label": "File functions",
+        "title": "File functions | SurrealQL",
+        "description": "These functions can be used to work with files."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/file.mdx"
+    },
+    "rand": {
+      "namespace": "rand",
+      "functions": [
+        {
+          "raw": "rand::bool() -> bool",
+          "namespace": "rand",
+          "function": "bool",
+          "parameters": [],
+          "return_type": "bool"
+        },
+        {
+          "raw": "rand::bool(duration, duration) -> duration",
+          "namespace": "rand",
+          "function": "bool",
+          "parameters": [
+            {
+              "type": "duration"
+            },
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "duration"
+        },
+        {
+          "raw": "rand::enum(value...) -> any",
+          "namespace": "rand",
+          "function": "enum",
+          "parameters": [
+            {
+              "type": "value..."
+            }
+          ],
+          "return_type": "any"
+        },
+        {
+          "raw": "rand::float() -> float",
+          "namespace": "rand",
+          "function": "float",
+          "parameters": [],
+          "return_type": "float"
+        },
+        {
+          "raw": "rand::float(number, number) -> float",
+          "namespace": "rand",
+          "function": "float",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "float"
+        },
+        {
+          "raw": "rand::guid() -> string",
+          "namespace": "rand",
+          "function": "guid",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "rand::guid(number) -> string",
+          "namespace": "rand",
+          "function": "guid",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "rand::guid(min, max) -> string",
+          "namespace": "rand",
+          "function": "guid",
+          "parameters": [
+            {
+              "type": "min"
+            },
+            {
+              "type": "max"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "rand::int() -> int",
+          "namespace": "rand",
+          "function": "int",
+          "parameters": [],
+          "return_type": "int"
+        },
+        {
+          "raw": "rand::int(number, number) -> int",
+          "namespace": "rand",
+          "function": "int",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "int"
+        },
+        {
+          "raw": "rand::string() -> string",
+          "namespace": "rand",
+          "function": "string",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "rand::string(number) -> string",
+          "namespace": "rand",
+          "function": "string",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "rand::string(number, number) -> string",
+          "namespace": "rand",
+          "function": "string",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "rand::uuid() -> uuid",
+          "namespace": "rand",
+          "function": "uuid",
+          "parameters": [],
+          "return_type": "uuid"
+        },
+        {
+          "raw": "rand::uuid(datetime) -> uuid",
+          "namespace": "rand",
+          "function": "uuid",
+          "parameters": [
+            {
+              "type": "datetime"
+            }
+          ],
+          "return_type": "uuid"
+        },
+        {
+          "raw": "rand::ulid() -> ulid",
+          "namespace": "rand",
+          "function": "ulid",
+          "parameters": [],
+          "return_type": "ulid"
+        },
+        {
+          "raw": "rand::ulid(datetime) -> uuid",
+          "namespace": "rand",
+          "function": "ulid",
+          "parameters": [
+            {
+              "type": "datetime"
+            }
+          ],
+          "return_type": "uuid"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 17,
+        "sidebar_label": "Rand functions",
+        "title": "Rand functions | SurrealQL",
+        "description": "These functions can be used when generating random data values."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/rand.mdx"
+    },
+    "object": {
+      "namespace": "object",
+      "functions": [
+        {
+          "raw": "object::entries(object) -> array",
+          "namespace": "object",
+          "function": "entries",
+          "parameters": [
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "object::extend(object, object) -> object",
+          "namespace": "object",
+          "function": "extend",
+          "parameters": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "object"
+        },
+        {
+          "raw": "object::from_entries(array) -> object",
+          "namespace": "object",
+          "function": "from_entries",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "object"
+        },
+        {
+          "raw": "object::is_empty(object) -> bool",
+          "namespace": "object",
+          "function": "is_empty",
+          "parameters": [
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "object::keys(object) -> array",
+          "namespace": "object",
+          "function": "keys",
+          "parameters": [
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "object::len(object) -> number",
+          "namespace": "object",
+          "function": "len",
+          "parameters": [
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "object::remove(object, string|array<string>) -> object",
+          "namespace": "object",
+          "function": "remove",
+          "parameters": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "string|array<string>"
+            }
+          ],
+          "return_type": "object"
+        },
+        {
+          "raw": "object::values(object) -> array",
+          "namespace": "object",
+          "function": "values",
+          "parameters": [
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "array"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 15,
+        "sidebar_label": "Object functions",
+        "title": "Object functions | SurrealQL",
+        "description": "These functions can be used when working with, and manipulating data objects."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/object.mdx"
+    },
+    "array": {
+      "namespace": "array",
+      "functions": [
+        {
+          "raw": "array::add(array, value) -> array",
+          "namespace": "array",
+          "function": "add",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "value"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::at(array, index: int) -> any",
+          "namespace": "array",
+          "function": "at",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "name": "index",
+              "type": "int"
+            }
+          ],
+          "return_type": "any"
+        },
+        {
+          "raw": "array::append(array, value) -> array",
+          "namespace": "array",
+          "function": "append",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "value"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::boolean_and(lh: array, rh: array)",
+          "namespace": "array",
+          "function": "boolean_and",
+          "parameters": [
+            {
+              "name": "lh",
+              "type": "array"
+            },
+            {
+              "name": "rh",
+              "type": "array"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "array::boolean_or(lh: array, rh: array)",
+          "namespace": "array",
+          "function": "boolean_or",
+          "parameters": [
+            {
+              "name": "lh",
+              "type": "array"
+            },
+            {
+              "name": "rh",
+              "type": "array"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "array::boolean_xor(lh: array, rh: array)",
+          "namespace": "array",
+          "function": "boolean_xor",
+          "parameters": [
+            {
+              "name": "lh",
+              "type": "array"
+            },
+            {
+              "name": "rh",
+              "type": "array"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "array::boolean_not(array)",
+          "namespace": "array",
+          "function": "boolean_not",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "array::combine(array, array) -> array",
+          "namespace": "array",
+          "function": "combine",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::complement(array, array) -> array",
+          "namespace": "array",
+          "function": "complement",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::concat(array, array) -> array",
+          "namespace": "array",
+          "function": "concat",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::clump(array, size: int) -> array",
+          "namespace": "array",
+          "function": "clump",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "name": "size",
+              "type": "int"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::difference(array, array) -> array",
+          "namespace": "array",
+          "function": "difference",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::distinct(array) -> array",
+          "namespace": "array",
+          "function": "distinct",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::fill(array, any) -> array",
+          "namespace": "array",
+          "function": "fill",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "any"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::fill(array, any, start: int, end: int) -> array",
+          "namespace": "array",
+          "function": "fill",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "any"
+            },
+            {
+              "name": "start",
+              "type": "int"
+            },
+            {
+              "name": "end",
+              "type": "int"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::first(array) -> any",
+          "namespace": "array",
+          "function": "first",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "any"
+        },
+        {
+          "raw": "array::flatten(array) -> array",
+          "namespace": "array",
+          "function": "flatten",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::fold(array, initial_value, @closure) -> value",
+          "namespace": "array",
+          "function": "fold",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "initial_value"
+            },
+            {
+              "type": "@closure"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "array::group(array) -> array",
+          "namespace": "array",
+          "function": "group",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::insert(array, value, number) -> array",
+          "namespace": "array",
+          "function": "insert",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "value"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::intersect(array, array) -> array",
+          "namespace": "array",
+          "function": "intersect",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::is_empty(array) -> bool",
+          "namespace": "array",
+          "function": "is_empty",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "array::join(array, string) -> string",
+          "namespace": "array",
+          "function": "join",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "array::last(array) -> any",
+          "namespace": "array",
+          "function": "last",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "any"
+        },
+        {
+          "raw": "array::len(array) -> number",
+          "namespace": "array",
+          "function": "len",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "array::logical_and(lh: array, rh: array)",
+          "namespace": "array",
+          "function": "logical_and",
+          "parameters": [
+            {
+              "name": "lh",
+              "type": "array"
+            },
+            {
+              "name": "rh",
+              "type": "array"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "array::logical_or(lh: array, rh: array)",
+          "namespace": "array",
+          "function": "logical_or",
+          "parameters": [
+            {
+              "name": "lh",
+              "type": "array"
+            },
+            {
+              "name": "rh",
+              "type": "array"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "array::logical_xor(lh: array, rh: array)",
+          "namespace": "array",
+          "function": "logical_xor",
+          "parameters": [
+            {
+              "name": "lh",
+              "type": "array"
+            },
+            {
+              "name": "rh",
+              "type": "array"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "array::map(array, @closure) -> array;",
+          "namespace": "array",
+          "function": "map",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "@closure"
+            }
+          ],
+          "return_type": "array;"
+        },
+        {
+          "raw": "array::max(array<any>) -> any",
+          "namespace": "array",
+          "function": "max",
+          "parameters": [
+            {
+              "type": "array<any>"
+            }
+          ],
+          "return_type": "any"
+        },
+        {
+          "raw": "array::matches(array, value) -> array<bool>",
+          "namespace": "array",
+          "function": "matches",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "value"
+            }
+          ],
+          "return_type": "array<bool>"
+        },
+        {
+          "raw": "array::min(array<any>) -> any",
+          "namespace": "array",
+          "function": "min",
+          "parameters": [
+            {
+              "type": "array<any>"
+            }
+          ],
+          "return_type": "any"
+        },
+        {
+          "raw": "array::pop(array) -> value",
+          "namespace": "array",
+          "function": "pop",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "array::prepend(array, value) -> array",
+          "namespace": "array",
+          "function": "prepend",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "value"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::push(array, value) -> array",
+          "namespace": "array",
+          "function": "push",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "value"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::range(start: int, count: int) -> array",
+          "namespace": "array",
+          "function": "range",
+          "parameters": [
+            {
+              "name": "start",
+              "type": "int"
+            },
+            {
+              "name": "count",
+              "type": "int"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::reduce(array, @closure) -> value",
+          "namespace": "array",
+          "function": "reduce",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "@closure"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "array::remove(array, number) -> array",
+          "namespace": "array",
+          "function": "remove",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::repeat(any, count: int) -> array",
+          "namespace": "array",
+          "function": "repeat",
+          "parameters": [
+            {
+              "type": "any"
+            },
+            {
+              "name": "count",
+              "type": "int"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::reverse(array) -> array",
+          "namespace": "array",
+          "function": "reverse",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::shuffle(array) -> array",
+          "namespace": "array",
+          "function": "shuffle",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::slice(array, start: int, len: int) -> array",
+          "namespace": "array",
+          "function": "slice",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "name": "start",
+              "type": "int"
+            },
+            {
+              "name": "len",
+              "type": "int"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort(array) -> array",
+          "namespace": "array",
+          "function": "sort",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort(array, bool) -> array",
+          "namespace": "array",
+          "function": "sort",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "bool"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort(array, string) -> array",
+          "namespace": "array",
+          "function": "sort",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_lexical(array) -> array",
+          "namespace": "array",
+          "function": "sort_lexical",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_lexical(array, bool) -> array",
+          "namespace": "array",
+          "function": "sort_lexical",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "bool"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_lexical(array, string) -> array",
+          "namespace": "array",
+          "function": "sort_lexical",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_natural(array) -> array",
+          "namespace": "array",
+          "function": "sort_natural",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_natural(array, bool) -> array",
+          "namespace": "array",
+          "function": "sort_natural",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "bool"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_natural(array, string) -> array",
+          "namespace": "array",
+          "function": "sort_natural",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_natural_lexical(array) -> array",
+          "namespace": "array",
+          "function": "sort_natural_lexical",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_natural_lexical(array, bool) -> array",
+          "namespace": "array",
+          "function": "sort_natural_lexical",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "bool"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::sort_natural_lexical(array, string) -> array",
+          "namespace": "array",
+          "function": "sort_natural_lexical",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::swap(array, from: int, to: int) -> array",
+          "namespace": "array",
+          "function": "swap",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "name": "from",
+              "type": "int"
+            },
+            {
+              "name": "to",
+              "type": "int"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::transpose(array<array>) -> array<array>",
+          "namespace": "array",
+          "function": "transpose",
+          "parameters": [
+            {
+              "type": "array<array>"
+            }
+          ],
+          "return_type": "array<array>"
+        },
+        {
+          "raw": "array::union(array, array) -> array",
+          "namespace": "array",
+          "function": "union",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "array::windows(array, size: int) -> array",
+          "namespace": "array",
+          "function": "windows",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "name": "size",
+              "type": "int"
+            }
+          ],
+          "return_type": "array"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 3,
+        "sidebar_label": "Array functions",
+        "title": "Array functions | SurrealQL",
+        "description": "These functions can be used when working with, and manipulating arrays of data."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/array.mdx"
+    },
+    "duration": {
+      "namespace": "duration",
+      "functions": [
+        {
+          "raw": "duration::days(duration) -> number",
+          "namespace": "duration",
+          "function": "days",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::hours(duration) -> number",
+          "namespace": "duration",
+          "function": "hours",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::micros(duration) -> number",
+          "namespace": "duration",
+          "function": "micros",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::millis(duration) -> number",
+          "namespace": "duration",
+          "function": "millis",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::mins(duration) -> number",
+          "namespace": "duration",
+          "function": "mins",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::nanos(duration) -> number",
+          "namespace": "duration",
+          "function": "nanos",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::secs(duration) -> number",
+          "namespace": "duration",
+          "function": "secs",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::weeks(duration) -> number",
+          "namespace": "duration",
+          "function": "weeks",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "duration::years(duration) -> number",
+          "namespace": "duration",
+          "function": "years",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "number"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 7,
+        "sidebar_label": "Duration functions",
+        "title": "Duration functions | SurrealQL",
+        "description": "These functions can be used when converting between numeric and duration data."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/duration.mdx"
+    },
+    "meta": {
+      "namespace": "meta",
+      "functions": [
+        {
+          "raw": "meta::id(record) -> value",
+          "namespace": "meta",
+          "function": "id",
+          "parameters": [
+            {
+              "type": "record"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "meta::tb(record) -> string",
+          "namespace": "meta",
+          "function": "tb",
+          "parameters": [
+            {
+              "type": "record"
+            }
+          ],
+          "return_type": "string"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 13,
+        "sidebar_label": "Meta functions",
+        "title": "Meta functions | SurrealQL",
+        "description": "These functions can be used to retrieve specific metadata from a SurrealDB Record ID."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/meta.mdx"
+    },
+    "record": {
+      "namespace": "record",
+      "functions": [
+        {
+          "raw": "record::exists(record) -> bool",
+          "namespace": "record",
+          "function": "exists",
+          "parameters": [
+            {
+              "type": "record"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "record::id(record) -> value",
+          "namespace": "record",
+          "function": "id",
+          "parameters": [
+            {
+              "type": "record"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "record::tb(record) -> string",
+          "namespace": "record",
+          "function": "tb",
+          "parameters": [
+            {
+              "type": "record"
+            }
+          ],
+          "return_type": "string"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 18,
+        "sidebar_label": "Record functions",
+        "title": "Record functions | SurrealQL",
+        "description": "These functions can be used to retrieve specific metadata from a SurrealDB Record ID."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/record.mdx"
+    },
+    "bytes": {
+      "namespace": "bytes",
+      "functions": [
+        {
+          "raw": "bytes::len(bytes) -> int",
+          "namespace": "bytes",
+          "function": "len",
+          "parameters": [
+            {
+              "type": "bytes"
+            }
+          ],
+          "return_type": "int"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 4,
+        "sidebar_label": "Bytes functions",
+        "title": "Bytes functions | SurrealQL",
+        "description": "These functions can be used when working with bytes."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/bytes.mdx"
+    },
+    "search": {
+      "namespace": "search",
+      "functions": [
+        {
+          "raw": "search::analyze(analyzer, string) -> array<string>",
+          "namespace": "search",
+          "function": "analyze",
+          "parameters": [
+            {
+              "type": "analyzer"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "array<string>"
+        },
+        {
+          "raw": "search::score(number) -> number",
+          "namespace": "search",
+          "function": "score",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "search::highlight(string, string, number, [boolean]) -> string | string[]",
+          "namespace": "search",
+          "function": "highlight",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "[boolean]"
+            }
+          ],
+          "return_type": "string | string[]"
+        },
+        {
+          "raw": "search::offsets(number, [boolean]) -> object",
+          "namespace": "search",
+          "function": "offsets",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "[boolean]"
+            }
+          ],
+          "return_type": "object"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 19,
+        "sidebar_label": "Search functions",
+        "title": "Search functions | SurrealQL",
+        "description": "These functions are used in conjunction with the 'matches' operator to either collect the relevance score or highlight the searched keywords within the content."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/search.mdx"
+    },
+    "string": {
+      "namespace": "string",
+      "functions": [
+        {
+          "raw": "string::concat(string, ...) -> string",
+          "namespace": "string",
+          "function": "concat",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "..."
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::contains(string, string) -> bool",
+          "namespace": "string",
+          "function": "contains",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "string::ends_with(string, string) -> bool",
+          "namespace": "string",
+          "function": "ends_with",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "string::join(string, string...) -> string",
+          "namespace": "string",
+          "function": "join",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string..."
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::len(string) -> number",
+          "namespace": "string",
+          "function": "len",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "string::lowercase(string) -> string",
+          "namespace": "string",
+          "function": "lowercase",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::matches(string, string) -> bool",
+          "namespace": "string",
+          "function": "matches",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "string::repeat(string, number) -> string",
+          "namespace": "string",
+          "function": "repeat",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::replace(string, string, string) -> string",
+          "namespace": "string",
+          "function": "replace",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::replace(string, string|regex, string) -> string",
+          "namespace": "string",
+          "function": "replace",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string|regex"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::reverse(string) -> string",
+          "namespace": "string",
+          "function": "reverse",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::slice(string, number, number) -> string",
+          "namespace": "string",
+          "function": "slice",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::slug(string) -> string",
+          "namespace": "string",
+          "function": "slug",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::split(string, string) -> array",
+          "namespace": "string",
+          "function": "split",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "string::starts_with(string, string) -> bool",
+          "namespace": "string",
+          "function": "starts_with",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "string::trim(string) -> string",
+          "namespace": "string",
+          "function": "trim",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::uppercase(string) -> string",
+          "namespace": "string",
+          "function": "uppercase",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "string::words(string) -> array",
+          "namespace": "string",
+          "function": "words",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "array"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 23,
+        "sidebar_label": "String functions",
+        "title": "String functions | SurrealQL",
+        "description": "These functions can be used when working with and manipulating text and string values."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/string.mdx"
+    },
+    "math": {
+      "namespace": "math",
+      "functions": [
+        {
+          "raw": "math::abs(number) -> number",
+          "namespace": "math",
+          "function": "abs",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::acos(number) -> number",
+          "namespace": "math",
+          "function": "acos",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::acot(number) -> number",
+          "namespace": "math",
+          "function": "acot",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::asin(number) -> number",
+          "namespace": "math",
+          "function": "asin",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::atan(number) -> number",
+          "namespace": "math",
+          "function": "atan",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::bottom(array<number>, number) -> number",
+          "namespace": "math",
+          "function": "bottom",
+          "parameters": [
+            {
+              "type": "array<number>"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::ceil(number) -> number",
+          "namespace": "math",
+          "function": "ceil",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::clamp(number, min, max) -> number",
+          "namespace": "math",
+          "function": "clamp",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "min"
+            },
+            {
+              "type": "max"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::cos(number) -> number",
+          "namespace": "math",
+          "function": "cos",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::cot(number) -> number",
+          "namespace": "math",
+          "function": "cot",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::fixed(number, number) -> number",
+          "namespace": "math",
+          "function": "fixed",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::floor(number) -> number",
+          "namespace": "math",
+          "function": "floor",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::interquartile(array<number>) -> number",
+          "namespace": "math",
+          "function": "interquartile",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::lerp(a, b, t) -> number",
+          "namespace": "math",
+          "function": "lerp",
+          "parameters": [
+            {
+              "type": "a"
+            },
+            {
+              "type": "b"
+            },
+            {
+              "type": "t"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::lerpangle(a, b, t) -> number",
+          "namespace": "math",
+          "function": "lerpangle",
+          "parameters": [
+            {
+              "type": "a"
+            },
+            {
+              "type": "b"
+            },
+            {
+              "type": "t"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::ln(number) -> number",
+          "namespace": "math",
+          "function": "ln",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::log(number, base) -> number",
+          "namespace": "math",
+          "function": "log",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "base"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::max(array<number>) -> number",
+          "namespace": "math",
+          "function": "max",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::mean(array<number>) -> number",
+          "namespace": "math",
+          "function": "mean",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::median(array<number>) -> number",
+          "namespace": "math",
+          "function": "median",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::midhinge(array<number>) -> number",
+          "namespace": "math",
+          "function": "midhinge",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::min(array<number>) -> number",
+          "namespace": "math",
+          "function": "min",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::mode(array<number>) -> number",
+          "namespace": "math",
+          "function": "mode",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::nearestrank(array<number>, number) -> number",
+          "namespace": "math",
+          "function": "nearestrank",
+          "parameters": [
+            {
+              "type": "array<number>"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::percentile(array<number>, number) -> number",
+          "namespace": "math",
+          "function": "percentile",
+          "parameters": [
+            {
+              "type": "array<number>"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::pow(number, number) -> number",
+          "namespace": "math",
+          "function": "pow",
+          "parameters": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::product(array<number>) -> number",
+          "namespace": "math",
+          "function": "product",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::round(number) -> number",
+          "namespace": "math",
+          "function": "round",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::sign(number) -> number",
+          "namespace": "math",
+          "function": "sign",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::sin(number) -> number",
+          "namespace": "math",
+          "function": "sin",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::spread(array<number>) -> number",
+          "namespace": "math",
+          "function": "spread",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::sqrt(number) -> number",
+          "namespace": "math",
+          "function": "sqrt",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::stddev(array<number>) -> number",
+          "namespace": "math",
+          "function": "stddev",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::sum(array<number>) -> number",
+          "namespace": "math",
+          "function": "sum",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::tan(number) -> number",
+          "namespace": "math",
+          "function": "tan",
+          "parameters": [
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::top(array<number>, number) -> number",
+          "namespace": "math",
+          "function": "top",
+          "parameters": [
+            {
+              "type": "array<number>"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::trimean(array<number>) -> number",
+          "namespace": "math",
+          "function": "trimean",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "math::variance(array<number>) -> number",
+          "namespace": "math",
+          "function": "variance",
+          "parameters": [
+            {
+              "type": "array<number>"
+            }
+          ],
+          "return_type": "number"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 12,
+        "sidebar_label": "Math functions",
+        "title": "Math functions | SurrealQL",
+        "description": "These functions can be used when analysing numeric data and numeric collections."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/math.mdx"
+    },
+    "http": {
+      "namespace": "http",
+      "functions": [
+        {
+          "raw": "http::head(string) -> null",
+          "namespace": "http",
+          "function": "head",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "null"
+        },
+        {
+          "raw": "http::head(string, object) -> null",
+          "namespace": "http",
+          "function": "head",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "null"
+        },
+        {
+          "raw": "http::get(string) -> value",
+          "namespace": "http",
+          "function": "get",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::get(string, object) -> value",
+          "namespace": "http",
+          "function": "get",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::put(string, object) -> value",
+          "namespace": "http",
+          "function": "put",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::put(string, object, object) -> value",
+          "namespace": "http",
+          "function": "put",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::post(string, object) -> value",
+          "namespace": "http",
+          "function": "post",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::post(string, object, object) -> value",
+          "namespace": "http",
+          "function": "post",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::patch(string, object) -> value",
+          "namespace": "http",
+          "function": "patch",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::patch(string, object, object) -> value",
+          "namespace": "http",
+          "function": "patch",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::delete(string) -> value",
+          "namespace": "http",
+          "function": "delete",
+          "parameters": [
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "value"
+        },
+        {
+          "raw": "http::delete(string, object) -> value",
+          "namespace": "http",
+          "function": "delete",
+          "parameters": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "return_type": "value"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 11,
+        "sidebar_label": "HTTP functions",
+        "title": "HTTP functions | SurrealQL",
+        "description": "These functions can be used when opening and submitting remote web requests, and webhooks."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/http.mdx"
+    },
+    "api": {
+      "namespace": "api",
+      "functions": [
+        {
+          "raw": "api::invoke($path: string, $options: option<object>) -> object",
+          "namespace": "api",
+          "function": "invoke",
+          "parameters": [
+            {
+              "name": "$path",
+              "type": "string"
+            },
+            {
+              "name": "$options",
+              "type": "option<object>"
+            }
+          ],
+          "return_type": "object"
+        },
+        {
+          "raw": "api::timeout(duration)",
+          "namespace": "api",
+          "function": "timeout",
+          "parameters": [
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": null
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 2,
+        "sidebar_label": "API functions",
+        "title": "API functions | SurrealQL",
+        "description": "These functions can be used with the DEFINE API or DEFINE CONFIG statements."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/api.mdx"
+    },
+    "sequence": {
+      "namespace": "sequence",
+      "functions": [
+        {
+          "raw": "sequence::next(sequence_name) -> int",
+          "namespace": "sequence",
+          "function": "next",
+          "parameters": [
+            {
+              "type": "sequence_name"
+            }
+          ],
+          "return_type": "int"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 20,
+        "sidebar_label": "Sequence functions",
+        "title": "Sequence functions | SurrealQL",
+        "description": "Functions to work with sequences."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/sequence.mdx"
+    },
+    "vector": {
+      "namespace": "vector",
+      "functions": [
+        {
+          "raw": "vector::add(array, array) -> array",
+          "namespace": "vector",
+          "function": "add",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "vector::angle(array, array) -> number",
+          "namespace": "vector",
+          "function": "angle",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "vector::cross(array, array) -> array",
+          "namespace": "vector",
+          "function": "cross",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "vector::divide(array, array) -> array",
+          "namespace": "vector",
+          "function": "divide",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "vector::dot(array, array) -> number",
+          "namespace": "vector",
+          "function": "dot",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "vector::magnitude(array) -> number",
+          "namespace": "vector",
+          "function": "magnitude",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "vector::multiply(array, array) -> number",
+          "namespace": "vector",
+          "function": "multiply",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "vector::normalize(array) -> array",
+          "namespace": "vector",
+          "function": "normalize",
+          "parameters": [
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "vector::project(array, array) -> array",
+          "namespace": "vector",
+          "function": "project",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "vector::scale(array, number) -> array",
+          "namespace": "vector",
+          "function": "scale",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "return_type": "array"
+        },
+        {
+          "raw": "vector::subtract(array, array) -> array",
+          "namespace": "vector",
+          "function": "subtract",
+          "parameters": [
+            {
+              "type": "array"
+            },
+            {
+              "type": "array"
+            }
+          ],
+          "return_type": "array"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 27,
+        "sidebar_label": "Vector functions",
+        "title": "Vector functions | SurrealQL",
+        "description": "A collection of essential vector operations that provide foundational functionality for numerical computation, machine learning, and data analysis."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/vector.mdx"
+    },
+    "geo": {
+      "namespace": "geo",
+      "functions": [
+        {
+          "raw": "geo::area(geometry) -> number",
+          "namespace": "geo",
+          "function": "area",
+          "parameters": [
+            {
+              "type": "geometry"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "geo::bearing(point, point) -> number",
+          "namespace": "geo",
+          "function": "bearing",
+          "parameters": [
+            {
+              "type": "point"
+            },
+            {
+              "type": "point"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "geo::centroid(geometry) -> number",
+          "namespace": "geo",
+          "function": "centroid",
+          "parameters": [
+            {
+              "type": "geometry"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "geo::distance(point, point) -> number",
+          "namespace": "geo",
+          "function": "distance",
+          "parameters": [
+            {
+              "type": "point"
+            },
+            {
+              "type": "point"
+            }
+          ],
+          "return_type": "number"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 10,
+        "sidebar_label": "Geo functions",
+        "title": "Geo functions | SurrealQL",
+        "description": "These functions can be used when working with and analysing geospatial data."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/geo.mdx"
+    },
+    "session": {
+      "namespace": "session",
+      "functions": [
+        {
+          "raw": "session::ac() -> string",
+          "namespace": "session",
+          "function": "ac",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "session::db() -> string",
+          "namespace": "session",
+          "function": "db",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "session::id() -> string",
+          "namespace": "session",
+          "function": "id",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "session::ip() -> string",
+          "namespace": "session",
+          "function": "ip",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "session::ns() -> string",
+          "namespace": "session",
+          "function": "ns",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "session::origin() -> string",
+          "namespace": "session",
+          "function": "origin",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "session::rd() -> string",
+          "namespace": "session",
+          "function": "rd",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "session::token() -> string",
+          "namespace": "session",
+          "function": "token",
+          "parameters": [],
+          "return_type": "string"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 21,
+        "sidebar_label": "Session functions",
+        "title": "Session functions | SurrealQL",
+        "description": "These functions return information about the current SurrealDB session."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/session.mdx"
+    },
+    "time": {
+      "namespace": "time",
+      "functions": [
+        {
+          "raw": "time::ceil(datetime, duration) -> datetime",
+          "namespace": "time",
+          "function": "ceil",
+          "parameters": [
+            {
+              "type": "datetime"
+            },
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "time::day(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "day",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::floor(datetime, duration) -> datetime",
+          "namespace": "time",
+          "function": "floor",
+          "parameters": [
+            {
+              "type": "datetime"
+            },
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "time::format(datetime, string) -> string",
+          "namespace": "time",
+          "function": "format",
+          "parameters": [
+            {
+              "type": "datetime"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "time::group(datetime, string) -> datetime",
+          "namespace": "time",
+          "function": "group",
+          "parameters": [
+            {
+              "type": "datetime"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "time::hour(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "hour",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::max(array<datetime>) -> datetime",
+          "namespace": "time",
+          "function": "max",
+          "parameters": [
+            {
+              "type": "array<datetime>"
+            }
+          ],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "time::micros(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "micros",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::millis(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "millis",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::min(array<datetime>) -> datetime",
+          "namespace": "time",
+          "function": "min",
+          "parameters": [
+            {
+              "type": "array<datetime>"
+            }
+          ],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "time::minute(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "minute",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::month(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "month",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::nano(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "nano",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::now() -> datetime",
+          "namespace": "time",
+          "function": "now",
+          "parameters": [],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "time::round(datetime, duration) -> datetime",
+          "namespace": "time",
+          "function": "round",
+          "parameters": [
+            {
+              "type": "datetime"
+            },
+            {
+              "type": "duration"
+            }
+          ],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "time::second(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "second",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::timezone() -> string",
+          "namespace": "time",
+          "function": "timezone",
+          "parameters": [],
+          "return_type": "string"
+        },
+        {
+          "raw": "time::unix(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "unix",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::wday(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "wday",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::week(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "week",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::yday(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "yday",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "time::year(option<datetime>) -> number",
+          "namespace": "time",
+          "function": "year",
+          "parameters": [
+            {
+              "type": "option<datetime>"
+            }
+          ],
+          "return_type": "number"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 24,
+        "sidebar_label": "Time functions",
+        "title": "Time functions | SurrealQL",
+        "description": "These functions can be used when working with and manipulating datetime values."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/time.mdx"
+    },
+    "type": {
+      "namespace": "type",
+      "functions": [
+        {
+          "raw": "type::array(array | range) -> bool",
+          "namespace": "type",
+          "function": "array",
+          "parameters": [
+            {
+              "type": "array | range"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "type::bool(bool | string) -> bool",
+          "namespace": "type",
+          "function": "bool",
+          "parameters": [
+            {
+              "type": "bool | string"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "type::bytes(bytes | string) -> bool",
+          "namespace": "type",
+          "function": "bytes",
+          "parameters": [
+            {
+              "type": "bytes | string"
+            }
+          ],
+          "return_type": "bool"
+        },
+        {
+          "raw": "type::datetime(datetime | string) -> datetime",
+          "namespace": "type",
+          "function": "datetime",
+          "parameters": [
+            {
+              "type": "datetime | string"
+            }
+          ],
+          "return_type": "datetime"
+        },
+        {
+          "raw": "type::decimal(decimal | float | int | number | string) -> decimal",
+          "namespace": "type",
+          "function": "decimal",
+          "parameters": [
+            {
+              "type": "decimal | float | int | number | string"
+            }
+          ],
+          "return_type": "decimal"
+        },
+        {
+          "raw": "type::duration(duration | string) -> duration",
+          "namespace": "type",
+          "function": "duration",
+          "parameters": [
+            {
+              "type": "duration | string"
+            }
+          ],
+          "return_type": "duration"
+        },
+        {
+          "raw": "type::field($field)",
+          "namespace": "type",
+          "function": "field",
+          "parameters": [
+            {
+              "type": "$field"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "type::fields($fields)",
+          "namespace": "type",
+          "function": "fields",
+          "parameters": [
+            {
+              "type": "$fields"
+            }
+          ],
+          "return_type": null
+        },
+        {
+          "raw": "type::file(bucket: string, key: string) -> file",
+          "namespace": "type",
+          "function": "file",
+          "parameters": [
+            {
+              "name": "bucket",
+              "type": "string"
+            },
+            {
+              "name": "key",
+              "type": "string"
+            }
+          ],
+          "return_type": "file"
+        },
+        {
+          "raw": "type::float(decimal | float | int | number | string) -> float",
+          "namespace": "type",
+          "function": "float",
+          "parameters": [
+            {
+              "type": "decimal | float | int | number | string"
+            }
+          ],
+          "return_type": "float"
+        },
+        {
+          "raw": "type::int(decimal | float | int | number | string) -> int",
+          "namespace": "type",
+          "function": "int",
+          "parameters": [
+            {
+              "type": "decimal | float | int | number | string"
+            }
+          ],
+          "return_type": "int"
+        },
+        {
+          "raw": "type::number(decimal | float | int | number | string) -> number",
+          "namespace": "type",
+          "function": "number",
+          "parameters": [
+            {
+              "type": "decimal | float | int | number | string"
+            }
+          ],
+          "return_type": "number"
+        },
+        {
+          "raw": "type::point(array | point) -> point",
+          "namespace": "type",
+          "function": "point",
+          "parameters": [
+            {
+              "type": "array | point"
+            }
+          ],
+          "return_type": "point"
+        },
+        {
+          "raw": "type::range(range | array) -> range<record>",
+          "namespace": "type",
+          "function": "range",
+          "parameters": [
+            {
+              "type": "range | array"
+            }
+          ],
+          "return_type": "range<record>"
+        },
+        {
+          "raw": "type::record(record | string, option<string>) -> record",
+          "namespace": "type",
+          "function": "record",
+          "parameters": [
+            {
+              "type": "record | string"
+            },
+            {
+              "type": "option<string>"
+            }
+          ],
+          "return_type": "record"
+        },
+        {
+          "raw": "type::string(any) -> string",
+          "namespace": "type",
+          "function": "string",
+          "parameters": [
+            {
+              "type": "any"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "type::string(any) -> string",
+          "namespace": "type",
+          "function": "string",
+          "parameters": [
+            {
+              "type": "any"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "type::table(record | string) -> string",
+          "namespace": "type",
+          "function": "table",
+          "parameters": [
+            {
+              "type": "record | string"
+            }
+          ],
+          "return_type": "string"
+        },
+        {
+          "raw": "type::thing(any, any) -> record",
+          "namespace": "type",
+          "function": "thing",
+          "parameters": [
+            {
+              "type": "any"
+            },
+            {
+              "type": "any"
+            }
+          ],
+          "return_type": "record"
+        },
+        {
+          "raw": "type::uuid(string | uuid) -> uuid",
+          "namespace": "type",
+          "function": "uuid",
+          "parameters": [
+            {
+              "type": "string | uuid"
+            }
+          ],
+          "return_type": "uuid"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 25,
+        "sidebar_label": "Type functions",
+        "title": "Type functions | SurrealQL",
+        "description": "These functions can be used for generating and coercing data to specific data types."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/type.mdx"
+    },
+    "value": {
+      "namespace": "value",
+      "functions": [
+        {
+          "raw": "value::diff(value, value) -> array<object>",
+          "namespace": "value",
+          "function": "diff",
+          "parameters": [
+            {
+              "type": "value"
+            },
+            {
+              "type": "value"
+            }
+          ],
+          "return_type": "array<object>"
+        },
+        {
+          "raw": "value::patch(value, patch: array<object>) -> value",
+          "namespace": "value",
+          "function": "patch",
+          "parameters": [
+            {
+              "type": "value"
+            },
+            {
+              "name": "patch",
+              "type": "array<object>"
+            }
+          ],
+          "return_type": "value"
+        }
+      ],
+      "frontmatter": {
+        "sidebar_position": 26,
+        "sidebar_label": "Value functions",
+        "title": "Value functions | SurrealQL",
+        "description": "This module contains several miscellaneous functions that can be used with values of any type."
+      },
+      "file_path": "src/content/doc-surrealql/functions/database/value.mdx"
+    }
+  },
+  "operators": {
+    "logical": [
+      {
+        "symbol": "&&",
+        "description": "Checks whether both of two values are truthy.",
+        "id": "and",
+        "alternative": "AND"
+      },
+      {
+        "symbol": "||",
+        "description": "Checks whether either of two values are truthy.",
+        "id": "or",
+        "alternative": "OR"
+      },
+      {
+        "symbol": "!",
+        "description": "Reverses the truthiness of a value.",
+        "id": "not"
+      },
+      {
+        "symbol": "!!",
+        "description": "Determines the truthiness of a value (simply an application of the `!` operator twice).",
+        "id": "not_not"
+      }
+    ],
+    "comparison": [
+      {
+        "symbol": "=",
+        "description": "Check whether two values are equal.",
+        "id": "equal",
+        "alternative": "IS"
+      },
+      {
+        "symbol": "!=",
+        "description": "Check whether two values are equal.",
+        "id": "notequal",
+        "alternative": "IS NOT"
+      },
+      {
+        "symbol": "==",
+        "description": "Check whether two values are exact. This operator also checks that each value has the same type.",
+        "id": "exact"
+      },
+      {
+        "symbol": "?=",
+        "description": "Check whether any value in an array equals another value.",
+        "id": "anyequal"
+      },
+      {
+        "symbol": "*=",
+        "description": "Check whether all values in an array equals another value.",
+        "id": "allequal"
+      },
+      {
+        "symbol": "<",
+        "description": "Check whether a value is less than another value.",
+        "id": "lessthan"
+      },
+      {
+        "symbol": "<=",
+        "description": "Check whether a value is less than or equal to another value.",
+        "id": "lessthanorequal"
+      },
+      {
+        "symbol": ">",
+        "description": "Check whether a value is less than another value.",
+        "id": "greaterthan"
+      },
+      {
+        "symbol": ">=",
+        "description": "Check whether a value is less than or equal to another value.",
+        "id": "greaterthanorequal"
+      }
+    ],
+    "mathematical": [
+      {
+        "symbol": "+",
+        "description": "Add two values together.",
+        "id": "add"
+      },
+      {
+        "symbol": "-",
+        "description": "Subtracts a value from another value.",
+        "id": "sub"
+      },
+      {
+        "symbol": "*",
+        "description": "Multiplies a value by another value.",
+        "id": "mul",
+        "alternative": "\u00d7"
+      },
+      {
+        "symbol": "/",
+        "description": "Divides a value with another value.",
+        "id": "div",
+        "alternative": "\u00f7"
+      },
+      {
+        "symbol": "**",
+        "description": "Raises a base value by another value.",
+        "id": "pow"
+      }
+    ],
+    "graph": [
+      {
+        "symbol": "OUTSIDE",
+        "description": "Check whether a geometry value is outside another geometry value.",
+        "id": "outside"
+      },
+      {
+        "symbol": "INTERSECTS",
+        "description": "Check whether a geometry value intersects another geometry value.",
+        "id": "intersects"
+      }
+    ],
+    "set": [
+      {
+        "symbol": "CONTAINS",
+        "description": "Check whether a value contains another value.",
+        "id": "contains",
+        "alternative": "\u220b"
+      },
+      {
+        "symbol": "CONTAINSNOT",
+        "description": "Check whether a value does not contain another value.",
+        "id": "containsnot",
+        "alternative": "\u220c"
+      },
+      {
+        "symbol": "CONTAINSALL",
+        "description": "Check whether a value contains all of multiple values.",
+        "id": "containsall",
+        "alternative": "\u2287"
+      },
+      {
+        "symbol": "CONTAINSANY",
+        "description": "Check whether a value contains any of multiple values.",
+        "id": "containsany",
+        "alternative": "\u2283"
+      },
+      {
+        "symbol": "INSIDE",
+        "description": "Check whether a value is contained within another value.",
+        "id": "inside",
+        "alternative": "\u2208"
+      },
+      {
+        "symbol": "NOTINSIDE",
+        "description": "Check whether a value is not contained within another value.",
+        "id": "notinside",
+        "alternative": "\u2209"
+      },
+      {
+        "symbol": "ALLINSIDE",
+        "description": "Check whether all of multiple values are contained within another value.",
+        "id": "allinside",
+        "alternative": "\u2286"
+      }
+    ],
+    "fuzzy": [
+      {
+        "symbol": "~",
+        "description": "Compare two values for equality using fuzzy matching.",
+        "id": "match"
+      },
+      {
+        "symbol": "!~",
+        "description": "Compare two values for inequality using fuzzy matching.",
+        "id": "notmatch"
+      },
+      {
+        "symbol": "?~",
+        "description": "Check whether any value in a set is equal to a value using fuzzy matching.",
+        "id": "anymatch"
+      },
+      {
+        "symbol": "*~",
+        "description": "Check whether all values in a set are equal to a value using fuzzy matching.",
+        "id": "allmatch"
+      }
+    ],
+    "null_handling": [
+      {
+        "symbol": "??",
+        "description": "Check whether either of two values are truthy and not `NULL`.",
+        "id": "nco"
+      },
+      {
+        "symbol": "?:",
+        "description": "Check whether either of two values are truthy.",
+        "id": "tco"
+      }
+    ],
+    "other": [
+      {
+        "symbol": "ANYINSIDE",
+        "description": "Check whether any of multiple values are contained within another value.",
+        "id": "anyinside",
+        "alternative": "\u2282"
+      },
+      {
+        "symbol": "NONEINSIDE",
+        "description": "Check whether none of multiple values are contained within another value.",
+        "id": "noneinside",
+        "alternative": "\u2284"
+      },
+      {
+        "symbol": "MATCHES",
+        "description": "Checks whether the terms are found in a full-text indexed field.",
+        "id": "matches"
+      }
+    ]
+  }
+}

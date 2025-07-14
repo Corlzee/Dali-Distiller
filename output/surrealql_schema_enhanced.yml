@@ -1,0 +1,2589 @@
+surrealql_schema_enhanced:
+  version: 2.3.7-85
+  metadata:
+    statements: 42
+    functions: 253
+    operators: 36
+    coverage: 85%
+  statements:
+    info:
+      keywords:
+      - ROOT
+      - DATABASE
+      - USER
+      - NAMESPACE
+      - DB
+      - INDEX
+      - 'ON'
+      - INFO
+      - TABLE
+      - NS
+      - FOR
+      variables:
+      - level
+      - user
+      - index
+      - table
+      optional:
+      - ON @level
+    select:
+      keywords:
+      - OMIT
+      - START
+      - 'ON'
+      - AT
+      - FROM
+      - WHERE
+      - PARALLEL
+      - FULL
+      - ONLY
+      - DESC
+      - INDEX
+      - NOINDEX
+      - VALUE
+      - WITH
+      - ORDER
+      - TIMEOUT
+      - GROUP
+      - SPLIT
+      - SELECT
+      - AS
+      - RAND
+      - FETCH
+      - NUMERIC
+      - COLLATE
+      - EXPLAIN
+      - TEMPFILES
+      - ASC
+      - LIMIT
+      - BY
+      variables:
+      - duration
+      - limit
+      - fields
+      - field
+      - targets
+      - alias
+      - conditions
+      - indexes
+      - start
+      optional:
+      - ORDER [ BY
+      - LIMIT [ BY
+      - TIMEOUT @duration
+      - NUMERIC
+      - SPLIT [ ON
+      - AS @alias
+      - ONLY
+      - COLLATE
+      - FETCH @fields ...
+      - TEMPFILES
+      - GROUP [ BY
+      - ASC | DESC
+      - EXPLAIN [ FULL
+      - WHERE @conditions
+      - WITH [ NOINDEX | INDEX @indexes ...
+      - OMIT @fields ...
+      - START [ AT
+      - PARALLEL
+    kill:
+      keywords:
+      - KILL
+      variables:
+      - value
+      optional: []
+    let:
+      keywords:
+      - LET
+      variables:
+      - type_name
+      - value
+      - parameter
+      optional:
+      - ': @type_name'
+    upsert:
+      keywords:
+      - MERGE
+      - WHERE
+      - RETURN
+      - PARALLEL
+      - FULL
+      - SET
+      - UPSERT
+      - AFTER
+      - ONLY
+      - CONTENT
+      - VALUE
+      - TIMEOUT
+      - BEFORE
+      - REPLACE
+      - PATCH
+      - EXPLAIN
+      - NONE
+      - UNSET
+      - DIFF
+      variables:
+      - statement_param
+      - value
+      - condition
+      - duration
+      - field
+      - targets
+      optional:
+      - TIMEOUT @duration
+      - ONLY
+      - WHERE @condition
+      - EXPLAIN [ FULL
+      - SET @field = @value, ... | UNSET @field, ...
+      - RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,
+        ... | RETURN VALUE @statement_param
+      - PARALLEL
+    for:
+      keywords:
+      - IN
+      - FOR
+      variables:
+      - iterable
+      - item
+      - block
+      optional: []
+    update:
+      keywords:
+      - MERGE
+      - WHERE
+      - RETURN
+      - PARALLEL
+      - FULL
+      - SET
+      - AFTER
+      - ONLY
+      - CONTENT
+      - VALUE
+      - TIMEOUT
+      - BEFORE
+      - REPLACE
+      - UPDATE
+      - PATCH
+      - EXPLAIN
+      - NONE
+      - UNSET
+      - DIFF
+      variables:
+      - statement_param
+      - value
+      - condition
+      - duration
+      - field
+      - targets
+      optional:
+      - TIMEOUT @duration
+      - ONLY
+      - WHERE @condition
+      - EXPLAIN [ FULL
+      - SET @field = @value, ... | UNSET @field, ...
+      - RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,
+        ... | RETURN VALUE @statement_param
+      - PARALLEL
+    continue:
+      keywords:
+      - CONTINUE
+      variables: []
+      optional: []
+    remove:
+      keywords:
+      - ROOT
+      - DATABASE
+      - EVENT
+      - EXISTS
+      - USER
+      - NAMESPACE
+      - FUNCTION
+      - ACCESS
+      - INDEX
+      - 'ON'
+      - IF
+      - TABLE
+      - REMOVE
+      - FIELD
+      - PARAM
+      - ANALYZER
+      variables:
+      - table
+      - name
+      optional:
+      - NAMESPACE | DATABASE
+      - ROOT | NAMESPACE | DATABASE
+      - TABLE
+      - IF EXISTS
+    delete:
+      keywords:
+      - TIMEOUT
+      - EXPLAIN
+      - BEFORE
+      - AFTER
+      - ONLY
+      - NONE
+      - DIFF
+      - FROM
+      - WHERE
+      - RETURN
+      - PARALLEL
+      - FULL
+      - DELETE
+      variables:
+      - statement_param
+      - targets
+      - condition
+      - duration
+      optional:
+      - TIMEOUT @duration
+      - WHERE @condition
+      - EXPLAIN [ FULL
+      - RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,
+        ...
+      - PARALLEL
+      - FROM | ONLY
+    throw:
+      keywords:
+      - THROW
+      variables:
+      - error
+      optional: []
+    return:
+      keywords:
+      - RETURN
+      variables:
+      - value
+      optional: []
+    begin:
+      keywords:
+      - TRANSACTION
+      - BEGIN
+      variables: []
+      optional:
+      - TRANSACTION
+    alter:
+      keywords:
+      - EXISTS
+      - SCHEMALESS
+      - SCHEMAFULL
+      - ALTER
+      - NONE
+      - COMMENT
+      - IF
+      - TABLE
+      - PERMISSIONS
+      - DROP
+      - FULL
+      - FOR
+      variables:
+      - string
+      - name
+      - expression
+      optional:
+      - SCHEMAFULL | SCHEMALESS
+      - DROP
+      - IF EXISTS
+      - COMMENT @string
+    use:
+      keywords:
+      - USE
+      - NS
+      - DB
+      variables:
+      - db
+      - ns
+      optional:
+      - NS @ns
+      - DB @db
+    sleep:
+      keywords:
+      - SLEEP
+      variables:
+      - duration
+      optional: []
+    rebuild:
+      keywords:
+      - EXISTS
+      - REBUILD
+      - INDEX
+      - 'ON'
+      - IF
+      - TABLE
+      variables:
+      - table
+      - name
+      optional:
+      - TABLE
+      - IF EXISTS
+    relate:
+      keywords:
+      - SET
+      - VALUE
+      - TIMEOUT
+      - BEFORE
+      - AFTER
+      - ONLY
+      - RELATE
+      - NONE
+      - CONTENT
+      - RETURN
+      - PARALLEL
+      - DIFF
+      variables:
+      - statement_param
+      - value
+      - duration
+      - from_record
+      - field
+      - to_record
+      - table
+      optional:
+      - TIMEOUT @duration
+      - ONLY
+      - RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,
+        ... | RETURN VALUE @statement_param
+      - PARALLEL
+    access:
+      keywords:
+      - ROOT
+      - DATABASE
+      - REVOKE
+      - USER
+      - RECORD
+      - NAMESPACE
+      - GRANT
+      - EXPIRED
+      - ACCESS
+      - 'ON'
+      - ALL
+      - PURGE
+      - WHERE
+      - REVOKED
+      - SHOW
+      - FOR
+      variables:
+      - record
+      - duration
+      - id
+      - expression
+      - name
+      optional:
+      - GRANT @id | ALL | WHERE @expression
+      - FOR USER @name | FOR RECORD @record
+      - FOR @duration
+      - ON [ ROOT | NAMESPACE | DATABASE
+      - EXPIRED | REVOKED [ , EXPIRED | REVOKED
+    commit:
+      keywords:
+      - TRANSACTION
+      - COMMIT
+      variables: []
+      optional:
+      - TRANSACTION
+    break:
+      keywords:
+      - BREAK
+      variables: []
+      optional: []
+    create:
+      keywords:
+      - SET
+      - VALUE
+      - TIMEOUT
+      - BEFORE
+      - AFTER
+      - ONLY
+      - NONE
+      - CREATE
+      - CONTENT
+      - RETURN
+      - PARALLEL
+      - DIFF
+      variables:
+      - statement_param
+      - value
+      - duration
+      - field
+      - targets
+      optional:
+      - TIMEOUT @duration
+      - ONLY
+      - RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,
+        ... | RETURN VALUE @statement_param
+      - PARALLEL
+    show:
+      keywords:
+      - SINCE
+      - TABLE
+      - CHANGES
+      - LIMIT
+      - SHOW
+      - FOR
+      variables:
+      - number
+      - versionstamp
+      - tablename
+      - timestamp
+      optional:
+      - LIMIT @number
+    insert:
+      keywords:
+      - VALUE
+      - BEFORE
+      - AFTER
+      - IGNORE
+      - DUPLICATE
+      - 'ON'
+      - NONE
+      - INTO
+      - DIFF
+      - VALUES
+      - RELATION
+      - RETURN
+      - INSERT
+      - UPDATE
+      - KEY
+      variables:
+      - statement_param
+      - value
+      - what
+      - fields
+      - field
+      - values
+      optional:
+      - IGNORE | RELATION
+      - RETURN NONE | RETURN BEFORE | RETURN AFTER | RETURN DIFF | RETURN @statement_param,
+        ... | RETURN VALUE @statement_param
+      - ON DUPLICATE KEY UPDATE @field = @value ...
+    live:
+      keywords:
+      - VALUE
+      - FETCH
+      - LIVE
+      - SELECT
+      - FROM
+      - WHERE
+      - AS
+      - DIFF
+      variables:
+      - alias
+      - targets
+      - conditions
+      - fields
+      optional:
+      - VALUE
+      - AS @alias
+      - WHERE @conditions
+      - FETCH @fields ...
+    cancel:
+      keywords:
+      - TRANSACTION
+      - CANCEL
+      variables: []
+      optional:
+      - TRANSACTION
+    define/indexes:
+      keywords:
+      - EXISTS
+      - 'ON'
+      - IF
+      - MTREE
+      - EFC
+      - DEFINE
+      - HNSW
+      - INDEX
+      - TYPE
+      - ANALYZER
+      - COLUMNS
+      - HIGHLIGHTS
+      - NOT
+      - DIST
+      - TABLE
+      - SEARCH
+      - FIELDS
+      - OVERWRITE
+      - UNIQUE
+      - CONCURRENTLY
+      - COMMENT
+      - DIMENSION
+      - CAPACITY
+      variables:
+      - m
+      - string
+      - capacity
+      - fields
+      - efc
+      - dimension
+      - table
+      - b
+      - type
+      - k1
+      - distance
+      - analyzer
+      - name
+      optional:
+      - COMMENT @string
+      - DIST @distance
+      - M @m
+      - BM25 [(@k1, @b)
+      - HIGHLIGHTS
+      - CONCURRENTLY
+      - CAPACITY @capacity
+      - EFC @efc
+      - TYPE @type
+      - OVERWRITE | IF NOT EXISTS
+      - FIELDS | COLUMNS
+      - TABLE
+    define/config:
+      keywords:
+      - MIDDLEWARE
+      - CONFIG
+      - FUNCTIONS
+      - EXISTS
+      - GRAPHQL
+      - DEFINE
+      - INCLUDE
+      - EXCLUDE
+      - NOT
+      - NONE
+      - IF
+      - PERMISSIONS
+      - AUTO
+      - TABLES
+      - API
+      - FULL
+      - OVERWRITE
+      variables:
+      - expression
+      optional:
+      - PERMISSIONS [ NONE | FULL | @expression
+      - AUTO | NONE
+      - TABLES (AUTO | NONE | INCLUDE table1, table2, ...)
+      - OVERWRITE | IF NOT EXISTS
+      - API [ MIDDLEWARE @expression, ..
+      - function1, function2, ...
+      - FUNCTIONS (AUTO | NONE | INCLUDE [function1, function2, ...
+    define/param:
+      keywords:
+      - VALUE
+      - EXISTS
+      - DEFINE
+      - NOT
+      - COMMENT
+      - NONE
+      - IF
+      - PERMISSIONS
+      - WHERE
+      - PARAM
+      - FULL
+      - OVERWRITE
+      variables:
+      - value
+      - condition
+      - string
+      - name
+      optional:
+      - OVERWRITE | IF NOT EXISTS
+      - COMMENT @string
+      - PERMISSIONS [ NONE | FULL | WHERE @condition
+    define/token:
+      keywords:
+      - SCOPE
+      - VALUE
+      - DATABASE
+      - EXISTS
+      - NAMESPACE
+      - DEFINE
+      - NOT
+      - 'ON'
+      - TYPE
+      - COMMENT
+      - IF
+      - TOKEN
+      - OVERWRITE
+      variables:
+      - value
+      - string
+      - scope
+      - type
+      - name
+      optional:
+      - NAMESPACE | DATABASE | SCOPE @scope
+      - OVERWRITE | IF NOT EXISTS
+      - COMMENT @string
+    define/table:
+      keywords:
+      - IN
+      - EXISTS
+      - SCHEMALESS
+      - SCHEMAFULL
+      - OUT
+      - IF
+      - FROM
+      - ANY
+      - RELATION
+      - WHERE
+      - TO
+      - ORIGINAL
+      - FULL
+      - NORMAL
+      - BY
+      - DEFINE
+      - TYPE
+      - PERMISSIONS
+      - DROP
+      - CHANGEFEED
+      - ENFORCED
+      - NOT
+      - SELECT
+      - TABLE
+      - AS
+      - OVERWRITE
+      - FOR
+      - INCLUDE
+      - NONE
+      - COMMENT
+      - GROUP
+      variables:
+      - condition
+      - duration
+      - groups
+      - string
+      - table
+      - tables
+      - expression
+      - projections
+      - name
+      optional:
+      - COMMENT @string
+      - ENFORCED
+      - WHERE @condition
+      - GROUP [ BY
+      - OVERWRITE | IF NOT EXISTS
+      - TYPE [ ANY | NORMAL | RELATION [ IN | FROM
+      - OUT | TO
+      - SCHEMAFULL | SCHEMALESS
+      - DROP
+      - CHANGEFEED @duration [ INCLUDE ORIGINAL
+    define/namespace:
+      keywords:
+      - EXISTS
+      - NAMESPACE
+      - DEFINE
+      - NOT
+      - COMMENT
+      - IF
+      - OVERWRITE
+      variables:
+      - string
+      - name
+      optional:
+      - OVERWRITE | IF NOT EXISTS
+      - COMMENT @string
+    define/event:
+      keywords:
+      - EVENT
+      - EXISTS
+      - WHEN
+      - THEN
+      - DEFINE
+      - NOT
+      - 'ON'
+      - COMMENT
+      - IF
+      - TABLE
+      - OVERWRITE
+      variables:
+      - table
+      - string
+      - name
+      - expression
+      optional:
+      - OVERWRITE | IF NOT EXISTS
+      - COMMENT @string
+      - WHEN @expression
+      - TABLE
+    define/scope:
+      keywords:
+      - SCOPE
+      - EXISTS
+      - DEFINE
+      - NOT
+      - COMMENT
+      - IF
+      - SESSION
+      - SIGNIN
+      - SIGNUP
+      - OVERWRITE
+      variables:
+      - duration
+      - string
+      - name
+      - expression
+      optional:
+      - OVERWRITE | IF NOT EXISTS
+      - COMMENT @string
+    define/api:
+      keywords:
+      - MIDDLEWARE
+      - EXISTS
+      - THEN
+      - DEFINE
+      - NOT
+      - FOR
+      - NONE
+      - IF
+      - PERMISSIONS
+      - API
+      - FULL
+      - OVERWRITE
+      variables:
+      - value
+      - HTTP_method
+      - endpoint
+      - function
+      - expression
+      optional:
+      - PERMISSIONS [ NONE | FULL | @expression
+      - FOR @HTTP_method, ..
+      - THEN { @value }
+      - MIDDLEWARE @function, ..
+      - OVERWRITE | IF NOT EXISTS
+    define/sequence:
+      keywords:
+      - TIMEOUT
+      - SEQUENCE
+      - EXISTS
+      - DEFINE
+      - START
+      - BATCH
+      - NOT
+      - IF
+      - OVERWRITE
+      variables:
+      - duration
+      - batch
+      - name
+      - start
+      optional:
+      - TIMEOUT @duration
+      - OVERWRITE | IF NOT EXISTS
+      - BATCH @batch
+      - START @start
+    define/bucket:
+      keywords:
+      - EXISTS
+      - BUCKET
+      - DEFINE
+      - NOT
+      - COMMENT
+      - IF
+      - PERMISSIONS
+      - OVERWRITE
+      variables:
+      - backend
+      - string
+      - name
+      - expression
+      optional:
+      - OVERWRITE | IF NOT EXISTS
+      - COMMENT @string
+      - '@backend'
+    define/analyzer:
+      keywords:
+      - EXISTS
+      - TOKENIZERS
+      - FILTERS
+      - DEFINE
+      - FUNCTION
+      - NOT
+      - COMMENT
+      - IF
+      - ANALYZER
+      - OVERWRITE
+      variables:
+      - filters
+      - string
+      - tokenizers
+      - function
+      - name
+      optional:
+      - COMMENT @string
+      - FUNCTION @function
+      - TOKENIZERS @tokenizers
+      - OVERWRITE | IF NOT EXISTS
+      - FILTERS @filters
+    define/field:
+      keywords:
+      - EXISTS
+      - 'ON'
+      - DEFAULT
+      - IF
+      - READONLY
+      - FULL
+      - DELETE
+      - DEFINE
+      - TYPE
+      - FLEXIBLE
+      - PERMISSIONS
+      - REFERENCE
+      - FIELD
+      - VALUE
+      - REJECT
+      - NOT
+      - TABLE
+      - ASSERT
+      - OVERWRITE
+      - FOR
+      - ALWAYS
+      - CASCADE
+      - THEN
+      - IGNORE
+      - NONE
+      - COMMENT
+      - UNSET
+      variables:
+      - string
+      - table
+      - type
+      - expression
+      - name
+      optional:
+      - DEFAULT [ALWAYS
+      - VALUE @expression
+      - COMMENT @string
+      - ASSERT @expression
+      - OVERWRITE | IF NOT EXISTS
+      - '[ FLEXIBLE'
+      - TABLE
+      - READONLY
+    define/function:
+      keywords:
+      - EXISTS
+      - FUNCTION
+      - DEFINE
+      - NOT
+      - COMMENT
+      - NONE
+      - IF
+      - PERMISSIONS
+      - WHERE
+      - RETURN
+      - FULL
+      - OVERWRITE
+      variables:
+      - condition
+      - string
+      - type
+      - argument
+      - name
+      - returned
+      - query
+      optional:
+      - COMMENT @string
+      - PERMISSIONS [ NONE | FULL | WHERE @condition
+      - '@argument: @type ...'
+      - '@query ...'
+      - OVERWRITE | IF NOT EXISTS
+      - RETURN @returned
+    define/user:
+      keywords:
+      - PASSHASH
+      - ROOT
+      - DATABASE
+      - ROLES
+      - USER
+      - EXISTS
+      - NAMESPACE
+      - DEFINE
+      - NOT
+      - 'ON'
+      - DURATION
+      - FOR
+      - IF
+      - COMMENT
+      - SESSION
+      - TOKEN
+      - PASSWORD
+      - OVERWRITE
+      variables:
+      - hash
+      - duration
+      - string
+      - roles
+      - pass
+      - name
+      optional:
+      - COMMENT @string
+      - ROOT | NAMESPACE | DATABASE
+      - ROLES @roles
+      - OVERWRITE | IF NOT EXISTS
+      - PASSWORD @pass | PASSHASH @hash
+      - DURATION [ FOR TOKEN @duration [ ,
+      - FOR SESSION @duration
+    define/database:
+      keywords:
+      - DATABASE
+      - EXISTS
+      - DEFINE
+      - NOT
+      - COMMENT
+      - IF
+      - OVERWRITE
+      variables:
+      - string
+      - name
+      optional:
+      - OVERWRITE | IF NOT EXISTS
+      - COMMENT @string
+  functions:
+    file:
+      bucket:
+        signatures:
+        - pattern: file::bucket(file) -> string
+          params:
+          - type: file
+          returns: string
+      copy:
+        signatures:
+        - pattern: file::copy(string)
+          params:
+          - type: string
+      copy_if_not_exists:
+        signatures:
+        - pattern: file::copy_if_not_exists(string)
+          params:
+          - type: string
+      delete:
+        signatures:
+        - pattern: file::delete(string)
+          params:
+          - type: string
+      exists:
+        signatures:
+        - pattern: file::exists(string) -> bool
+          params:
+          - type: string
+          returns: bool
+      get:
+        signatures:
+        - pattern: file::get(string) -> bytes
+          params:
+          - type: string
+          returns: bytes
+      head:
+        signatures:
+        - pattern: file::head() -> object
+          returns: object
+      key:
+        signatures:
+        - pattern: file::key(file) -> string
+          params:
+          - type: file
+          returns: string
+      list:
+        signatures:
+        - pattern: 'file::list(string, list_options: option<object>) -> array<object>'
+          params:
+          - type: string
+          - type: option<object>
+          returns: array<object>
+      put:
+        signatures:
+        - pattern: file::put()
+      put_if_not_exists:
+        signatures:
+        - pattern: file::put_if_not_exists()
+      rename:
+        signatures:
+        - pattern: file::rename()
+      rename_if_not_exists:
+        signatures:
+        - pattern: file::rename_if_not_exists()
+    rand:
+      bool:
+        signatures:
+        - pattern: rand::bool() -> bool
+          returns: bool
+        - pattern: rand::bool(duration, duration) -> duration
+          params:
+          - type: duration
+          - type: duration
+          returns: duration
+      enum:
+        signatures:
+        - pattern: rand::enum(value...) -> any
+          params:
+          - type: value...
+          returns: any
+      float:
+        signatures:
+        - pattern: rand::float() -> float
+          returns: float
+        - pattern: rand::float(number, number) -> float
+          params:
+          - type: number
+          - type: number
+          returns: float
+      guid:
+        signatures:
+        - pattern: rand::guid() -> string
+          returns: string
+        - pattern: rand::guid(number) -> string
+          params:
+          - type: number
+          returns: string
+        - pattern: rand::guid(min, max) -> string
+          params:
+          - type: min
+          - type: max
+          returns: string
+      int:
+        signatures:
+        - pattern: rand::int() -> int
+          returns: int
+        - pattern: rand::int(number, number) -> int
+          params:
+          - type: number
+          - type: number
+          returns: int
+      string:
+        signatures:
+        - pattern: rand::string() -> string
+          returns: string
+        - pattern: rand::string(number) -> string
+          params:
+          - type: number
+          returns: string
+        - pattern: rand::string(number, number) -> string
+          params:
+          - type: number
+          - type: number
+          returns: string
+      uuid:
+        signatures:
+        - pattern: rand::uuid() -> uuid
+          returns: uuid
+        - pattern: rand::uuid(datetime) -> uuid
+          params:
+          - type: datetime
+          returns: uuid
+      ulid:
+        signatures:
+        - pattern: rand::ulid() -> ulid
+          returns: ulid
+        - pattern: rand::ulid(datetime) -> uuid
+          params:
+          - type: datetime
+          returns: uuid
+    object:
+      entries:
+        signatures:
+        - pattern: object::entries(object) -> array
+          params:
+          - type: object
+          returns: array
+      extend:
+        signatures:
+        - pattern: object::extend(object, object) -> object
+          params:
+          - type: object
+          - type: object
+          returns: object
+      from_entries:
+        signatures:
+        - pattern: object::from_entries(array) -> object
+          params:
+          - type: array
+          returns: object
+      is_empty:
+        signatures:
+        - pattern: object::is_empty(object) -> bool
+          params:
+          - type: object
+          returns: bool
+      keys:
+        signatures:
+        - pattern: object::keys(object) -> array
+          params:
+          - type: object
+          returns: array
+      len:
+        signatures:
+        - pattern: object::len(object) -> number
+          params:
+          - type: object
+          returns: number
+      remove:
+        signatures:
+        - pattern: object::remove(object, string|array<string>) -> object
+          params:
+          - type: object
+          - type: string|array<string>
+          returns: object
+      values:
+        signatures:
+        - pattern: object::values(object) -> array
+          params:
+          - type: object
+          returns: array
+    array:
+      add:
+        signatures:
+        - pattern: array::add(array, value) -> array
+          params:
+          - type: array
+          - type: value
+          returns: array
+      at:
+        signatures:
+        - pattern: 'array::at(array, index: int) -> any'
+          params:
+          - type: array
+          - type: int
+          returns: any
+      append:
+        signatures:
+        - pattern: array::append(array, value) -> array
+          params:
+          - type: array
+          - type: value
+          returns: array
+      boolean_and:
+        signatures:
+        - pattern: 'array::boolean_and(lh: array, rh: array)'
+          params:
+          - type: array
+          - type: array
+      boolean_or:
+        signatures:
+        - pattern: 'array::boolean_or(lh: array, rh: array)'
+          params:
+          - type: array
+          - type: array
+      boolean_xor:
+        signatures:
+        - pattern: 'array::boolean_xor(lh: array, rh: array)'
+          params:
+          - type: array
+          - type: array
+      boolean_not:
+        signatures:
+        - pattern: array::boolean_not(array)
+          params:
+          - type: array
+      combine:
+        signatures:
+        - pattern: array::combine(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      complement:
+        signatures:
+        - pattern: array::complement(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      concat:
+        signatures:
+        - pattern: array::concat(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      clump:
+        signatures:
+        - pattern: 'array::clump(array, size: int) -> array'
+          params:
+          - type: array
+          - type: int
+          returns: array
+      difference:
+        signatures:
+        - pattern: array::difference(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      distinct:
+        signatures:
+        - pattern: array::distinct(array) -> array
+          params:
+          - type: array
+          returns: array
+      fill:
+        signatures:
+        - pattern: array::fill(array, any) -> array
+          params:
+          - type: array
+          - type: any
+          returns: array
+        - pattern: 'array::fill(array, any, start: int, end: int) -> array'
+          params:
+          - type: array
+          - type: any
+          - type: int
+          - type: int
+          returns: array
+      first:
+        signatures:
+        - pattern: array::first(array) -> any
+          params:
+          - type: array
+          returns: any
+      flatten:
+        signatures:
+        - pattern: array::flatten(array) -> array
+          params:
+          - type: array
+          returns: array
+      fold:
+        signatures:
+        - pattern: array::fold(array, initial_value, @closure) -> value
+          params:
+          - type: array
+          - type: initial_value
+          - type: '@closure'
+          returns: value
+      group:
+        signatures:
+        - pattern: array::group(array) -> array
+          params:
+          - type: array
+          returns: array
+      insert:
+        signatures:
+        - pattern: array::insert(array, value, number) -> array
+          params:
+          - type: array
+          - type: value
+          - type: number
+          returns: array
+      intersect:
+        signatures:
+        - pattern: array::intersect(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      is_empty:
+        signatures:
+        - pattern: array::is_empty(array) -> bool
+          params:
+          - type: array
+          returns: bool
+      join:
+        signatures:
+        - pattern: array::join(array, string) -> string
+          params:
+          - type: array
+          - type: string
+          returns: string
+      last:
+        signatures:
+        - pattern: array::last(array) -> any
+          params:
+          - type: array
+          returns: any
+      len:
+        signatures:
+        - pattern: array::len(array) -> number
+          params:
+          - type: array
+          returns: number
+      logical_and:
+        signatures:
+        - pattern: 'array::logical_and(lh: array, rh: array)'
+          params:
+          - type: array
+          - type: array
+      logical_or:
+        signatures:
+        - pattern: 'array::logical_or(lh: array, rh: array)'
+          params:
+          - type: array
+          - type: array
+      logical_xor:
+        signatures:
+        - pattern: 'array::logical_xor(lh: array, rh: array)'
+          params:
+          - type: array
+          - type: array
+      map:
+        signatures:
+        - pattern: array::map(array, @closure) -> array;
+          params:
+          - type: array
+          - type: '@closure'
+          returns: array;
+      max:
+        signatures:
+        - pattern: array::max(array<any>) -> any
+          params:
+          - type: array<any>
+          returns: any
+      matches:
+        signatures:
+        - pattern: array::matches(array, value) -> array<bool>
+          params:
+          - type: array
+          - type: value
+          returns: array<bool>
+      min:
+        signatures:
+        - pattern: array::min(array<any>) -> any
+          params:
+          - type: array<any>
+          returns: any
+      pop:
+        signatures:
+        - pattern: array::pop(array) -> value
+          params:
+          - type: array
+          returns: value
+      prepend:
+        signatures:
+        - pattern: array::prepend(array, value) -> array
+          params:
+          - type: array
+          - type: value
+          returns: array
+      push:
+        signatures:
+        - pattern: array::push(array, value) -> array
+          params:
+          - type: array
+          - type: value
+          returns: array
+      range:
+        signatures:
+        - pattern: 'array::range(start: int, count: int) -> array'
+          params:
+          - type: int
+          - type: int
+          returns: array
+      reduce:
+        signatures:
+        - pattern: array::reduce(array, @closure) -> value
+          params:
+          - type: array
+          - type: '@closure'
+          returns: value
+      remove:
+        signatures:
+        - pattern: array::remove(array, number) -> array
+          params:
+          - type: array
+          - type: number
+          returns: array
+      repeat:
+        signatures:
+        - pattern: 'array::repeat(any, count: int) -> array'
+          params:
+          - type: any
+          - type: int
+          returns: array
+      reverse:
+        signatures:
+        - pattern: array::reverse(array) -> array
+          params:
+          - type: array
+          returns: array
+      shuffle:
+        signatures:
+        - pattern: array::shuffle(array) -> array
+          params:
+          - type: array
+          returns: array
+      slice:
+        signatures:
+        - pattern: 'array::slice(array, start: int, len: int) -> array'
+          params:
+          - type: array
+          - type: int
+          - type: int
+          returns: array
+      sort:
+        signatures:
+        - pattern: array::sort(array) -> array
+          params:
+          - type: array
+          returns: array
+        - pattern: array::sort(array, bool) -> array
+          params:
+          - type: array
+          - type: bool
+          returns: array
+        - pattern: array::sort(array, string) -> array
+          params:
+          - type: array
+          - type: string
+          returns: array
+      sort_lexical:
+        signatures:
+        - pattern: array::sort_lexical(array) -> array
+          params:
+          - type: array
+          returns: array
+        - pattern: array::sort_lexical(array, bool) -> array
+          params:
+          - type: array
+          - type: bool
+          returns: array
+        - pattern: array::sort_lexical(array, string) -> array
+          params:
+          - type: array
+          - type: string
+          returns: array
+      sort_natural:
+        signatures:
+        - pattern: array::sort_natural(array) -> array
+          params:
+          - type: array
+          returns: array
+        - pattern: array::sort_natural(array, bool) -> array
+          params:
+          - type: array
+          - type: bool
+          returns: array
+        - pattern: array::sort_natural(array, string) -> array
+          params:
+          - type: array
+          - type: string
+          returns: array
+      sort_natural_lexical:
+        signatures:
+        - pattern: array::sort_natural_lexical(array) -> array
+          params:
+          - type: array
+          returns: array
+        - pattern: array::sort_natural_lexical(array, bool) -> array
+          params:
+          - type: array
+          - type: bool
+          returns: array
+        - pattern: array::sort_natural_lexical(array, string) -> array
+          params:
+          - type: array
+          - type: string
+          returns: array
+      swap:
+        signatures:
+        - pattern: 'array::swap(array, from: int, to: int) -> array'
+          params:
+          - type: array
+          - type: int
+          - type: int
+          returns: array
+      transpose:
+        signatures:
+        - pattern: array::transpose(array<array>) -> array<array>
+          params:
+          - type: array<array>
+          returns: array<array>
+      union:
+        signatures:
+        - pattern: array::union(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      windows:
+        signatures:
+        - pattern: 'array::windows(array, size: int) -> array'
+          params:
+          - type: array
+          - type: int
+          returns: array
+    duration:
+      days:
+        signatures:
+        - pattern: duration::days(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      hours:
+        signatures:
+        - pattern: duration::hours(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      micros:
+        signatures:
+        - pattern: duration::micros(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      millis:
+        signatures:
+        - pattern: duration::millis(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      mins:
+        signatures:
+        - pattern: duration::mins(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      nanos:
+        signatures:
+        - pattern: duration::nanos(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      secs:
+        signatures:
+        - pattern: duration::secs(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      weeks:
+        signatures:
+        - pattern: duration::weeks(duration) -> number
+          params:
+          - type: duration
+          returns: number
+      years:
+        signatures:
+        - pattern: duration::years(duration) -> number
+          params:
+          - type: duration
+          returns: number
+    meta:
+      id:
+        signatures:
+        - pattern: meta::id(record) -> value
+          params:
+          - type: record
+          returns: value
+      tb:
+        signatures:
+        - pattern: meta::tb(record) -> string
+          params:
+          - type: record
+          returns: string
+    record:
+      exists:
+        signatures:
+        - pattern: record::exists(record) -> bool
+          params:
+          - type: record
+          returns: bool
+      id:
+        signatures:
+        - pattern: record::id(record) -> value
+          params:
+          - type: record
+          returns: value
+      tb:
+        signatures:
+        - pattern: record::tb(record) -> string
+          params:
+          - type: record
+          returns: string
+    bytes:
+      len:
+        signatures:
+        - pattern: bytes::len(bytes) -> int
+          params:
+          - type: bytes
+          returns: int
+    search:
+      analyze:
+        signatures:
+        - pattern: search::analyze(analyzer, string) -> array<string>
+          params:
+          - type: analyzer
+          - type: string
+          returns: array<string>
+      score:
+        signatures:
+        - pattern: search::score(number) -> number
+          params:
+          - type: number
+          returns: number
+      highlight:
+        signatures:
+        - pattern: search::highlight(string, string, number, [boolean]) -> string
+            | string[]
+          params:
+          - type: string
+          - type: string
+          - type: number
+          - type: '[boolean]'
+          returns: string | string[]
+      offsets:
+        signatures:
+        - pattern: search::offsets(number, [boolean]) -> object
+          params:
+          - type: number
+          - type: '[boolean]'
+          returns: object
+    string:
+      concat:
+        signatures:
+        - pattern: string::concat(string, ...) -> string
+          params:
+          - type: string
+          - type: '...'
+          returns: string
+      contains:
+        signatures:
+        - pattern: string::contains(string, string) -> bool
+          params:
+          - type: string
+          - type: string
+          returns: bool
+      ends_with:
+        signatures:
+        - pattern: string::ends_with(string, string) -> bool
+          params:
+          - type: string
+          - type: string
+          returns: bool
+      join:
+        signatures:
+        - pattern: string::join(string, string...) -> string
+          params:
+          - type: string
+          - type: string...
+          returns: string
+      len:
+        signatures:
+        - pattern: string::len(string) -> number
+          params:
+          - type: string
+          returns: number
+      lowercase:
+        signatures:
+        - pattern: string::lowercase(string) -> string
+          params:
+          - type: string
+          returns: string
+      matches:
+        signatures:
+        - pattern: string::matches(string, string) -> bool
+          params:
+          - type: string
+          - type: string
+          returns: bool
+      repeat:
+        signatures:
+        - pattern: string::repeat(string, number) -> string
+          params:
+          - type: string
+          - type: number
+          returns: string
+      replace:
+        signatures:
+        - pattern: string::replace(string, string, string) -> string
+          params:
+          - type: string
+          - type: string
+          - type: string
+          returns: string
+        - pattern: string::replace(string, string|regex, string) -> string
+          params:
+          - type: string
+          - type: string|regex
+          - type: string
+          returns: string
+      reverse:
+        signatures:
+        - pattern: string::reverse(string) -> string
+          params:
+          - type: string
+          returns: string
+      slice:
+        signatures:
+        - pattern: string::slice(string, number, number) -> string
+          params:
+          - type: string
+          - type: number
+          - type: number
+          returns: string
+      slug:
+        signatures:
+        - pattern: string::slug(string) -> string
+          params:
+          - type: string
+          returns: string
+      split:
+        signatures:
+        - pattern: string::split(string, string) -> array
+          params:
+          - type: string
+          - type: string
+          returns: array
+      starts_with:
+        signatures:
+        - pattern: string::starts_with(string, string) -> bool
+          params:
+          - type: string
+          - type: string
+          returns: bool
+      trim:
+        signatures:
+        - pattern: string::trim(string) -> string
+          params:
+          - type: string
+          returns: string
+      uppercase:
+        signatures:
+        - pattern: string::uppercase(string) -> string
+          params:
+          - type: string
+          returns: string
+      words:
+        signatures:
+        - pattern: string::words(string) -> array
+          params:
+          - type: string
+          returns: array
+    math:
+      abs:
+        signatures:
+        - pattern: math::abs(number) -> number
+          params:
+          - type: number
+          returns: number
+      acos:
+        signatures:
+        - pattern: math::acos(number) -> number
+          params:
+          - type: number
+          returns: number
+      acot:
+        signatures:
+        - pattern: math::acot(number) -> number
+          params:
+          - type: number
+          returns: number
+      asin:
+        signatures:
+        - pattern: math::asin(number) -> number
+          params:
+          - type: number
+          returns: number
+      atan:
+        signatures:
+        - pattern: math::atan(number) -> number
+          params:
+          - type: number
+          returns: number
+      bottom:
+        signatures:
+        - pattern: math::bottom(array<number>, number) -> number
+          params:
+          - type: array<number>
+          - type: number
+          returns: number
+      ceil:
+        signatures:
+        - pattern: math::ceil(number) -> number
+          params:
+          - type: number
+          returns: number
+      clamp:
+        signatures:
+        - pattern: math::clamp(number, min, max) -> number
+          params:
+          - type: number
+          - type: min
+          - type: max
+          returns: number
+      cos:
+        signatures:
+        - pattern: math::cos(number) -> number
+          params:
+          - type: number
+          returns: number
+      cot:
+        signatures:
+        - pattern: math::cot(number) -> number
+          params:
+          - type: number
+          returns: number
+      fixed:
+        signatures:
+        - pattern: math::fixed(number, number) -> number
+          params:
+          - type: number
+          - type: number
+          returns: number
+      floor:
+        signatures:
+        - pattern: math::floor(number) -> number
+          params:
+          - type: number
+          returns: number
+      interquartile:
+        signatures:
+        - pattern: math::interquartile(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      lerp:
+        signatures:
+        - pattern: math::lerp(a, b, t) -> number
+          params:
+          - type: a
+          - type: b
+          - type: t
+          returns: number
+      lerpangle:
+        signatures:
+        - pattern: math::lerpangle(a, b, t) -> number
+          params:
+          - type: a
+          - type: b
+          - type: t
+          returns: number
+      ln:
+        signatures:
+        - pattern: math::ln(number) -> number
+          params:
+          - type: number
+          returns: number
+      log:
+        signatures:
+        - pattern: math::log(number, base) -> number
+          params:
+          - type: number
+          - type: base
+          returns: number
+      max:
+        signatures:
+        - pattern: math::max(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      mean:
+        signatures:
+        - pattern: math::mean(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      median:
+        signatures:
+        - pattern: math::median(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      midhinge:
+        signatures:
+        - pattern: math::midhinge(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      min:
+        signatures:
+        - pattern: math::min(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      mode:
+        signatures:
+        - pattern: math::mode(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      nearestrank:
+        signatures:
+        - pattern: math::nearestrank(array<number>, number) -> number
+          params:
+          - type: array<number>
+          - type: number
+          returns: number
+      percentile:
+        signatures:
+        - pattern: math::percentile(array<number>, number) -> number
+          params:
+          - type: array<number>
+          - type: number
+          returns: number
+      pow:
+        signatures:
+        - pattern: math::pow(number, number) -> number
+          params:
+          - type: number
+          - type: number
+          returns: number
+      product:
+        signatures:
+        - pattern: math::product(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      round:
+        signatures:
+        - pattern: math::round(number) -> number
+          params:
+          - type: number
+          returns: number
+      sign:
+        signatures:
+        - pattern: math::sign(number) -> number
+          params:
+          - type: number
+          returns: number
+      sin:
+        signatures:
+        - pattern: math::sin(number) -> number
+          params:
+          - type: number
+          returns: number
+      spread:
+        signatures:
+        - pattern: math::spread(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      sqrt:
+        signatures:
+        - pattern: math::sqrt(number) -> number
+          params:
+          - type: number
+          returns: number
+      stddev:
+        signatures:
+        - pattern: math::stddev(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      sum:
+        signatures:
+        - pattern: math::sum(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      tan:
+        signatures:
+        - pattern: math::tan(number) -> number
+          params:
+          - type: number
+          returns: number
+      top:
+        signatures:
+        - pattern: math::top(array<number>, number) -> number
+          params:
+          - type: array<number>
+          - type: number
+          returns: number
+      trimean:
+        signatures:
+        - pattern: math::trimean(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+      variance:
+        signatures:
+        - pattern: math::variance(array<number>) -> number
+          params:
+          - type: array<number>
+          returns: number
+    http:
+      head:
+        signatures:
+        - pattern: http::head(string) -> null
+          params:
+          - type: string
+          returns: 'null'
+        - pattern: http::head(string, object) -> null
+          params:
+          - type: string
+          - type: object
+          returns: 'null'
+      get:
+        signatures:
+        - pattern: http::get(string) -> value
+          params:
+          - type: string
+          returns: value
+        - pattern: http::get(string, object) -> value
+          params:
+          - type: string
+          - type: object
+          returns: value
+      put:
+        signatures:
+        - pattern: http::put(string, object) -> value
+          params:
+          - type: string
+          - type: object
+          returns: value
+        - pattern: http::put(string, object, object) -> value
+          params:
+          - type: string
+          - type: object
+          - type: object
+          returns: value
+      post:
+        signatures:
+        - pattern: http::post(string, object) -> value
+          params:
+          - type: string
+          - type: object
+          returns: value
+        - pattern: http::post(string, object, object) -> value
+          params:
+          - type: string
+          - type: object
+          - type: object
+          returns: value
+      patch:
+        signatures:
+        - pattern: http::patch(string, object) -> value
+          params:
+          - type: string
+          - type: object
+          returns: value
+        - pattern: http::patch(string, object, object) -> value
+          params:
+          - type: string
+          - type: object
+          - type: object
+          returns: value
+      delete:
+        signatures:
+        - pattern: http::delete(string) -> value
+          params:
+          - type: string
+          returns: value
+        - pattern: http::delete(string, object) -> value
+          params:
+          - type: string
+          - type: object
+          returns: value
+    api:
+      invoke:
+        signatures:
+        - pattern: 'api::invoke($path: string, $options: option<object>) -> object'
+          params:
+          - type: string
+          - type: option<object>
+          returns: object
+      timeout:
+        signatures:
+        - pattern: api::timeout(duration)
+          params:
+          - type: duration
+    sequence:
+      next:
+        signatures:
+        - pattern: sequence::next(sequence_name) -> int
+          params:
+          - type: sequence_name
+          returns: int
+    vector:
+      add:
+        signatures:
+        - pattern: vector::add(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      angle:
+        signatures:
+        - pattern: vector::angle(array, array) -> number
+          params:
+          - type: array
+          - type: array
+          returns: number
+      cross:
+        signatures:
+        - pattern: vector::cross(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      divide:
+        signatures:
+        - pattern: vector::divide(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      dot:
+        signatures:
+        - pattern: vector::dot(array, array) -> number
+          params:
+          - type: array
+          - type: array
+          returns: number
+      magnitude:
+        signatures:
+        - pattern: vector::magnitude(array) -> number
+          params:
+          - type: array
+          returns: number
+      multiply:
+        signatures:
+        - pattern: vector::multiply(array, array) -> number
+          params:
+          - type: array
+          - type: array
+          returns: number
+      normalize:
+        signatures:
+        - pattern: vector::normalize(array) -> array
+          params:
+          - type: array
+          returns: array
+      project:
+        signatures:
+        - pattern: vector::project(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+      scale:
+        signatures:
+        - pattern: vector::scale(array, number) -> array
+          params:
+          - type: array
+          - type: number
+          returns: array
+      subtract:
+        signatures:
+        - pattern: vector::subtract(array, array) -> array
+          params:
+          - type: array
+          - type: array
+          returns: array
+    geo:
+      area:
+        signatures:
+        - pattern: geo::area(geometry) -> number
+          params:
+          - type: geometry
+          returns: number
+      bearing:
+        signatures:
+        - pattern: geo::bearing(point, point) -> number
+          params:
+          - type: point
+          - type: point
+          returns: number
+      centroid:
+        signatures:
+        - pattern: geo::centroid(geometry) -> number
+          params:
+          - type: geometry
+          returns: number
+      distance:
+        signatures:
+        - pattern: geo::distance(point, point) -> number
+          params:
+          - type: point
+          - type: point
+          returns: number
+    session:
+      ac:
+        signatures:
+        - pattern: session::ac() -> string
+          returns: string
+      db:
+        signatures:
+        - pattern: session::db() -> string
+          returns: string
+      id:
+        signatures:
+        - pattern: session::id() -> string
+          returns: string
+      ip:
+        signatures:
+        - pattern: session::ip() -> string
+          returns: string
+      ns:
+        signatures:
+        - pattern: session::ns() -> string
+          returns: string
+      origin:
+        signatures:
+        - pattern: session::origin() -> string
+          returns: string
+      rd:
+        signatures:
+        - pattern: session::rd() -> string
+          returns: string
+      token:
+        signatures:
+        - pattern: session::token() -> string
+          returns: string
+    time:
+      ceil:
+        signatures:
+        - pattern: time::ceil(datetime, duration) -> datetime
+          params:
+          - type: datetime
+          - type: duration
+          returns: datetime
+      day:
+        signatures:
+        - pattern: time::day(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      floor:
+        signatures:
+        - pattern: time::floor(datetime, duration) -> datetime
+          params:
+          - type: datetime
+          - type: duration
+          returns: datetime
+      format:
+        signatures:
+        - pattern: time::format(datetime, string) -> string
+          params:
+          - type: datetime
+          - type: string
+          returns: string
+      group:
+        signatures:
+        - pattern: time::group(datetime, string) -> datetime
+          params:
+          - type: datetime
+          - type: string
+          returns: datetime
+      hour:
+        signatures:
+        - pattern: time::hour(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      max:
+        signatures:
+        - pattern: time::max(array<datetime>) -> datetime
+          params:
+          - type: array<datetime>
+          returns: datetime
+      micros:
+        signatures:
+        - pattern: time::micros(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      millis:
+        signatures:
+        - pattern: time::millis(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      min:
+        signatures:
+        - pattern: time::min(array<datetime>) -> datetime
+          params:
+          - type: array<datetime>
+          returns: datetime
+      minute:
+        signatures:
+        - pattern: time::minute(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      month:
+        signatures:
+        - pattern: time::month(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      nano:
+        signatures:
+        - pattern: time::nano(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      now:
+        signatures:
+        - pattern: time::now() -> datetime
+          returns: datetime
+      round:
+        signatures:
+        - pattern: time::round(datetime, duration) -> datetime
+          params:
+          - type: datetime
+          - type: duration
+          returns: datetime
+      second:
+        signatures:
+        - pattern: time::second(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      timezone:
+        signatures:
+        - pattern: time::timezone() -> string
+          returns: string
+      unix:
+        signatures:
+        - pattern: time::unix(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      wday:
+        signatures:
+        - pattern: time::wday(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      week:
+        signatures:
+        - pattern: time::week(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      yday:
+        signatures:
+        - pattern: time::yday(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+      year:
+        signatures:
+        - pattern: time::year(option<datetime>) -> number
+          params:
+          - type: option<datetime>
+          returns: number
+    type:
+      array:
+        signatures:
+        - pattern: type::array(array | range) -> bool
+          params:
+          - type: array | range
+          returns: bool
+      bool:
+        signatures:
+        - pattern: type::bool(bool | string) -> bool
+          params:
+          - type: bool | string
+          returns: bool
+      bytes:
+        signatures:
+        - pattern: type::bytes(bytes | string) -> bool
+          params:
+          - type: bytes | string
+          returns: bool
+      datetime:
+        signatures:
+        - pattern: type::datetime(datetime | string) -> datetime
+          params:
+          - type: datetime | string
+          returns: datetime
+      decimal:
+        signatures:
+        - pattern: type::decimal(decimal | float | int | number | string) -> decimal
+          params:
+          - type: decimal | float | int | number | string
+          returns: decimal
+      duration:
+        signatures:
+        - pattern: type::duration(duration | string) -> duration
+          params:
+          - type: duration | string
+          returns: duration
+      field:
+        signatures:
+        - pattern: type::field($field)
+          params:
+          - type: $field
+      fields:
+        signatures:
+        - pattern: type::fields($fields)
+          params:
+          - type: $fields
+      file:
+        signatures:
+        - pattern: 'type::file(bucket: string, key: string) -> file'
+          params:
+          - type: string
+          - type: string
+          returns: file
+      float:
+        signatures:
+        - pattern: type::float(decimal | float | int | number | string) -> float
+          params:
+          - type: decimal | float | int | number | string
+          returns: float
+      int:
+        signatures:
+        - pattern: type::int(decimal | float | int | number | string) -> int
+          params:
+          - type: decimal | float | int | number | string
+          returns: int
+      number:
+        signatures:
+        - pattern: type::number(decimal | float | int | number | string) -> number
+          params:
+          - type: decimal | float | int | number | string
+          returns: number
+      point:
+        signatures:
+        - pattern: type::point(array | point) -> point
+          params:
+          - type: array | point
+          returns: point
+      range:
+        signatures:
+        - pattern: type::range(range | array) -> range<record>
+          params:
+          - type: range | array
+          returns: range<record>
+      record:
+        signatures:
+        - pattern: type::record(record | string, option<string>) -> record
+          params:
+          - type: record | string
+          - type: option<string>
+          returns: record
+      string:
+        signatures:
+        - pattern: type::string(any) -> string
+          params:
+          - type: any
+          returns: string
+        - pattern: type::string(any) -> string
+          params:
+          - type: any
+          returns: string
+      table:
+        signatures:
+        - pattern: type::table(record | string) -> string
+          params:
+          - type: record | string
+          returns: string
+      thing:
+        signatures:
+        - pattern: type::thing(any, any) -> record
+          params:
+          - type: any
+          - type: any
+          returns: record
+      uuid:
+        signatures:
+        - pattern: type::uuid(string | uuid) -> uuid
+          params:
+          - type: string | uuid
+          returns: uuid
+    value:
+      diff:
+        signatures:
+        - pattern: value::diff(value, value) -> array<object>
+          params:
+          - type: value
+          - type: value
+          returns: array<object>
+      patch:
+        signatures:
+        - pattern: 'value::patch(value, patch: array<object>) -> value'
+          params:
+          - type: value
+          - type: array<object>
+          returns: value
+  operators:
+    logical:
+    - symbol: '&&'
+      description: Checks whether both of two values are truthy.
+      alternative: AND
+    - symbol: '||'
+      description: Checks whether either of two values are truthy.
+      alternative: OR
+    - symbol: '!'
+      description: Reverses the truthiness of a value.
+    - symbol: '!!'
+      description: Determines the truthiness of a value (simply an application of
+        the `!` operator twice).
+    comparison:
+    - symbol: '='
+      description: Check whether two values are equal.
+      alternative: IS
+    - symbol: '!='
+      description: Check whether two values are equal.
+      alternative: IS NOT
+    - symbol: ==
+      description: Check whether two values are exact. This operator also checks that
+        each value has the same type.
+    - symbol: ?=
+      description: Check whether any value in an array equals another value.
+    - symbol: '*='
+      description: Check whether all values in an array equals another value.
+    - symbol: <
+      description: Check whether a value is less than another value.
+    - symbol: <=
+      description: Check whether a value is less than or equal to another value.
+    - symbol: '>'
+      description: Check whether a value is less than another value.
+    - symbol: '>='
+      description: Check whether a value is less than or equal to another value.
+    mathematical:
+    - symbol: +
+      description: Add two values together.
+    - symbol: '-'
+      description: Subtracts a value from another value.
+    - symbol: '*'
+      description: Multiplies a value by another value.
+      alternative: "\xD7"
+    - symbol: /
+      description: Divides a value with another value.
+      alternative: "\xF7"
+    - symbol: '**'
+      description: Raises a base value by another value.
+    graph:
+    - symbol: OUTSIDE
+      description: Check whether a geometry value is outside another geometry value.
+    - symbol: INTERSECTS
+      description: Check whether a geometry value intersects another geometry value.
+    set:
+    - symbol: CONTAINS
+      description: Check whether a value contains another value.
+      alternative: "\u220B"
+    - symbol: CONTAINSNOT
+      description: Check whether a value does not contain another value.
+      alternative: "\u220C"
+    - symbol: CONTAINSALL
+      description: Check whether a value contains all of multiple values.
+      alternative: "\u2287"
+    - symbol: CONTAINSANY
+      description: Check whether a value contains any of multiple values.
+      alternative: "\u2283"
+    - symbol: INSIDE
+      description: Check whether a value is contained within another value.
+      alternative: "\u2208"
+    - symbol: NOTINSIDE
+      description: Check whether a value is not contained within another value.
+      alternative: "\u2209"
+    - symbol: ALLINSIDE
+      description: Check whether all of multiple values are contained within another
+        value.
+      alternative: "\u2286"
+    fuzzy:
+    - symbol: '~'
+      description: Compare two values for equality using fuzzy matching.
+    - symbol: '!~'
+      description: Compare two values for inequality using fuzzy matching.
+    - symbol: ?~
+      description: Check whether any value in a set is equal to a value using fuzzy
+        matching.
+    - symbol: '*~'
+      description: Check whether all values in a set are equal to a value using fuzzy
+        matching.
+    null_handling:
+    - symbol: ??
+      description: Check whether either of two values are truthy and not `NULL`.
+    - symbol: '?:'
+      description: Check whether either of two values are truthy.
+    other:
+    - symbol: ANYINSIDE
+      description: Check whether any of multiple values are contained within another
+        value.
+      alternative: "\u2282"
+    - symbol: NONEINSIDE
+      description: Check whether none of multiple values are contained within another
+        value.
+      alternative: "\u2284"
+    - symbol: MATCHES
+      description: Checks whether the terms are found in a full-text indexed field.

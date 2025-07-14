@@ -1,7 +1,5 @@
 
-# Dali-Distiller Usage Example
-
-*"Like Dalí's melting clocks, watch documentation flow into perfect queries..."* 🎨
+# SurrealQL AI Router Usage Example
 
 ## Router + Schema Integration
 
