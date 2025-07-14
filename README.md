@@ -2,6 +2,14 @@
 
 A documentation extraction and compression system that converts SurrealDB's documentation into AI-optimized schemas. Achieves 85% coverage of SurrealQL syntax in a fraction of the original size.
 
+**TLDR**: The YAML outputs for SurrealQL syntax are in the [output folder](https://github.com/Corlzee/Dali-Distiller/tree/master/output).
+
+<div align="center">
+  <img src="not-entirely-dali.png" alt="Dali-Distiller: Where Documentation Melts Into Perfection" width="400"/>
+  
+  *"This is not entirely Dalí... but it distills perfectly."*
+</div>
+
 ## Overview
 
 This project extracts syntax patterns, function signatures, and operators from SurrealDB documentation and compresses them into schemas suitable for AI language models. The original documentation spans 297,445 tokens; this system provides the essential information in as little as 2,185 tokens.
